@@ -9,8 +9,10 @@ import HomePage from './pages/HomePage';
 import Footer from './components/Footer';
 import FormSignUp from './pages/FormSignUp';
 import { whoAmI } from './api/UserAPI'; 
+import ProfilePage from './pages/ProfilePage';
 import FishDB from './pages/FishDB';
 import FishDBDetail from './components/FishDBDetail';
+
 
 function App() {
   const [user, setUser] = useState(null)
@@ -31,6 +33,7 @@ function App() {
           <Routes>
             <Route exact path="/" element={<HomePage />} />
             <Route path ="/signup" element={<FormSignUp />} />
+            <Route path ="/user_profile" element={<ProfilePage />} />
             <Route path ="/fish_DB" element={<FishDB />} />
             <Route path ="/fish_detail/:fishID" element={<FishDBDetail />} />
           </Routes>

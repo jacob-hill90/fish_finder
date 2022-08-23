@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from rest_framework.decorators import api_view
 from django.core import serializers
 import json
-from .models import AppUser, FishDB
+from .models import AppUser, FishDB, CatchData
 
 # Create your views here.
 ######################---INITIAL--VIEW---#######################
@@ -106,3 +106,12 @@ def who_am_i(request):
         return HttpResponse(data)
     else:
         return JsonResponse({'user': None})
+
+
+######################---REQUEST---#######################
+
+@api_view(['GET'])
+def catch(request):
+    catches = CatchData.objects.all().values()
+    data = list(catches)
+    return JsonResponse({'data': data})

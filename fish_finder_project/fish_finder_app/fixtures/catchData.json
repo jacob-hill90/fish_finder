@@ -1,0 +1,93 @@
+[
+    {
+        "pk": 1,
+        "model": "fish_finder_app.catchdata",
+        "fields": {
+            "date": "2021-03-05",
+            "season": "Spring",
+            "species": "Swordfish",
+            "weight": "10",
+            "fishingMethod": "bait fishing",
+            "length": "12",
+            "photo": "http://www.hatchmag.com/sites/default/files/styles/extra-large/public/field/image/553A1958.jpg"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "fish_finder_app.catchdata",
+        "fields": {
+            "date": "2022-05-11",
+            "season": "Fall",
+            "species": "Tilapia",
+            "weight": "20",
+            "fishingMethod": "fly-fishing",
+            "length": "24",
+            "photo": "http://www.hatchmag.com/sites/default/files/styles/extra-large/public/field/image/553A1958.jpg"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "fish_finder_app.catchdata",
+        "fields": {
+            "date": "2019-01-02",
+            "season": "Spring",
+            "species": "Salmon",
+            "weight": "13",
+            "fishingMethod": "bait casting",
+            "length": "34",
+            "photo": "http://www.hatchmag.com/sites/default/files/styles/extra-large/public/field/image/553A1958.jpg"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "fish_finder_app.catchdata",
+        "fields": {
+            "date": "2018-02-02",
+            "season": "Fall",
+            "species": "Catfish",
+            "weight": "24",
+            "fishingMethod": "spinning",
+            "length": "15",
+            "photo": "http://www.hatchmag.com/sites/default/files/styles/extra-large/public/field/image/553A1958.jpg"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "fish_finder_app.catchdata",
+        "fields": {
+            "date": "2022-05-06",
+            "season": "Summer",
+            "species": "Carp",
+            "weight": "14",
+            "fishingMethod": "trolling",
+            "length": "24",
+            "photo": "http://www.hatchmag.com/sites/default/files/styles/extra-large/public/field/image/553A1958.jpg"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "fish_finder_app.catchdata",
+        "fields": {
+            "date": "2016-05-06",
+            "season": "Seummer",
+            "species": "oarfish",
+            "weight": "42",
+            "fishingMethod": "bait",
+            "length": "32",
+            "photo": "http://www.hatchmag.com/sites/default/files/styles/extra-large/public/field/image/553A1958.jpg"
+        }
+    },
+    {
+        "pk": 7,
+        "model": "fish_finder_app.catchdata",
+        "fields": {
+            "date": "2019-08-09",
+            "season": "Spring",
+            "species": "goldfish",
+            "weight": "32",
+            "fishingMethod": "spooning",
+            "length": "10",
+            "photo": "http://www.hatchmag.com/sites/default/files/styles/extra-large/public/field/image/553A1958.jpg"
+        }
+    }
+]

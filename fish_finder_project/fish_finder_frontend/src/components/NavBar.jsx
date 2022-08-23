@@ -47,7 +47,7 @@ function NavBar({user}) {
             </MDBNavbarNav>
             <MDBNavbarNav className='flex justify-content-center align-items-center text-md-center '>
               <MDBNavbarItem className="me-4">
-              <Link to={"/"} className="global-links"><strong>default value</strong></Link>
+              <Link to={"/user_profile"} className="global-links"><strong>user</strong></Link>
               </MDBNavbarItem>
               <MDBNavbarItem className="me-4">
               <Link to={"/"} className="global-links"><strong>default value</strong></Link>
