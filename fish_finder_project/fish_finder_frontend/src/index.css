@@ -27,7 +27,6 @@ code {
   
 }
 
-
 .home-page {
   background-color: #FFFDE7;
 }
@@ -73,4 +72,41 @@ code {
       width: 100%;
       min-width: 0;
   }
+}
+
+.container-fluid{
+  background-color:#ECF6F6;
+}
+
+.d-inline{
+  width: 80px;
+  height: 70px;
+}
+
+.bg-image{
+  width: 100vw;
+  max-height: 76vh;
+}
+
+.p-0{
+  position: relative;
+}
+
+.splash-top{
+  position: absolute;
+  background-image: linear-gradient(to top, rgba(255,0,0,0), rgba(229,247,252,100));
+  width: 100vw;
+  height: 100px;
+}
+
+.splash-bottom{
+  position: absolute;
+  bottom: 0px;
+  background-image: linear-gradient(to bottom, rgba(255,0,0,0), rgba(229,247,252,100));
+  width: 100vw;
+  height: 100px;
+}
+
+.nav-link{
+  box-shadow: none;
 }

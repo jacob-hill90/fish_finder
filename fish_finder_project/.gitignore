@@ -1,3 +1,9 @@
 ../../venv
 .env
-
+./fish_finder_project/__pycache__
+./fish_finder_app/__pycache__
+./fish_finder_app/migrations
+.DS_Store
+./fish_finder_project/.DS_Store
+./static/fishdb
+.venv
