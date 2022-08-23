@@ -17,5 +17,5 @@ urlpatterns = [
     path('catch', views.catch),
     path('fishdb', views.fish_db),
     path('fishdbbyid', views.fishdb_byid),
-    re_path(r'/*', views.home_page),
+    re_path(r'^', views.home_page),
 ]
