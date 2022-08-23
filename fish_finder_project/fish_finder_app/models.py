@@ -13,3 +13,13 @@ class AppUser(AbstractUser):
     zipcode = models.PositiveIntegerField()
     state = models.CharField(max_length=2)
     is_active = models.BooleanField(default=True)
+
+class CatchData(models.Model):
+    date = models.DateField()
+    # location = 
+    season = models.CharField(max_length=20)
+    species = models.CharField(max_length=100)
+    weight = models.PositiveIntegerField()
+    fishingMethod =  models.CharField(max_length=100)
+    length = models.PositiveIntegerField()
+    photo = models.CharField(max_length=225)

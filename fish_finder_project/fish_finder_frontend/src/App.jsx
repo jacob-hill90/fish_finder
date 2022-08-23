@@ -9,6 +9,7 @@ import HomePage from './pages/HomePage';
 import Footer from './components/Footer';
 import FormSignUp from './pages/FormSignUp';
 import { whoAmI } from './api/UserAPI'; 
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
   const [user, setUser] = useState(null)
@@ -29,6 +30,7 @@ function App() {
           <Routes>
             <Route exact path="/" element={<HomePage />} />
             <Route path ="/signup" element={<FormSignUp />} />
+            <Route path ="/user_profile" element={<ProfilePage />} />
           </Routes>
         <Footer />
       </BrowserRouter>
