@@ -1,5 +1,12 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
+
+
+#Added re_path with regex matching all for the last path
+#This fixes the refresh crash with browserrouter by re-directing all not matching 
+#urls to home_page i.e the index.html and browserrouter
+#***MUST*** stay as last one in list as Django searches from top to bottom
+#and we want our good URLs to match before hitting that one.
 
 urlpatterns = [
     path('', views.home_page),
@@ -9,4 +16,5 @@ urlpatterns = [
     path('whoami', views.who_am_i),
     path('fishdb', views.fish_db),
     path('fishdbbyid', views.fishdb_byid),
+    re_path(r'/*', views.home_page),
 ]
