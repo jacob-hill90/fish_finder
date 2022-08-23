@@ -4,12 +4,39 @@ from django.contrib.auth import authenticate, login, logout
 from rest_framework.decorators import api_view
 from django.core import serializers
 import json
-from .models import AppUser, CatchData
+from .models import AppUser, FishDB, CatchData
 
 # Create your views here.
+######################---INITIAL--VIEW---#######################
+
+
 def home_page(request):
-    theIndex = open('static/index.html').read()
+    theIndex = open('static/frontend/index.html').read()
     return HttpResponse(theIndex)
+
+
+######################---FISH--DB---#######################
+
+
+#view for pulling all fish from DB
+@api_view(['get'])
+def fish_db(request):
+        #getting the recipes and sending back as json data
+        data = list(FishDB.objects.all().values())
+        return JsonResponse({'data': data})
+
+
+#FishDB by ID
+@api_view(['GET'])
+def fishdb_byid(request):
+    
+    #getting fish id
+    fish_id = request.GET.get('ID')
+    
+    #getting the fish and sending back as json data
+    data = list(FishDB.objects.filter(id=fish_id).values())
+    
+    return JsonResponse({'data': data})
 
 
 ######################---USER--AUTH---#######################

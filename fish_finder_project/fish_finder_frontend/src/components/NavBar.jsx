@@ -57,7 +57,7 @@ function NavBar({user}) {
               <Link to={"/"} className="global-links"><strong>default value</strong></Link>
               </MDBNavbarItem>
               <MDBNavbarItem className="me-4">
-              <Link to={"/"} className="global-links"><strong>default value</strong></Link>
+              <Link to={"/fish_DB"} className="global-links"><strong>Game Fish Database</strong></Link>
               </MDBNavbarItem>
             </MDBNavbarNav>
             <MDBNavbarNav className="flex-row justify-content-end align-items-center flex-nowrap">

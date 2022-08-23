@@ -21,6 +21,12 @@ code {
   color: #FFFF00;
 }
 
+.fish-image-card {
+  height: 35%;
+  width: 350px;
+  
+}
+
 
 .home-page {
   background-color: #FFFDE7;

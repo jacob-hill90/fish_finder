@@ -14,6 +14,7 @@ class AppUser(AbstractUser):
     state = models.CharField(max_length=2)
     is_active = models.BooleanField(default=True)
 
+
 class CatchData(models.Model):
     date = models.DateField()
     # location = 
@@ -23,3 +24,11 @@ class CatchData(models.Model):
     fishingMethod =  models.CharField(max_length=100)
     length = models.PositiveIntegerField()
     photo = models.CharField(max_length=225)
+
+class FishDB(models.Model):
+    name = models.CharField(max_length=100)
+    latin_name = models.CharField(max_length=100)
+    fish_record = models.CharField(max_length=100, null=True)
+    fish_docs = models.TextField()
+    fish_pic = models.CharField(max_length=100)
+

@@ -8,4 +8,6 @@ urlpatterns = [
     path('sign_out', views.sign_out),
     path('whoami', views.who_am_i),
     path('catch', views.catch),
+    path('fishdb', views.fish_db),
+    path('fishdbbyid', views.fishdb_byid),
 ]
