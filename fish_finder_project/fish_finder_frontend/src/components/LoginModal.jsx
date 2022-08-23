@@ -7,7 +7,7 @@ import {
 } from 'mdb-react-ui-kit';
 import { Button } from "primereact/button"
 import { InputText } from "primereact/inputtext"
-import logo from '../assets/recipebox.png'
+import logo from '../assets/ff.png'
 import { Link } from 'react-router-dom';
 import { logInUser } from '../api/UserAPI';
 

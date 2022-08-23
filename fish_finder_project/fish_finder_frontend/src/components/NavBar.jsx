@@ -1,4 +1,4 @@
-import logo from '../assets/recipebox.png'
+import logo from '../assets/ff.png'
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import { Chip } from 'primereact/chip';
@@ -18,8 +18,6 @@ import LoginModal from './LoginModal'
 import SignUpModal from './SignUpModal';
 // import SignUpOffCanvas from './SignUpOffCanvas';
 
-
-
 function NavBar({user}) {
 
   const [showNavNoTogglerSecond, setShowNavNoTogglerSecond] = useState(false);
@@ -29,13 +27,11 @@ function NavBar({user}) {
     let tada = signOutUser()
   }
 
-
-
   return (
     <>
-      <MDBNavbar sticky expand='lg' light bgColor='light' className='p-3 justify-content-md-center justify-content-start'>
+      <MDBNavbar sticky expand='lg' light className='p-0 justify-content-md-center justify-content-start'>
         <MDBContainer fluid >
-          <MDBNavbarBrand href='/'><img src={logo} alt="RB" height="50" className="d-inline" /></MDBNavbarBrand>
+          <MDBNavbarBrand href='/'><img src={logo} alt="RB" height="50" className="d-inline" />Fish Something</MDBNavbarBrand>
           <MDBNavbarToggler
             type='button'
             data-target='#navbarTogglerDemo02'
