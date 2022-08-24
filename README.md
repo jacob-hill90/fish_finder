@@ -28,9 +28,11 @@
 -If all went right you should be able to open localhost:8000 and see the homepage
 
 
+# Map Notes
 
-Map Notes:
+-npm i @react-google-maps/api  ***OR run $npm install 
+-Google Maps Api key is in the .env file, just copy whole line of code and insert into Catch Map page to load the map
 
-- npm i @react-google-maps/api
-
-- Google Maps Api key is in the .env file, just copy whole line of code and insert into Catch Map page to load the map
+# Test User Notes
+-Loaddata for a default test user that you can actually login and signout with
+-username: testuser  password: password

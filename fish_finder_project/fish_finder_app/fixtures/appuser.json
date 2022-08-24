@@ -1,0 +1,22 @@
+[
+    {
+        "model": "fish_finder_app.appuser", 
+        "pk": 1, 
+        "fields": {
+            "password": "pbkdf2_sha256$390000$qBaqx5fKdZP4vfd6rTD8Hp$xmoA6+wIArjVx7F0o45uYvJ3N2TqqowU0iW9idOk6L4=", 
+            "last_login": "2022-08-24T16:51:20.190Z", 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "date_joined": "2022-08-24T16:51:19.800Z", 
+            "email": "testuser@gmail.com", 
+            "username": "testuser", 
+            "first_name": "Test", 
+            "last_name": "User", 
+            "zipcode": 17602, 
+            "state": "PA", 
+            "is_active": true, 
+            "groups": [], 
+            "user_permissions": []
+        }
+    }
+]
