@@ -1,6 +1,6 @@
 // import React from 'react';
 import React, { Component } from "react";
-import { MDBRow, MDBCol, MDBContainer, MDBBtn } from "mdbreact";
+import { MDBRow, MDBCol, MDBContainer, MDBBtn } from "mdb-react-ui-kit";
 
 
 function ProfileHeader() {
@@ -16,7 +16,7 @@ function ProfileHeader() {
                     <hr />
                     <p>emilysatassante@gmail.com</p>
                     <p>Lancaster, PA</p>
-                    <MDBBtn style={{ backgroundColor: '#FFEB3B' }} className="text-dark" >Edit Profile</MDBBtn> 
+                    <MDBBtn style={{ backgroundColor: '#FFEB3B' }} className="text-dark" >Edit Profile</MDBBtn>
                 </MDBCol>
             </MDBRow>
         </MDBContainer>
