@@ -6,10 +6,9 @@ import Heading from './Heading';
 function SplashImage() {
   return (
     <div className='bg-image'>
+      <div className="splash-top"></div>
       <img src={splash} className='img-fluid' alt='splash' />
-      <div className='mask' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)'}}>
-        <Heading />
-      </div>
+      <div className="splash-bottom"></div>
     </div>
   );
 }

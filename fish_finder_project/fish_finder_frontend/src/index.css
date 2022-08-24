@@ -22,11 +22,10 @@ code {
 }
 
 .fish-image-card {
-  height: 35%;
+  height: 100%;
   width: 350px;
   
 }
-
 
 .home-page {
   background-color: #FFFDE7;
@@ -73,4 +72,76 @@ code {
       width: 100%;
       min-width: 0;
   }
+
 }
+
+.container-fluid{
+  background-color:#ECF6F6;
+}
+
+.d-inline{
+  width: 80px;
+  height: 70px;
+}
+
+.bg-image{
+  width: 100vw;
+  max-height: 100vh;
+}
+
+.splash-top{
+  position: absolute;
+  background-image: linear-gradient(to top, rgba(255,0,0,0), rgba(229,247,252,100));
+  width: 100vw;
+  height: 100px;
+}
+
+.splash-bottom{
+  position: absolute;
+  bottom: 0px;
+  background-image: linear-gradient(to bottom, rgba(255,0,0,0), rgba(229,247,252,100));
+  width: 100vw;
+  height: 100px;
+}
+
+.navbar{
+  box-shadow: none;
+} 
+
+.nav_item{
+  position: absolute;
+  left: 0px;
+}
+
+.nav_items{
+  color: #3b4257;
+}
+
+.global-links:hover{
+  text-decoration: underline;
+  color: rgba(0,0,0,.9);
+} 
+
+#MapTitle{
+  text-align: center;
+  margin-top: 2%;
+}
+
+#MapInstructions {
+  text-align: center;
+}
+
+#MapBox {
+  border: 8px solid #F9A825;
+  border-radius: 1%;
+  position: relative;
+  max-width: 1000px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin:auto;
+  display: flex;
+  place-items: center;
+} 
+

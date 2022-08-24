@@ -3,6 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.decorators import api_view
 from django.core import serializers
+import requests
 import json
 from .models import AppUser, FishDB, CatchData
 
@@ -18,66 +19,67 @@ def home_page(request):
 ######################---FISH--DB---#######################
 
 
-#view for pulling all fish from DB
+# view for pulling all fish from DB
 @api_view(['get'])
 def fish_db(request):
-        #getting the recipes and sending back as json data
-        data = list(FishDB.objects.all().values())
-        return JsonResponse({'data': data})
+    # getting the recipes and sending back as json data
+    data = list(FishDB.objects.all().values())
+    return JsonResponse({'data': data})
 
 
-#FishDB by ID
+# FishDB by ID
 @api_view(['GET'])
 def fishdb_byid(request):
-    
-    #getting fish id
+
+    # getting fish id
     fish_id = request.GET.get('ID')
-    
-    #getting the fish and sending back as json data
+
+    # getting the fish and sending back as json data
     data = list(FishDB.objects.filter(id=fish_id).values())
-    
+
     return JsonResponse({'data': data})
 
 
 ######################---USER--AUTH---#######################
 
 
-#view for sign up
+# view for sign up
 @api_view(['POST'])
 def sign_up(request):
 
-
-    #pulling out user deatails and assigning the email to username for good measure
+    # pulling out user deatails and assigning the email to username for good measure
     try:
-        #creating new user
+        # creating new user
         AppUser.objects.create_user(
-            first_name = json.loads(request.body)['first_name'], 
-            last_name = json.loads(request.body)['last_name'],  
-            zipcode = int(json.loads(request.body)['zipcode']), 
-            state = json.loads(request.body)['state'], 
-            username = json.loads(request.body)['username'], 
-            email = json.loads(request.body)['email'], 
-            password = json.loads(request.body)['password'])
+            first_name=json.loads(request.body)['first_name'],
+            last_name=json.loads(request.body)['last_name'],
+            zipcode=int(json.loads(request.body)['zipcode']),
+            state=json.loads(request.body)['state'],
+            username=json.loads(request.body)['username'],
+            email=json.loads(request.body)['email'],
+            password=json.loads(request.body)['password'])
 
-    #error handling    
+    # error handling
     except Exception as e:
         print('Signup Error!')
         print(str(e))
-    #since the user just signed up successfully I am logging them in so they are logged in when   
-    user = authenticate(username = json.loads(request.body)['username'], password = json.loads(request.body)['password'])
+    # since the user just signed up successfully I am logging them in so they are logged in when
+    user = authenticate(username=json.loads(request.body)[
+                        'username'], password=json.loads(request.body)['password'])
     login(request, user)
-    #returning friendly message to be alerted to user
+    # returning friendly message to be alerted to user
     return JsonResponse({'data': 'Account created successfully!'})
 
 
-#login view
+# login view
 @api_view(['POST'])
 def log_in(request):
     print(json.loads(request.body)['password'])
-    #grabbing the values and then the user
-    user = authenticate(username = json.loads(request.body)['username'], password = json.loads(request.body)['password'])
-    
-    #logging them in if they exist and are active user
+    # grabbing the values and then the user
+    user = authenticate(username=json.loads(request.body)[
+                        'username'], password=json.loads(request.body)['password'])
+
+    # logging them in if they exist and are active user
     if user is not None:
         if user.is_active:
             try:
@@ -85,24 +87,26 @@ def log_in(request):
             except Exception as e:
                 print('Login Error!')
                 print(str(e))
-    #friendly messages depending on outcome to be displayed to user in an alert
+    # friendly messages depending on outcome to be displayed to user in an alert
             return JsonResponse({'data': 'Successfully logged in!'})
         else:
             return JsonResponse({'data': 'User not active!'})
     else:
-        return JsonResponse({'data': 'No user!'}) 
+        return JsonResponse({'data': 'No user!'})
 
 
-#signout view, pretty self explanatory
+# signout view, pretty self explanatory
 @api_view(['POST'])
 def sign_out(request):
     logout(request)
     return JsonResponse({'data': 'User logged out!'})
 
+
 @api_view(['GET'])
 def who_am_i(request):
     if request.user.is_authenticated:
-        data = serializers.serialize("json", [request.user], fields=['username', 'first_name', 'last_name'])
+        data = serializers.serialize("json", [request.user], fields=[
+                                     'username', 'first_name', 'last_name'])
         return HttpResponse(data)
     else:
         return JsonResponse({'user': None})
@@ -115,3 +119,18 @@ def catch(request):
     catches = CatchData.objects.all().values()
     data = list(catches)
     return JsonResponse({'data': data})
+
+######################---REQUEST Weather---#######################
+
+
+@api_view(['GET'])
+def weather_api(request, longitude, latitude):
+
+    API_response = requests.get(
+        f'https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&apikey=64ed653d7b00e46d38f6b8f287f11aa8')
+
+    responseJSON = API_response.json()
+
+    print(responseJSON)
+
+    return JsonResponse(responseJSON)

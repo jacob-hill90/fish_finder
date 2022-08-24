@@ -14,7 +14,7 @@ import { Divider } from 'primereact/divider';
 import { classNames } from 'primereact/utils';
 import {signUpUser} from '../api/UserAPI';
 import swal from 'sweetalert'
-import logo from '../assets/recipebox.png'
+import logo from '../assets/ff.png'
 
 
 function SignUpModal() {
@@ -131,7 +131,7 @@ function SignUpModal() {
 
     return (
         <>
-            <MDBBtn onClick={toggleShow} style={{ backgroundColor: '#FFEB3B' }} className="text-dark">Sign Up</MDBBtn>
+            <MDBBtn onClick={toggleShow} style={{ backgroundColor: '#62acee' }} className="text-dark">Sign Up</MDBBtn>
             <MDBModal show={basicModal} setShow={setBasicModal} tabIndex='-1'>
                 <MDBModalDialog>
                     <MDBModalContent>
@@ -199,7 +199,7 @@ function SignUpModal() {
                                             <label htmlFor="accept" className={classNames({ 'p-error': isFormFieldValid('accept') })}>I agree to the terms and conditions*</label>
                                         </div>
 
-                                        <Button type="submit" label="Submit" style={{ backgroundColor: '#FFEB3B' }} className="text-dark mt-2" />
+                                        <Button type="submit" label="Submit" style={{ backgroundColor: '#62acee' }} className="text-dark mt-2" />
                                     </form>
                                 </div>
                             </div>

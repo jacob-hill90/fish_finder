@@ -17,5 +17,6 @@ urlpatterns = [
     path('catch', views.catch),
     path('fishdb', views.fish_db),
     path('fishdbbyid', views.fishdb_byid),
-    re_path(r'/*', views.home_page),
+    path('API/<int:longitude>/<int:latitude>', views.weather_api),
+    re_path(r'^', views.home_page),
 ]
