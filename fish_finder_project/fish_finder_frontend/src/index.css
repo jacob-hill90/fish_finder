@@ -108,6 +108,10 @@ code {
   box-shadow: none;
 } 
 
+.navbar-brand{
+  z-index: 1000;
+}
+
 .nav_item{
   position: absolute;
   left: 0px;
@@ -115,6 +119,7 @@ code {
 
 .nav_items{
   color: #3b4257;
+
 }
 
 .global-links:hover{

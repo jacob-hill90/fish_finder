@@ -6,6 +6,7 @@ from django.core import serializers
 import requests
 import json
 from .models import AppUser, FishDB, CatchData
+import os
 
 # Create your views here.
 ######################---INITIAL--VIEW---#######################
@@ -126,8 +127,10 @@ def catch(request):
 @api_view(['GET'])
 def weather_api(request, longitude, latitude):
 
+    apikey = os.environ['weather_api_key']
+
     API_response = requests.get(
-        f'https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&apikey=64ed653d7b00e46d38f6b8f287f11aa8')
+        f'https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&apikey={apikey}')
 
     responseJSON = API_response.json()
 

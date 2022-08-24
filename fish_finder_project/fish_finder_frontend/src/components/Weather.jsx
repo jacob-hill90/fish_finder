@@ -7,9 +7,13 @@ function Weather() {
 
     function getWeather(){
 
-        axios.get(`/API/${document.getElementById('longitude').value}/${document.getElementById('latitude').value}`).then((response) => {console.log(response.data.weather[0].description) 
-        setWeather(response.data.weather[0].description)
+        axios.get(`/API/${document.getElementById('longitude').value}/${document.getElementById('latitude').value}`).then((response) => {console.log(response.data.weather[0].icon) 
+        setWeather(response.data.weather[0].icon)
         })
+
+        var iconCode= response.data.weather[0].icon
+        var iconurl = "http://openweathermap.org/img/w/" + iconCode + ".png";
+        return iconurl
     }
 
     return (
@@ -51,6 +55,7 @@ function Weather() {
       </nav>
         <div className="weather-box">
           <h4>LAT/LONG Weather: {weather}</h4>
+          <img src="{$`('#wicon').attr('src', iconurl)`}" />
         </div>
     </div>
     )
