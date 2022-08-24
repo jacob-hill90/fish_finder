@@ -16,15 +16,29 @@ import {
 import { signOutUser } from '../api/UserAPI';
 import LoginModal from './LoginModal'
 import SignUpModal from './SignUpModal';
+import axios from 'axios';
 // import SignUpOffCanvas from './SignUpOffCanvas';
 
 function NavBar({ user }) {
 
   const [showNavNoTogglerSecond, setShowNavNoTogglerSecond] = useState(false);
+  const [weatherIcon, setWeatherIcon] = useState(null)
+  const [temp, setTemp] = useState(null)
 
   function handleClick(event) {
     event.preventDefault()
     let tada = signOutUser()
+  }
+
+  function getWeather(){
+
+    axios.get(`/API/${user.zipcode}`).then((response) => {
+      console.log(response.data.weather[0])
+      setWeatherIcon(`http://openweathermap.org/img/wn/${response.data.weather[0].icon}.png`)
+      setTemp(response.data.main.temp)
+      })
+      console.log(weatherIcon)
+      console.log(temp)
   }
 
   return (
@@ -58,7 +72,10 @@ function NavBar({ user }) {
             </MDBNavbarNav>
             <MDBNavbarNav className="flex-row justify-content-end align-items-center flex-nowrap">
               <MDBNavbarItem className="me-4">
-                {user ? <MDBBtn onClick={(event) => { handleClick(event) }} style={{ backgroundColor: '#FFEB3B' }} className="text-dark" >Sign Out</MDBBtn> : null}
+                {user ? <div className='weather'>{getWeather()} <img className='weather_icon' src={weatherIcon} alt="Weather" /><h5>{Math.floor(temp)}˚</h5></div>  : null}
+              </MDBNavbarItem>
+              <MDBNavbarItem className="me-4">
+                {user ? <MDBBtn onClick={(event) => { handleClick(event) }} style={{ backgroundColor: '#62acee' }} className="text-dark" >Sign Out</MDBBtn> : null}
               </MDBNavbarItem>
               <MDBNavbarItem className="me-4">
                 {user ? null : <SignUpModal />}

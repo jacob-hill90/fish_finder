@@ -110,7 +110,7 @@ def sign_out(request):
 @api_view(['GET'])
 def who_am_i(request):
     if request.user.is_authenticated:
-        data = serializers.serialize("json", [request.user], fields=['username', 'first_name', 'last_name'])
+        data = serializers.serialize("json", [request.user], fields=['username', 'first_name', 'last_name', 'zipcode'])
         return HttpResponse(data)
     else:
         return JsonResponse({'user': None})
@@ -128,14 +128,13 @@ def catch(request):
 
 ######################---REQUEST WEATHER---#######################
 
-
 @api_view(['GET'])
-def weather_api(request, longitude, latitude):
+def weather_api(request, zipcode):
 
     apikey = os.environ['weather_api_key']
 
     API_response = requests.get(
-        f'https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&apikey={apikey}')
+        f'https://api.openweathermap.org/data/2.5/weather?zip={zipcode},US&apikey={apikey}&units=imperial')
 
     responseJSON = API_response.json()
 

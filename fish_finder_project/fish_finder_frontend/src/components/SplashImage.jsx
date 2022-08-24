@@ -9,6 +9,7 @@ function SplashImage() {
       <div className="splash-top"></div>
       <img src={splash} className='img-fluid' alt='splash' />
       <div className="splash-bottom"></div>
+      <div className="about"></div>
     </div>
   );
 }

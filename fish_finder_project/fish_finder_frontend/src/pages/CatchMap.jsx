@@ -43,11 +43,7 @@ function CatchMap() {
 
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
-        
-        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-        //  R E P L A C E   T H I S   L I N E   W I T H   G O O G L E   M A P S   K E Y (line 8 of .env file)
-        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
+        googleMapsApiKey: "AIzaSyCvRBwjBlzY9tMrm46tx6ksnRzGvxvUI5U",
         libraries
     })
 

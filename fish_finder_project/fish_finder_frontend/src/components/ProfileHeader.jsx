@@ -1,7 +1,6 @@
 // import React from 'react';
 import React, { Component } from "react";
-import { MDBRow, MDBCol, MDBContainer, MDBBtn } from "mdbreact";
-
+import { MDBRow, MDBCol, MDBContainer, MDBBtn } from "mdb-react-ui-kit";
 
 function ProfileHeader() {
     return (
