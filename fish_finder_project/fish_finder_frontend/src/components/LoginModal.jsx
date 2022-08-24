@@ -28,7 +28,7 @@ function LoginModal() {
 
     return (
         <>
-            <MDBBtn onClick={toggleShow} style={{ backgroundColor: '#FFEB3B' }} className="text-dark">Log In</MDBBtn>
+            <MDBBtn onClick={toggleShow} style={{ backgroundColor: '#62acee' }} className="text-dark">Log In</MDBBtn>
             <MDBModal show={basicModal} setShow={setBasicModal} tabIndex='-1'>
                 <MDBModalDialog>
                     <MDBModalContent>
@@ -53,7 +53,7 @@ function LoginModal() {
                                         <div className="flex align-items-center justify-content-between mb-6">
                                             <a className="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Forgot your password?</a>
                                         </div>
-                                        <Button onClick={(event)=>{handleClick(event)}} label="Sign In" icon="pi pi-user" style={{ backgroundColor: '#FFEB3B' }} className="w-full text-dark" />
+                                        <Button onClick={(event)=>{handleClick(event)}} label="Sign In" icon="pi pi-user" style={{ backgroundColor: '#62acee' }} className="w-full text-dark" />
                                     </div>
                                 </div>
                             </div>

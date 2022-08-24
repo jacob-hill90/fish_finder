@@ -5,9 +5,5 @@
 ./fish_finder_app/migrations
 .DS_Store
 ./fish_finder_project/.DS_Store
-<<<<<<< HEAD
 ./static/fishdb
 .venv
-=======
-./static/fishdb
->>>>>>> bf927887b7122ce7286ac6d201db8bc63da0d5dc

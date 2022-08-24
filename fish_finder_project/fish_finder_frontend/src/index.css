@@ -85,11 +85,7 @@ code {
 
 .bg-image{
   width: 100vw;
-  max-height: 76vh;
-}
-
-.p-0{
-  position: relative;
+  max-height: 100vh;
 }
 
 .splash-top{
@@ -107,6 +103,20 @@ code {
   height: 100px;
 }
 
-.nav-link{
+.navbar{
   box-shadow: none;
+} 
+
+.nav_item{
+  position: absolute;
+  left: 0px;
 }
+
+.nav_items{
+  color: #3b4257;
+}
+
+.global-links:hover{
+  text-decoration: underline;
+  color: rgba(0,0,0,.9);
+} 

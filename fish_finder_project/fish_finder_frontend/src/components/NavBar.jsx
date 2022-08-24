@@ -29,9 +29,9 @@ function NavBar({user}) {
 
   return (
     <>
-      <MDBNavbar sticky expand='lg' light className='p-0 justify-content-md-center justify-content-start'>
+      <MDBNavbar sticky expand='lg' className='p-0 justify-content-md-center justify-content-start'>
         <MDBContainer fluid >
-          <MDBNavbarBrand href='/'><img src={logo} alt="RB" height="50" className="d-inline" />Fish Something</MDBNavbarBrand>
+          <MDBNavbarBrand href='/'><img src={logo} alt="RB" height="50" className="d-inline" />Fishtories</MDBNavbarBrand>
           <MDBNavbarToggler
             type='button'
             data-target='#navbarTogglerDemo02'
@@ -45,15 +45,15 @@ function NavBar({user}) {
                 {user ? <Chip label={user.username} /> : null}  
               </MDBNavbarItem>
             </MDBNavbarNav>
-            <MDBNavbarNav className='flex justify-content-center align-items-center text-md-center '>
+            <MDBNavbarNav className='flex justify-content-center align-items-center text-md-center nav_item'>
               <MDBNavbarItem className="me-4">
-              <Link to={"/user_profile"} className="global-links"><strong>user</strong></Link>
+              <Link to={"/user_profile"} className="global-links nav_items"><strong>user</strong></Link>
               </MDBNavbarItem>
               <MDBNavbarItem className="me-4">
-              <Link to={"/"} className="global-links"><strong>default value</strong></Link>
+              <Link to={"/"} className="global-links nav_items"><strong>default value</strong></Link>
               </MDBNavbarItem>
               <MDBNavbarItem className="me-4">
-              <Link to={"/fish_DB"} className="global-links"><strong>Game Fish Database</strong></Link>
+              <Link to={"/fish_DB"} className="global-links nav_items"><strong>Game Fish Database</strong></Link>
               </MDBNavbarItem>
             </MDBNavbarNav>
             <MDBNavbarNav className="flex-row justify-content-end align-items-center flex-nowrap">

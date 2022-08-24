@@ -3,6 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.decorators import api_view
 from django.core import serializers
+import requests
 import json
 from .models import AppUser, FishDB, CatchData
 
@@ -115,3 +116,16 @@ def catch(request):
     catches = CatchData.objects.all().values()
     data = list(catches)
     return JsonResponse({'data': data})
+
+######################---REQUEST Weather---#######################
+
+@api_view(['GET'])
+def weather_api(request, longitude, latitude):
+
+    API_response = requests.get(f'https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&apikey=64ed653d7b00e46d38f6b8f287f11aa8')
+
+    responseJSON = API_response.json()
+
+    print(responseJSON)
+
+    return JsonResponse(responseJSON)
