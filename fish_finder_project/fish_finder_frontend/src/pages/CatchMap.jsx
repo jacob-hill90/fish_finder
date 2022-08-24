@@ -2,6 +2,11 @@ import { useCallback, useState, useRef, useMemo } from 'react'
 import MapStyles from "../MapStyles"
 import fishicon from "../assets/fishicon.png"
 import hookicon from "../assets/hookicon.png"
+import usePlacesAutocomplete, {
+    getGeocode,
+    getLatLng,
+} from "use-places-autocomplete"
+import { clearSuggestions } from 'use-places-autocomplete';
 
 // // import Google Maps
 import {
@@ -43,11 +48,10 @@ function CatchMap() {
 
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
-        
-        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-        //  R E P L A C E   T H I S   L I N E   W I T H   G O O G L E   M A P S   K E Y (line 8 of .env file)
-        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        //  R E P L A C E   T H I S   L I N E   W I T H   G O O G L E   M A P S   K E Y
+        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
         libraries
     })
 
@@ -97,6 +101,17 @@ function CatchMap() {
 
     let markerCount = 4;
 
+    const panTo = useCallback(({ lat, lng }) => {
+        mapRef.current.panTo({ lat, lng });
+        mapRef.current.setZoom(14);
+        let newLat = lat;
+        let newLng = lng
+        console.log("new lat-lng " + newLat + newLng)
+        center = { lat: newLat, lng: newLng }
+        console.log("Great Success!")
+    }, []);
+
+
     return isLoaded ? (
         <div class="MapPage">
             <h2 id="MapTitle">Welcome to the Map Page</h2>
@@ -120,6 +135,29 @@ function CatchMap() {
                         markerCount += 1;
                     }}
                 >
+                    <Autocomplete
+                        onPlaceChanged={panTo}
+                    >
+                        <input
+                            type="text"
+                            placeholder="Enter a Fishing Location"
+                            style={{
+                                boxSizing: `border-box`,
+                                border: `1px solid transparent`,
+                                width: `240px`,
+                                height: `32px`,
+                                padding: `0 12px`,
+                                borderRadius: `3px`,
+                                boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+                                fontSize: `14px`,
+                                outline: `none`,
+                                textOverflow: `ellipses`,
+                                position: "absolute",
+                                left: "50%",
+                                marginLeft: "-120px"
+                            }}
+                        />
+                    </Autocomplete>
                     {/* adding marker repositions map to default center zoom */}
                     {markers.map((marker) => (
                         <Marker
