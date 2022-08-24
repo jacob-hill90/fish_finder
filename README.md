@@ -11,6 +11,8 @@
 
 -Line 2: django_secret_key='Replace me with real key'
 
+-Pip install djangorestframework
+
 -With terminal in that root folder where you can see manage.py run $python manage.py makemigrations fish_finder_app
 
 -Run $ python manage.py migrate
@@ -24,3 +26,13 @@
 -Back in terminal in folder that manage.py run $ python manage.py runserver
 
 -If all went right you should be able to open localhost:8000 and see the homepage
+
+
+# Map Notes
+
+-npm i @react-google-maps/api  ***OR run $npm install 
+-Google Maps Api key is in the .env file, just copy whole line of code and insert into Catch Map page to load the map
+
+# Test User Notes
+-Loaddata for a default test user that you can actually login and signout with
+-username: testuser  password: password

@@ -125,3 +125,26 @@ code {
   text-decoration: underline;
   color: rgba(0,0,0,.9);
 } 
+
+#MapTitle{
+  text-align: center;
+  margin-top: 2%;
+}
+
+#MapInstructions {
+  text-align: center;
+}
+
+#MapBox {
+  border: 8px solid #F9A825;
+  border-radius: 1%;
+  position: relative;
+  max-width: 1000px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin:auto;
+  display: flex;
+  place-items: center;
+} 
