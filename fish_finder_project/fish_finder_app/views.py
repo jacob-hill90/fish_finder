@@ -5,10 +5,14 @@ from rest_framework.decorators import api_view
 from django.core import serializers
 import requests
 import json
+from dotenv import load_dotenv
+import os
 from .models import AppUser, FishDB, CatchData
 import os
 
-# Create your views here.
+load_dotenv()
+
+
 ######################---INITIAL--VIEW---#######################
 
 
@@ -75,7 +79,7 @@ def sign_up(request):
 # login view
 @api_view(['POST'])
 def log_in(request):
-    print(json.loads(request.body)['password'])
+
     # grabbing the values and then the user
     user = authenticate(username=json.loads(request.body)[
                         'username'], password=json.loads(request.body)['password'])
@@ -106,14 +110,14 @@ def sign_out(request):
 @api_view(['GET'])
 def who_am_i(request):
     if request.user.is_authenticated:
-        data = serializers.serialize("json", [request.user], fields=[
-                                     'username', 'first_name', 'last_name'])
+        data = serializers.serialize("json", [request.user], fields=['username', 'first_name', 'last_name'])
         return HttpResponse(data)
     else:
         return JsonResponse({'user': None})
 
 
-######################---REQUEST---#######################
+######################--- USER FISHTORY REQUEST---#######################
+
 
 @api_view(['GET'])
 def catch(request):
@@ -121,7 +125,8 @@ def catch(request):
     data = list(catches)
     return JsonResponse({'data': data})
 
-######################---REQUEST Weather---#######################
+
+######################---REQUEST WEATHER---#######################
 
 
 @api_view(['GET'])
