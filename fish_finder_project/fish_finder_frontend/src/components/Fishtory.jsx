@@ -10,6 +10,9 @@ import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import 'primereact/resources/primereact.css';
 import { Toast } from 'primereact/toast';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
+import { RadioButton } from 'primereact/radiobutton';
+// ##### --PAGES-- #####
+import ProfileHeader from './ProfileHeader';
 
 function Fishtory() {
 
@@ -132,28 +135,32 @@ function Fishtory() {
     );
 
     const imageBodyTemplate = (rowData) => {
-        
-        return <img src={rowData.photo} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} className="product-image" width="150px" />
+
+        return <img src={rowData.photo} onError={(e) => e.target.src = 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} className="product-image" width="150px" />
     }
 
+    const onSeasonChange = (e) => {
+        let _product = {...product};
+        console.log('>>>>>>>>>>CHANGING:',_product)
+
+        _product['category'] = e.value;
+        setProduct(_product);
+    }
 
 
     return (
         <div>
-            <p>profile page</p>
-
-
-
+            <ProfileHeader />
 
             <Toast ref={toast} />
             <ConfirmDialog />
             <div className="card workout-history-table container">
                 <DataTable value={allCatches}
-                    dataKey="id" paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
+                    dataKey="id" paginator rows={5} rowsPerPageOptions={[5, 10, 25]}
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} catches"
                     header={header} responsiveLayout="scroll">
-                    
+
                     <Column field="photo" header="Image" body={imageBodyTemplate}></Column>
                     <Column field="date" header="Date" sortable style={{ minWidth: '2rem' }}></Column>
                     <Column field="fishingMethod" header="Fishing Method" sortable style={{ minWidth: '2rem' }}></Column>
@@ -164,39 +171,45 @@ function Fishtory() {
                     <Column body={actionBodyTemplate} exportable={false} style={{ minWidth: '2rem' }} ></Column>
                 </DataTable>
 
-                {/* pop up window for editing prodduct */}
-                <Dialog visible={productDialog} style={{ width: '450px' }} header="Workout Details" modal className="p-fluid" footer={productDialogFooter} onHide={hideDialog}>
+                {/* pop up window for editing catches individually */}
+                <Dialog visible={productDialog} style={{ width: '450px' }} header="Edit Catch" modal className="p-fluid" footer={productDialogFooter} onHide={hideDialog}>
                     <div className="field">
-                        <label htmlFor="Date">Date</label>
-                        <InputText id="date" onChange={(e) => onInputChange(e, 'date')} />
+                        <label htmlFor="fishing-method">Fishing Method</label>
+                        <InputText id="date" onChange={(e) => onInputChange(e, 'date')} value='ROBERT'/>
                     </div>
                     <div className="field">
-                        <label htmlFor="Workout Name">Workout Name</label>
+                        <label htmlFor="length">Length (in)</label>
                         <InputText id="workoutName" onChange={(e) => onInputChange(e, 'workoutName')} />
                     </div>
                     <div className="field">
-                        <label htmlFor="Calories">Calories</label>
-                        <InputText id="calories" onChange={(e) => onInputChange(e, 'calories')} />
+                        <label className="mb-3">Season</label>
+                        <div className="formgrid grid">
+                            <div className="field-radiobutton col-6">
+                                <RadioButton inputId="spring" name="spring" value="Spring" onChange={onSeasonChange} checked={product.category === 'Spring'} />
+                                <label htmlFor="spring">Spring</label>
+                            </div>
+                            <div className="field-radiobutton col-6">
+                                <RadioButton inputId="summer" name="summer" value="Summer" onChange={onSeasonChange} checked={product.category === 'Summer'} />
+                                <label htmlFor="summer">Summer</label>
+                            </div>
+                            <div className="field-radiobutton col-6">
+                                <RadioButton inputId="fall" name="fall" value="Fall" onChange={onSeasonChange} checked={product.category === 'Fall'} />
+                                <label htmlFor="fall">Fall</label>
+                            </div>
+                            <div className="field-radiobutton col-6">
+                                <RadioButton inputId="Winter" name="Winter" value="Winter" onChange={onSeasonChange} checked={product.category === 'Winter'} />
+                                <label htmlFor="Winter">Winter</label>
+                            </div>
+                        </div>
                     </div>
+                    {/* seasons checkboxes */}
                     <div className="field">
-                        <label htmlFor="currentWeight">Current Weight</label>
+                        <label htmlFor="species">Species</label>
                         <InputText id="currentWeight" onChange={(e) => onInputChange(e, 'currentWeight')} />
                     </div>
                     <div className="field">
-                        <label htmlFor="Duration">Duration</label>
+                        <label htmlFor="weight">Weight (lbs)</label>
                         <InputText id="duration" onChange={(e) => onInputChange(e, 'duration')} />
-                    </div>
-                    <div className="field">
-                        <label htmlFor="repetitions">Repetitions</label>
-                        <InputText id="repetitions" onChange={(e) => onInputChange(e, 'repetitions')} />
-                    </div>
-                    <div className="field">
-                        <label htmlFor="sets">Sets</label>
-                        <InputText id="sets" onChange={(e) => onInputChange(e, 'sets')} />
-                    </div>
-                    <div className="field">
-                        <label htmlFor="Weight Used">Weight Used</label>
-                        <InputText id="weightUsed" onChange={(e) => onInputChange(e, 'weightUsed')} />
                     </div>
                 </Dialog>
                 {/* popup box for deleting just one item */}
