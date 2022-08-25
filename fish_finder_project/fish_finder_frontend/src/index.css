@@ -172,6 +172,21 @@ code {
   place-items: center;
 } 
 
+#catchButton{
+  display: flex;
+  text-align: center;
+}
+
+/* #newFish{
+  position: absolute;
+  right: 90%;
+  top: 1%;
+  max-width: 50px;
+  height: auto;
+  z-index: 100;
+  cursor:pointer;
+} */
+
 /* upload image */
 
 html {
