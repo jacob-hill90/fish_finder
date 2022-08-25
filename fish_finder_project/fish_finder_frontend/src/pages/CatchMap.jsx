@@ -18,7 +18,7 @@ import {
     MarkerCluster,
     InfoWindow,
     useJsApiLoader,
-    StandaloneSearchBox,
+
     Autocomplete,
     searchBox,
 } from "@react-google-maps/api"
@@ -48,7 +48,6 @@ function CatchMap() {
 
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
-
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
         //  R E P L A C E   T H I S   L I N E   W I T H   G O O G L E   M A P S   K E Y
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
