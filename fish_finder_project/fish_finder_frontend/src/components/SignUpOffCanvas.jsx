@@ -87,11 +87,11 @@ function SignUpOffCanvas() {
             let response = signUpUser(formData)
             .then((response) => {
                 swal({
-                    title: "The Recipe Box Says:",
+                    title: "Fishtories says:",
                     text: `Your account is registered under name ${formData.first_name + ' ' + formData.last_name}`,
                     icon: "success",
                     button: {
-                        text: "Awesome Sauce!",
+                        text: "Tight Lines!",
                         value: true,
                         visible: true,
                         className: "",

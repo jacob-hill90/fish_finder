@@ -82,11 +82,11 @@ function FormSignUp(){
             let response = signUpUser(formData)
             .then((response) => {
                 swal({
-                    title: "The Recipe Box Says:",
+                    title: "FishtoriesSays:",
                     text: `Your account is registered under name ${formData.first_name + ' ' + formData.last_name}`,
                     icon: "success",
                     button: {
-                        text: "Awesome Sauce!",
+                        text: "Happy Casting!",
                         value: true,
                         visible: true,
                         className: "",

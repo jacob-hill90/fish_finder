@@ -104,9 +104,31 @@ code {
   height: 100px;
 }
 
+.about{
+  position: absolute;
+  width: 600px;
+  height: 250px;
+  background-color: gray;
+  top: 50px;
+  left: 100px;
+  border-radius: 1em;
+  opacity: 50%;
+}
+
 .navbar{
   box-shadow: none;
 } 
+
+.weather_icon{
+  background-color: gray;
+  border-radius: 50%;
+  margin: 6px;
+}
+
+.weather{
+  display: flex;
+  align-items: center;
+}
 
 .navbar-brand{
   z-index: 1000;
