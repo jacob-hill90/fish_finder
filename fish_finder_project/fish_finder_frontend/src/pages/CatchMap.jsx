@@ -1,4 +1,4 @@
-import { useCallback, useState, useRef, useMemo } from 'react'
+import React , { useCallback, useState, useRef, useMemo } from 'react'
 import MapStyles from "../MapStyles"
 import fishicon from "../assets/fishicon.png"
 import hookicon from "../assets/hookicon.png"
@@ -106,17 +106,51 @@ function CatchMap() {
 
     let markerCount = 4;
 
-    const panTo = useCallback(({ lat, lng }) => {
-        mapRef.current.panTo({ lat, lng });
-        mapRef.current.setZoom(14);
-        let newLat = lat;
-        let newLng = lng
-        console.log("new lat-lng " + newLat + newLng)
-        center = { lat: newLat, lng: newLng }
-        console.log("Great Success!")
-    }, []);
+    // const panTo = useCallback(({ lat, lng }) => {
+    //     mapRef.current.panTo({ lat, lng });
+    //     mapRef.current.setZoom(14);
+    //     let newLat = lat;
+    //     let newLng = lng
+    //     console.log("new lat-lng " + newLat + newLng)
+    //     center = { lat: newLat, lng: newLng }
+    //     console.log("Great Success!")
+    // }, []);
 
     const [newFishMarker, setNewFishMarker] = useState(false)
+
+    /* THIS IS STATE CODE FOR THE SEARCHBOX FUNCTIONALITY */
+    //Pan To function declaration takes a latitude and a longitude
+    const panTo = React.useCallback(({lat, lng}) => {
+        mapRef.current.panTo({lat, lng})
+        mapRef.current.setZoom(14)
+    }, [])
+    //setting state for autocomplete instance
+    const[autocomplete,setAutocomplete] = useState(null)
+
+    // onLoad callback called when autocomplete has loaded.
+    const onLoad = (autocomplete) => {
+        // console.log('autocomplete', autocomplete)
+        //setting the instaance of autocomplete
+        setAutocomplete(autocomplete)
+    }
+
+    // onPlaceChanged is called when a user selects a location from the suggestions in the box dropdown.
+    const onPlaceChanged = () => {
+        if (autocomplete !== null){
+
+            let lat = autocomplete.getPlace().geometry.location.lat()
+            let lng = autocomplete.getPlace().geometry.location.lng()
+            console.log('lat and long', lat, lng)
+            let LatLng = {lat:lat,lng:lng}
+            panTo(LatLng)
+
+
+            
+        }
+        else {
+            console.log('Autocomplete is not loaded yet')
+        }
+    }
 
     return isLoaded ? (
         <div class="MapPage">
@@ -159,26 +193,29 @@ function CatchMap() {
                 // }}
                 >
                     <Autocomplete
-                        onPlaceChanged={panTo}
-                    >
+                        onLoad={onLoad}
+                        onPlaceChanged = {onPlaceChanged}
+                        >
                         <input
                             type="text"
-                            placeholder="Enter a Fishing Location"
+                            placeholder="Enter your favorite fishing spot!"
+                            id='searchbox'
                             style={{
-                                boxSizing: `border-box`,
-                                border: `1px solid transparent`,
-                                width: `240px`,
-                                height: `32px`,
-                                padding: `0 12px`,
-                                borderRadius: `3px`,
-                                boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-                                fontSize: `14px`,
-                                outline: `none`,
-                                textOverflow: `ellipses`,
-                                position: "absolute",
-                                left: "50%",
-                                marginLeft: "-120px"
+                            boxSizing: `border-box`,
+                            border: `1px solid transparent`,
+                            width: `240px`,
+                            height: `32px`,
+                            padding: `0 12px`,
+                            borderRadius: `3px`,
+                            boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+                            fontSize: `14px`,
+                            outline: `none`,
+                            textOverflow: `ellipses`,
+                            position: "absolute",
+                            left: "50%",
+                            marginLeft: "-120px"
                             }}
+                            // onChange = {searchInput}
                         />
                     </Autocomplete>
                     {/* adding marker repositions map to default center zoom */}
