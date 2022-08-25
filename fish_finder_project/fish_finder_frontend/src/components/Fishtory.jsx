@@ -16,16 +16,7 @@ import ProfileHeader from './ProfileHeader';
 import UploadPicture from './UploadPicture';
 
 function Fishtory() {
-
-    const [allCatches, setallCatches] = useState([])
-
-    useEffect(() => {
-        axios.get('catch')
-            .then((response) => {
-                setallCatches(response['data']['data'])
-            })
-    }, [])
-
+    
     let emptyProduct = {
         date: '',
         fishingMethod: '',
@@ -34,10 +25,20 @@ function Fishtory() {
         species: '',
         weight: '',
     };
-
+    
+    const [allCatches, setallCatches] = useState([])
     const [productDialog, setProductDialog] = useState(false);
     const [deleteProductDialog, setDeleteProductDialog] = useState(false);
     const [product, setProduct] = useState(emptyProduct);
+
+    useEffect(() => {
+        axios.get('catch')
+            .then((response) => {
+                setallCatches(response['data']['data'])
+            })
+    }, [])
+
+
 
     const hideDialog = () => {
         setProductDialog(false);
@@ -67,7 +68,18 @@ function Fishtory() {
                 setTimeout(function () {
                     window.location.reload();
                 }, 2000);
-                console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>', response)
+            })
+    }
+
+    const deleteProduct = () => {
+        let data = { 'id': product.id }
+        setDeleteProductDialog(false);
+        axios.delete('catch', {'data': data})
+            .then((response) => {
+                toast.current.show({ severity: 'error', summary: 'Attention', detail: `${response['data']['status']}`, life: 3000 });
+                setTimeout(function () {
+                    window.location.reload();
+                }, 2000);
             })
     }
     const editProduct = (product) => {
@@ -80,18 +92,6 @@ function Fishtory() {
         setDeleteProductDialog(true);
     }
 
-    const deleteProduct = () => {
-        // let data = { 'id': product.id }
-        setDeleteProductDialog(false);
-
-        // axios.delete('edit_workout', { 'data': data })
-        //     .then((response) => {
-        //         toast.current.show({ severity: 'warn', summary: 'Attention', detail: `${response.data.Status}`, life: 3000 });
-        //         setTimeout(function () {
-        //             window.location.reload();
-        //         }, 2000);
-        //     })
-    }
 
     const onInputChange = (e, name) => {
         const val = (e.target && e.target.value) || '';

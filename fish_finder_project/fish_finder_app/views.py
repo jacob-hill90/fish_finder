@@ -119,7 +119,7 @@ def who_am_i(request):
 ######################--- USER FISHTORY REQUEST---#######################
 
 
-@api_view(['GET', 'PUT'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def catch(request):
     if request.method == 'GET':
         catches = CatchData.objects.filter(owner_id= request.user.id).values()
@@ -127,11 +127,14 @@ def catch(request):
         return JsonResponse({'data': data})
     if request.method == 'PUT':
         data = request.data
-        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>',data)
         edited_catch = CatchData.objects.filter(owner_id= request.user.id).values().get(id =request.data['id'])
-        # edited_catch = CatchData(**data)
-        # edited_catch.save()
+        edited_catch = CatchData(**data)
+        edited_catch.save()
         return JsonResponse({'status': 'Catch updated succesfully'})
+    if request.method == 'DELETE':
+        delete_catch = CatchData.objects.get(id = request.data['id'])
+        # delete_catch.delete()
+        return JsonResponse({'status': 'Catch deleted succesfully'})
 
 
 ######################---REQUEST WEATHER---#######################
@@ -145,7 +148,4 @@ def weather_api(request, zipcode):
         f'https://api.openweathermap.org/data/2.5/weather?zip={zipcode},US&apikey={apikey}&units=imperial')
 
     responseJSON = API_response.json()
-
-    print(responseJSON)
-
     return JsonResponse(responseJSON)

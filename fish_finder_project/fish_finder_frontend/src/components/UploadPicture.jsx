@@ -17,6 +17,7 @@ function UploadPicture() {
     const [totalSize, setTotalSize] = useState(0);
     const toast = useRef(null);
     const fileUploadRef = useRef(null);
+    const [selectedFile, setSelectedFile] = useState(null)
 
     const onUpload = () => {
         toast.current.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded' });
@@ -24,20 +25,25 @@ function UploadPicture() {
 
     const onTemplateSelect = (e) => {
         let _totalSize = totalSize;
-        e.files.forEach(file => {
-            _totalSize += file.size;
-        });
-
+        setSelectedFile(e.files[0])                //<<<<<<<<<<<<< getting the file object
+        // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>',selectedFile)   
+        const fileData = new FormData();
+        fileData.append('image', selectedFile, )
+        
+        
+        _totalSize += e.files[0]['size'];
         setTotalSize(_totalSize);
     }
-
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>HERE:',selectedFile)
+    
     const onTemplateUpload = (e) => {
-        let _totalSize = 0;
-        e.files.forEach(file => {
-            _totalSize += (file.size || 0);
-        });
+        e.preventDefault()
+        // let _totalSize = 0;
+        // e.files.forEach(file => {
+        //     _totalSize += (file.size || 0);
+        // });
 
-        setTotalSize(_totalSize);
+        // setTotalSize(_totalSize);
         toast.current.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded' });
     }
 
@@ -106,7 +112,7 @@ function UploadPicture() {
         reader.readAsDataURL(blob);
         reader.onloadend = function () {
             const base64data = reader.result;
-            console.log(base64data);
+
         }
     }
 

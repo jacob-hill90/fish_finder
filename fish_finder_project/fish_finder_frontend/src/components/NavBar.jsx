@@ -33,12 +33,9 @@ function NavBar({ user }) {
   function getWeather(){
 
     axios.get(`/API/${user.zipcode}`).then((response) => {
-      console.log(response.data.weather[0])
       setWeatherIcon(`http://openweathermap.org/img/wn/${response.data.weather[0].icon}.png`)
       setTemp(response.data.main.temp)
       })
-      console.log(weatherIcon)
-      console.log(temp)
   }
 
   return (
