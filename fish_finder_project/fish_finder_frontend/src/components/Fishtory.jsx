@@ -13,6 +13,7 @@ import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { RadioButton } from 'primereact/radiobutton';
 // ##### --PAGES-- #####
 import ProfileHeader from './ProfileHeader';
+import UploadPicture from './UploadPicture';
 
 function Fishtory() {
 
@@ -25,16 +26,13 @@ function Fishtory() {
             })
     }, [])
 
-    console.log(allCatches)
     let emptyProduct = {
-        calories: '',
-        currentWeight: '',
         date: '',
-        duration: '',
-        repetitions: '',
-        sets: '',
-        weightUsed: '',
-        workoutName: '',
+        fishingMethod: '',
+        length: '',
+        season: '',
+        species: '',
+        weight: '',
     };
 
     const [productDialog, setProductDialog] = useState(false);
@@ -52,27 +50,26 @@ function Fishtory() {
 
     const saveProduct = () => {
         setProductDialog(false);
-        // let data = {
-        //     'calories_burned': product.calories,
-        //     'current_weight': product.currentWeight,
-        //     'date': product.date,
-        //     'exercise_duration': product.duration,
-        //     'id': product.id,
-        //     'number_repetitions': product.repetitions,
-        //     'number_sets': product.sets,
-        //     'user': product.user_id,
-        //     'equipment_weight': product.weightUsed,
-        //     'workout_name': product.workoutName,
-        // }
-        // axios.put('edit_workout', data)
-        //     .then((response) => {
-        //         toast.current.show({ severity: 'warn', summary: 'Confirmed', detail: `${response.data.status}`, life: 3000 });
-        //         setTimeout(function () {
-        //             window.location.reload();
-        //         }, 2000);
-        //     })
+        let data = {
+            'date': product.date,
+            'fishingMethod': product.fishingMethod,
+            'id': product.id,
+            'length': product.length,
+            'owner_id': product.owner_id,
+            'season': product.season,
+            'species': product.species,
+            'weight': product.weight,
+            // 'photo': product.photo,          //<<<<<<<< NEED to add this 
+        }
+        axios.put('catch', data)
+            .then((response) => {
+                toast.current.show({ severity: 'success', summary: 'Success', detail: `${response.data.status}`, life: 3000 });
+                setTimeout(function () {
+                    window.location.reload();
+                }, 2000);
+                console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>', response)
+            })
     }
-
     const editProduct = (product) => {
         setProduct({ ...product });
         setProductDialog(true);
@@ -103,14 +100,6 @@ function Fishtory() {
         setProduct(_product);
     }
 
-    const actionBodyTemplate = (rowData) => {
-        return (
-            <React.Fragment>
-                <Button icon="pi pi-pencil" className="p-button-rounded p-button-success mr-2" onClick={() => editProduct(rowData)} />
-                <Button icon="pi pi-trash" className="p-button-rounded p-button-warning" onClick={() => confirmDeleteProduct(rowData)} />
-            </React.Fragment>
-        );
-    }
 
     const header = (
         <div className="table-header text-center">
@@ -119,6 +108,16 @@ function Fishtory() {
             </span>
         </div>
     );
+
+    // Edit/delete icons
+    const actionBodyTemplate = (rowData) => {
+        return (
+            <React.Fragment>
+                <Button icon="pi pi-pencil" className="p-button-rounded p-button-success mr-2" onClick={() => editProduct(rowData)} />
+                <Button icon="pi pi-trash" className="p-button-rounded p-button-warning" onClick={() => confirmDeleteProduct(rowData)} />
+            </React.Fragment>
+        );
+    }
 
     const productDialogFooter = (
         <React.Fragment>
@@ -134,19 +133,16 @@ function Fishtory() {
         </React.Fragment>
     );
 
+    // Profile image
     const imageBodyTemplate = (rowData) => {
-
-        return <img src={rowData.photo} onError={(e) => e.target.src = 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} className="product-image" width="150px" />
+        return <img src={rowData.catch_picture} onError={(e) => e.target.src = 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} className="product-image" width="150px" />
     }
 
     const onSeasonChange = (e) => {
-        let _product = {...product};
-        console.log('>>>>>>>>>>CHANGING:',_product)
-
+        let _product = { ...product };
         _product['category'] = e.value;
         setProduct(_product);
     }
-
 
     return (
         <div>
@@ -154,33 +150,47 @@ function Fishtory() {
 
             <Toast ref={toast} />
             <ConfirmDialog />
+            {/* Rows/columns fields */}
             <div className="card workout-history-table container">
                 <DataTable value={allCatches}
                     dataKey="id" paginator rows={5} rowsPerPageOptions={[5, 10, 25]}
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} catches"
                     header={header} responsiveLayout="scroll">
-
-                    <Column field="photo" header="Image" body={imageBodyTemplate}></Column>
+                    <Column field="catch_picture" header="Image" body={imageBodyTemplate}></Column>
                     <Column field="date" header="Date" sortable style={{ minWidth: '2rem' }}></Column>
-                    <Column field="fishingMethod" header="Fishing Method" sortable style={{ minWidth: '2rem' }}></Column>
+                    <Column field="fishing_method" header="Fishing Method" sortable style={{ minWidth: '2rem' }}></Column>
                     <Column field="length" header="Length" sortable style={{ minWidth: '2rem' }}></Column>
                     <Column field="season" header="Season" sortable style={{ minWidth: '2rem' }}></Column>
                     <Column field="species" header="Species" sortable style={{ minWidth: '2rem' }}></Column>
                     <Column field="weight" header="Weight" sortable style={{ minWidth: '2rem' }}></Column>
+                    {/* Edit/delete icons inserted into the table */}
                     <Column body={actionBodyTemplate} exportable={false} style={{ minWidth: '2rem' }} ></Column>
                 </DataTable>
 
                 {/* pop up window for editing catches individually */}
-                <Dialog visible={productDialog} style={{ width: '450px' }} header="Edit Catch" modal className="p-fluid" footer={productDialogFooter} onHide={hideDialog}>
+                <div>
+                    <UploadPicture />
+                </div>
+                <Dialog visible={productDialog} style={{ width: '450px' }} header="Edit Catch" modal footer={productDialogFooter} onHide={hideDialog}>
+                    <div className="date">
+                        <UploadPicture />
+                    </div>
+                    <div className="p-fluid">
+
+                    <div className="date">
+                        <label htmlFor="fishing-method">Date</label>
+                        <InputText id="date" onChange={(e) => onInputChange(e, 'date')} value={product.date} />
+                    </div>
                     <div className="field">
                         <label htmlFor="fishing-method">Fishing Method</label>
-                        <InputText id="date" onChange={(e) => onInputChange(e, 'date')} value='ROBERT'/>
+                        <InputText id="fishingMethod" onChange={(e) => onInputChange(e, 'fishingMethod')} value={product.fishingMethod} />
                     </div>
                     <div className="field">
                         <label htmlFor="length">Length (in)</label>
-                        <InputText id="workoutName" onChange={(e) => onInputChange(e, 'workoutName')} />
+                        <InputText id="length" onChange={(e) => onInputChange(e, 'length')} value={product.length} />
                     </div>
+                    {/* Season checkboxes */}
                     <div className="field">
                         <label className="mb-3">Season</label>
                         <div className="formgrid grid">
@@ -202,14 +212,14 @@ function Fishtory() {
                             </div>
                         </div>
                     </div>
-                    {/* seasons checkboxes */}
                     <div className="field">
                         <label htmlFor="species">Species</label>
-                        <InputText id="currentWeight" onChange={(e) => onInputChange(e, 'currentWeight')} />
+                        <InputText id="species" onChange={(e) => onInputChange(e, 'species')} value={product.species} />
                     </div>
                     <div className="field">
                         <label htmlFor="weight">Weight (lbs)</label>
-                        <InputText id="duration" onChange={(e) => onInputChange(e, 'duration')} />
+                        <InputText id="weight" onChange={(e) => onInputChange(e, 'weight')} value={product.weight} />
+                    </div>
                     </div>
                 </Dialog>
                 {/* popup box for deleting just one item */}

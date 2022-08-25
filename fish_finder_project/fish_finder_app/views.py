@@ -119,11 +119,19 @@ def who_am_i(request):
 ######################--- USER FISHTORY REQUEST---#######################
 
 
-@api_view(['GET'])
+@api_view(['GET', 'PUT'])
 def catch(request):
-    catches = CatchData.objects.all().values()
-    data = list(catches)
-    return JsonResponse({'data': data})
+    if request.method == 'GET':
+        catches = CatchData.objects.filter(owner_id= request.user.id).values()
+        data = list(catches)
+        return JsonResponse({'data': data})
+    if request.method == 'PUT':
+        data = request.data
+        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>',data)
+        edited_catch = CatchData.objects.filter(owner_id= request.user.id).values().get(id =request.data['id'])
+        # edited_catch = CatchData(**data)
+        # edited_catch.save()
+        return JsonResponse({'status': 'Catch updated succesfully'})
 
 
 ######################---REQUEST WEATHER---#######################

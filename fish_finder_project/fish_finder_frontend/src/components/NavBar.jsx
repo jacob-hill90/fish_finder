@@ -47,11 +47,7 @@ function NavBar({ user }) {
             </MDBNavbarNav>
             <MDBNavbarNav className='flex justify-content-center align-items-center text-md-center nav_item'>
               <MDBNavbarItem className="me-4">
-<<<<<<< HEAD
               <Link to={"/user_profile"} className="global-links nav_items"><strong>User</strong></Link>
-=======
-                <Link to={"/user_profile"} className="global-links nav_items"><strong>user</strong></Link>
->>>>>>> 694efcb8db1ccfe3c185c225397bed4ae6c38235
               </MDBNavbarItem>
               <MDBNavbarItem className="me-4">
                 <Link to={"/catch_map"} className="global-links nav_items"><strong>Catch Map</strong></Link>
