@@ -1,4 +1,4 @@
-import React , { useCallback, useState, useRef, useMemo } from 'react'
+import { useCallback, useState, useRef, useEffect, useMemo } from 'react'
 import MapStyles from "../MapStyles"
 import fishicon from "../assets/fishicon.png"
 import hookicon from "../assets/hookicon.png"
@@ -120,12 +120,12 @@ function CatchMap() {
 
     /* THIS IS STATE CODE FOR THE SEARCHBOX FUNCTIONALITY */
     //Pan To function declaration takes a latitude and a longitude
-    const panTo = React.useCallback(({lat, lng}) => {
-        mapRef.current.panTo({lat, lng})
+    const panTo = React.useCallback(({ lat, lng }) => {
+        mapRef.current.panTo({ lat, lng })
         mapRef.current.setZoom(14)
     }, [])
     //setting state for autocomplete instance
-    const[autocomplete,setAutocomplete] = useState(null)
+    const [autocomplete, setAutocomplete] = useState(null)
 
     // onLoad callback called when autocomplete has loaded.
     const onLoad = (autocomplete) => {
@@ -136,16 +136,16 @@ function CatchMap() {
 
     // onPlaceChanged is called when a user selects a location from the suggestions in the box dropdown.
     const onPlaceChanged = () => {
-        if (autocomplete !== null){
+        if (autocomplete !== null) {
 
             let lat = autocomplete.getPlace().geometry.location.lat()
             let lng = autocomplete.getPlace().geometry.location.lng()
             console.log('lat and long', lat, lng)
-            let LatLng = {lat:lat,lng:lng}
+            let LatLng = { lat: lat, lng: lng }
             panTo(LatLng)
 
 
-            
+
         }
         else {
             console.log('Autocomplete is not loaded yet')
@@ -194,28 +194,28 @@ function CatchMap() {
                 >
                     <Autocomplete
                         onLoad={onLoad}
-                        onPlaceChanged = {onPlaceChanged}
-                        >
+                        onPlaceChanged={onPlaceChanged}
+                    >
                         <input
                             type="text"
                             placeholder="Enter your favorite fishing spot!"
                             id='searchbox'
                             style={{
-                            boxSizing: `border-box`,
-                            border: `1px solid transparent`,
-                            width: `240px`,
-                            height: `32px`,
-                            padding: `0 12px`,
-                            borderRadius: `3px`,
-                            boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-                            fontSize: `14px`,
-                            outline: `none`,
-                            textOverflow: `ellipses`,
-                            position: "absolute",
-                            left: "50%",
-                            marginLeft: "-120px"
+                                boxSizing: `border-box`,
+                                border: `1px solid transparent`,
+                                width: `240px`,
+                                height: `32px`,
+                                padding: `0 12px`,
+                                borderRadius: `3px`,
+                                boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+                                fontSize: `14px`,
+                                outline: `none`,
+                                textOverflow: `ellipses`,
+                                position: "absolute",
+                                left: "50%",
+                                marginLeft: "-120px"
                             }}
-                            // onChange = {searchInput}
+                        // onChange = {searchInput}
                         />
                     </Autocomplete>
                     {/* adding marker repositions map to default center zoom */}
@@ -264,3 +264,19 @@ function CatchMap() {
 }
 
 export default CatchMap
+
+
+
+// const [userLat, setUserLat] = useState();
+// const [userLong, setUserLong] = useState();
+
+// useEffect(() => {
+//     navigator.geolocation.getCurrentPosition(position => {
+//         // setUserLat(position.coords.latitude);
+//         // setUserLong(position.coords.longitude);
+//         // lake winnie coords: 43.598484, -71.322488
+//         setUserLat(43.598484)
+//         setUserLong(-71.322488)
+//         console.log(userLat, userLong);
+//     })
+// }, []);
