@@ -10,7 +10,6 @@ import usePlacesAutocomplete, {
 import { clearSuggestions } from 'use-places-autocomplete';
 
 
-
 // // import Google Maps
 import {
     GoogleMap,
@@ -27,28 +26,32 @@ import {
 } from "@react-google-maps/api"
 
 function CatchMap() {
-
+    // this variable allows the search bar to populate places
     const libraries = ["places"]
-
+    // this variable is a short hand way of changing the current map component
     const mapRef = useRef();
-
+    // sets the display size of the map
     const containerStyle = {
         width: '1000px',
         height: '600px'
     };
+    // starting map center attribute
+    // default mapCenter is Lake Hartwell
+    const [mapCenter, setMapCenter] = useState({ lat: 34.48686532, lng: -82.8805130 })
 
-    let center = {
-        lat: 34.48686532,
-        lng: -82.8805130
-    };
-
+    // let center = {
+    //     lat: 34.48686532,
+    //     lng: -82.8805130
+    // };
+    // option gives us 1. Map CSS, Disable all default widgets, gives user zoom control, gives user a distance scale
     const options = {
         // styles: MapStyles,
         disableDefaultUI: true,
         zoomControl: true,
         scaleControl: true,
+        mapTypeControl: true,
     };
-
+    // loads google map api's script
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
         // process is undefined
@@ -61,7 +64,7 @@ function CatchMap() {
     })
 
     const [map, setMap] = useState(null)
-
+    // loads map
     const onMapLoad = useCallback((map) => {
         mapRef.current = map;
     }, []);
@@ -69,18 +72,18 @@ function CatchMap() {
     const onUnmount = useCallback(function callback(map) {
         setMap(null)
     }, [])
-
+    // state for adding new marker
     const [markers, setMarkers] = useState([])
-
+    // state for changing which marker has an info window open
     const [activeMarker, setActiveMarker] = useState(null);
-
+    // function to to set/change info window popup
     const handleActiveMarker = (marker) => {
         if (marker === activeMarker) {
             return;
         }
         setActiveMarker(marker);
     };
-
+    // dummy test markers, using until json model can support 
     const testMarkers = [
         {
             id: 1,
@@ -103,26 +106,17 @@ function CatchMap() {
             position: { lat: 34.518695, lng: -82.806761 }
         }
     ]
-
+    // id used for new marker key, will use primary key in model when using real db data
     let markerCount = 4;
-
-    // const panTo = useCallback(({ lat, lng }) => {
-    //     mapRef.current.panTo({ lat, lng });
-    //     mapRef.current.setZoom(14);
-    //     let newLat = lat;
-    //     let newLng = lng
-    //     console.log("new lat-lng " + newLat + newLng)
-    //     center = { lat: newLat, lng: newLng }
-    //     console.log("Great Success!")
-    // }, []);
-
+    // hook for generating a new catch icon on map (used with Add Catch button)
     const [newFishMarker, setNewFishMarker] = useState(false)
 
     /* THIS IS STATE CODE FOR THE SEARCHBOX FUNCTIONALITY */
     //Pan To function declaration takes a latitude and a longitude
     const panTo = React.useCallback(({ lat, lng }) => {
         mapRef.current.panTo({ lat, lng })
-        mapRef.current.setZoom(14)
+        mapRef.current.setZoom(11)
+
     }, [])
     //setting state for autocomplete instance
     const [autocomplete, setAutocomplete] = useState(null)
@@ -138,11 +132,13 @@ function CatchMap() {
     const onPlaceChanged = () => {
         if (autocomplete !== null) {
 
-            let lat = autocomplete.getPlace().geometry.location.lat()
-            let lng = autocomplete.getPlace().geometry.location.lng()
-            console.log('lat and long', lat, lng)
-            let LatLng = { lat: lat, lng: lng }
+            let panLat = autocomplete.getPlace().geometry.location.lat()
+            let panLng = autocomplete.getPlace().geometry.location.lng()
+            console.log('lat and long', panLat, panLng)
+            let LatLng = { lat: panLat, lng: panLng }
+            setMapCenter(LatLng)
             panTo(LatLng)
+
 
 
 
@@ -151,6 +147,16 @@ function CatchMap() {
             console.log('Autocomplete is not loaded yet')
         }
     }
+
+    const [newCatchLat, setNewCatchLat] = useState(34.48686532)
+    const [newCatchLng, setNewCatchLng] = useState(-82.8805130)
+
+
+
+
+
+
+
 
     return isLoaded ? (
         <div class="MapPage">
@@ -170,14 +176,32 @@ function CatchMap() {
                 }}>
                     Add Catch
                 </button>
+                <button onClick={() => {
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => {
+                            panTo({
+                                lat: position.coords.latitude,
+                                lng: position.coords.longitude,
+                            });
+                            setMapCenter({
+                                lat: position.coords.latitude,
+                                lng: position.coords.longitude
+                            })
+                        },
+                        () => null
+                    );
+                }}
+                >
+                    Find Home
+                </button>
             </div>
             <br />
             <div id="MapBox">
                 <GoogleMap
                     mapContainerStyle={containerStyle}
-                    center={center}
+                    center={mapCenter}
                     zoom={11}
-                    options={options}
+                    // options={options}
                     onLoad={onMapLoad}
                     onUnmount={onUnmount}
                     onClick={() => {
@@ -243,16 +267,20 @@ function CatchMap() {
                     {newFishMarker &&
                         <Marker
                             key={markerCount}
-                            position={center}
+                            position={mapCenter}
                             icon={newcatch}
                             draggable={true}
                             onDragEnd={(event) => {
                                 console.log("The Marker Has Moved")
-                                console.log(event.latLng)
-
+                                console.log(event.latLng.lat())
+                                console.log(event.latLng.lng())
+                                setNewCatchLat(event.latLng.lat())
+                                setNewCatchLng(event.latLng.lng())
+                                // newCatchLat and newCatchLng have both been updated, but don't reflect changes until double click
                             }}
                             onDblClick={(event) => {
                                 console.log("We can have the user use the double click property to set his icon and bring up the fish data form")
+                                console.log("My catch coord states have been set to  " + newCatchLat + " and " + newCatchLng)
                             }}
                         />}
                     <></>
@@ -280,3 +308,20 @@ export default CatchMap
 //         console.log(userLat, userLong);
 //     })
 // }, []);
+
+
+{/* <div>
+<img id="house" src={homeheart} alt="Geolocate"
+    onClick={() => {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                props.panTo({
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                });
+            },
+            () => null
+        );
+    }}
+/>
+</div> */}
