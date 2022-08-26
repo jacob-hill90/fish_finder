@@ -1,6 +1,9 @@
+/* Main CSS */
+
 body {
   margin: 0;
-  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+  font-weight: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -11,15 +14,9 @@ code {
 }
 
 #root {
-  background-color: #FFFDE7; 
+  background-color:#eaf1f1; 
 }
 
-
-#heading {
-  font-family: Salsa;
-  font-size: calc(1.525rem + 3.3vw);
-  color: #FFFF00;
-}
 
 .fish-image-card {
   height: 100%;
@@ -32,12 +29,13 @@ code {
 }
 
 .global-links {
-  color: #F9A825;
+  color: #3b4257
   
 }
 
 .global-links:hover {
-  color: #F57F17;
+  text-decoration: underline;
+  color: rgba(0,0,0,.9);
   
 }
 
@@ -51,37 +49,6 @@ code {
   z-index: 1001 !important;
 }
 
-.password-header {
-  z-index: 1010 !important;
-}
-
-.password-footer {
-  z-index: 1010 !important;
-}
-
-/* FormDemo.css */
-
-.form-demo .card {
-  min-width: 450px;
-}
-.form-demo .card form {
-  margin-top: 2rem;
-}
-.form-demo .card .field {
-  margin-bottom: 1.5rem;
-}
-@media screen and (max-width: 960px) {
-  .form-demo .card {
-      width: 80%;
-  }
-}
-@media screen and (max-width: 640px) {
-  .form-demo .card {
-      width: 100%;
-      min-width: 0;
-  }
-
-}
 
 .container-fluid{
   background-color:#ECF6F6;
@@ -138,49 +105,6 @@ code {
   align-items: center;
 }
 
-.navbar-brand{
-  z-index: 1000;
-}
-
-.nav_item{
-  position: absolute;
-  left: 0px;
-}
-
-.nav_items{
-  color: #3b4257;
-
-}
-
-.global-links:hover{
-  text-decoration: underline;
-  color: rgba(0,0,0,.9);
-} 
-
-#MapTitle{
-  text-align: center;
-  margin-top: 2%;
-}
-
-#MapInstructions {
-  text-align: center;
-}
-
-#MapBox {
-  border: 8px solid #F9A825;
-  border-radius: 1%;
-  position: relative;
-  max-width: 1000px;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin:auto;
-  display: flex;
-  place-items: center;
-} 
-
-
 /* Form CSS */
 
 input.input-error,
@@ -199,6 +123,33 @@ button:disabled {
   text-align: left;
   margin-top: 0.25rem;
 }
+
+
+/* Map CSS */
+
+#MapTitle{
+  text-align: center;
+  margin-top: 2%;
+}
+
+#MapInstructions {
+  text-align: center;
+}
+
+#MapBox {
+  border: 8px solid #3b4257;
+  border-radius: 1%;
+  position: relative;
+  max-width: 1000px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin:auto;
+  display: flex;
+  place-items: center;
+} 
+
 
 /* Catch CSS */
 
@@ -221,17 +172,6 @@ button:disabled {
 
 html {
   font-size: 14px;
-}
-
-body {
-  background-color: #ffffff;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
-  font-weight: normal;
-  color: #495057;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  padding: .5em;
-  margin-bottom: 50px;
 }
 
 h1, h2, h3, h4, h5, h6 {

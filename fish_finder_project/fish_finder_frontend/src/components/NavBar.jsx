@@ -19,27 +19,27 @@ import SignUp from './SignUp';
 import axios from 'axios';
 
 
-function NavBar({ user }) {
+function NavBar({ user, temp, weatherIcon }) {
 
   const [showNavNoTogglerSecond, setShowNavNoTogglerSecond] = useState(false);
-  const [weatherIcon, setWeatherIcon] = useState(null)
-  const [temp, setTemp] = useState(null)
+  // const [weatherIcon, setWeatherIcon] = useState(null)
+  // const [temp, setTemp] = useState(null)
 
   function handleClick(event) {
     event.preventDefault()
     let tada = signOutUser()
   }
 
-  function getWeather(){
+  // function getWeather(){
 
-    axios.get(`/API/${user.zipcode}`).then((response) => {
-      console.log(response.data.weather[0])
-      setWeatherIcon(`http://openweathermap.org/img/wn/${response.data.weather[0].icon}.png`)
-      setTemp(response.data.main.temp)
-      })
-      console.log(weatherIcon)
-      console.log(temp)
-  }
+  //   axios.get(`/API/${user.zipcode}`).then((response) => {
+  //     // console.log(response.data.weather[0])
+  //     setWeatherIcon(`http://openweathermap.org/img/wn/${response.data.weather[0].icon}.png`)
+  //     setTemp(response.data.main.temp)
+  //     })
+  //     // console.log(weatherIcon)
+  //     // console.log(temp)
+  // }
 
   return (
     <>
@@ -72,7 +72,7 @@ function NavBar({ user }) {
             </MDBNavbarNav>
             <MDBNavbarNav className="flex-row justify-content-end align-items-center flex-nowrap">
               <MDBNavbarItem className="me-4">
-                {user ? <div className='weather'>{getWeather()} <img className='weather_icon' src={weatherIcon} alt="Weather" /><h5>{Math.floor(temp)}˚</h5></div>  : null}
+                {user ? <Link to={"/user_weather"} className="global-links nav_items"><div className='weather'><img className='weather_icon' src={weatherIcon} alt="Weather" /><h5>{Math.floor(temp)}˚</h5></div></Link>  : null}
               </MDBNavbarItem>
               <MDBNavbarItem className="me-4">
                 {user ? <MDBBtn onClick={(event) => { handleClick(event) }} style={{ backgroundColor: '#62acee' }} className="text-dark" >Sign Out</MDBBtn> : null}

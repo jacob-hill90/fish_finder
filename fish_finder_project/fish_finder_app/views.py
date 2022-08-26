@@ -146,6 +146,6 @@ def weather_api(request, zipcode):
 
     responseJSON = API_response.json()
 
-    print(responseJSON)
+    # print(responseJSON)
 
     return JsonResponse(responseJSON)
