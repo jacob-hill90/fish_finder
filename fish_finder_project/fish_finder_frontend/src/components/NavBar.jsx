@@ -15,31 +15,20 @@ import {
 } from 'mdb-react-ui-kit';
 import { signOutUser } from '../api/UserAPI';
 import LoginModal from './LoginModal'
-import SignUp from './SignUp';
-import axios from 'axios';
+// import SignUp from './SignUp';
+
 
 
 function NavBar({ user, temp, weatherIcon }) {
 
   const [showNavNoTogglerSecond, setShowNavNoTogglerSecond] = useState(false);
-  // const [weatherIcon, setWeatherIcon] = useState(null)
-  // const [temp, setTemp] = useState(null)
+
 
   function handleClick(event) {
     event.preventDefault()
     let tada = signOutUser()
   }
 
-  // function getWeather(){
-
-  //   axios.get(`/API/${user.zipcode}`).then((response) => {
-  //     // console.log(response.data.weather[0])
-  //     setWeatherIcon(`http://openweathermap.org/img/wn/${response.data.weather[0].icon}.png`)
-  //     setTemp(response.data.main.temp)
-  //     })
-  //     // console.log(weatherIcon)
-  //     // console.log(temp)
-  // }
 
   return (
     <>
@@ -77,9 +66,9 @@ function NavBar({ user, temp, weatherIcon }) {
               <MDBNavbarItem className="me-4">
                 {user ? <MDBBtn onClick={(event) => { handleClick(event) }} style={{ backgroundColor: '#62acee' }} className="text-dark" >Sign Out</MDBBtn> : null}
               </MDBNavbarItem>
-              <MDBNavbarItem className="me-4">
+              {/* <MDBNavbarItem className="me-4">
                 {user ? null : <SignUp />}
-              </MDBNavbarItem>
+              </MDBNavbarItem> */}
               <MDBNavbarItem className="me-4">
                 {user ? null : <LoginModal />}
               </MDBNavbarItem>
