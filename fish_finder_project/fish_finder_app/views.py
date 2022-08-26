@@ -50,7 +50,7 @@ def fishdb_byid(request):
 # view for sign up
 @api_view(['POST'])
 def sign_up(request):
-
+    
     # pulling out user deatails and assigning the email to username for good measure
     try:
         # creating new user

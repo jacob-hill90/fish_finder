@@ -135,9 +135,9 @@ function SignUpModal() {
             <MDBModal show={basicModal} setShow={setBasicModal} tabIndex='-1'>
                 <MDBModalDialog>
                     <MDBModalContent>
-                        <div className="form-demo mt-5 mb-5">
+                        <div className="mt-5 mb-5">
                             <div className="flex justify-content-center">
-                                <div className="card">
+                                <div className="flex-column">
                                     <div className="text-center mb-5"> 
                                         <img src={logo} alt="RB" height={50} className="mb-3" />
                                         <div className="text-900 text-3xl font-medium mb-3">Please Register</div>

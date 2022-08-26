@@ -43,12 +43,20 @@ code {
 
 .modal-backdrop {
   display: none;
-  z-index: 1040 !important;
+  z-index: 1000 !important;
 }
 
 .modal-content {
   margin: 2px auto;
-  z-index: 1100 !important;
+  z-index: 1001 !important;
+}
+
+.password-header {
+  z-index: 1010 !important;
+}
+
+.password-footer {
+  z-index: 1010 !important;
 }
 
 /* FormDemo.css */
@@ -143,3 +151,22 @@ code {
   display: flex;
   place-items: center;
 } 
+
+/* Form CSS */
+
+input.input-error,
+select.input-error {
+  border-color: #fc8181;
+}
+
+
+button:disabled {
+  opacity: 0.35;
+}
+
+.error {
+  color: #fc8181;
+  font-size: 0.75rem;
+  text-align: left;
+  margin-top: 0.25rem;
+}

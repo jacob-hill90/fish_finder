@@ -15,8 +15,8 @@ import {
 } from 'mdb-react-ui-kit';
 import { signOutUser } from '../api/UserAPI';
 import LoginModal from './LoginModal'
-import SignUpModal from './SignUpModal';
-// import SignUpOffCanvas from './SignUpOffCanvas';
+import SignUp from './SignUp';
+
 
 function NavBar({ user }) {
 
@@ -58,10 +58,10 @@ function NavBar({ user }) {
             </MDBNavbarNav>
             <MDBNavbarNav className="flex-row justify-content-end align-items-center flex-nowrap">
               <MDBNavbarItem className="me-4">
-                {user ? <MDBBtn onClick={(event) => { handleClick(event) }} style={{ backgroundColor: '#FFEB3B' }} className="text-dark" >Sign Out</MDBBtn> : null}
+                {user ? <MDBBtn onClick={(event) => { handleClick(event) }} style={{ backgroundColor: '#62acee' }} className="text-dark" >Sign Out</MDBBtn> : null}
               </MDBNavbarItem>
               <MDBNavbarItem className="me-4">
-                {user ? null : <SignUpModal />}
+                {user ? null : <SignUp />}
               </MDBNavbarItem>
               <MDBNavbarItem className="me-4">
                 {user ? null : <LoginModal />}

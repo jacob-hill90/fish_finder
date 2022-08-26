@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import "primereact/resources/themes/lara-light-indigo/theme.css";  //theme
+import "primereact/resources/themes/lara-light-blue/theme.css";  //theme
 import "primereact/resources/primereact.min.css";                 //core css
 import "primeicons/primeicons.css";                                //icons
 import "primeflex/primeflex.css";
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import NavBar from './components/NavBar';
 import HomePage from './pages/HomePage';
 import Footer from './components/Footer';
