@@ -1,4 +1,4 @@
-import { useCallback, useState, useRef, useEffect, useMemo } from 'react'
+import React, { useCallback, useState, useRef, useEffect, useMemo } from 'react'
 import MapStyles from "../MapStyles"
 import fishicon from "../assets/fishicon.png"
 import hookicon from "../assets/hookicon.png"
@@ -53,7 +53,7 @@ function CatchMap() {
         id: 'google-map-script',
         // process is undefined
         // googleMapsApiKey: { process.env.REACT_APP_GOOGLE_MAPS_API },
-        googleMapsApiKey: 
+        googleMapsApiKey:
             // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
             //  R E P L A C E   T H I S   L I N E   W I T H   G O O G L E   M A P S   K E Y
             // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
