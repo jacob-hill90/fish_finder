@@ -16,15 +16,29 @@ import {
 import { signOutUser } from '../api/UserAPI';
 import LoginModal from './LoginModal'
 import SignUp from './SignUp';
+import axios from 'axios';
 
 
 function NavBar({ user }) {
 
   const [showNavNoTogglerSecond, setShowNavNoTogglerSecond] = useState(false);
+  const [weatherIcon, setWeatherIcon] = useState(null)
+  const [temp, setTemp] = useState(null)
 
   function handleClick(event) {
     event.preventDefault()
     let tada = signOutUser()
+  }
+
+  function getWeather(){
+
+    axios.get(`/API/${user.zipcode}`).then((response) => {
+      console.log(response.data.weather[0])
+      setWeatherIcon(`http://openweathermap.org/img/wn/${response.data.weather[0].icon}.png`)
+      setTemp(response.data.main.temp)
+      })
+      console.log(weatherIcon)
+      console.log(temp)
   }
 
   return (
@@ -47,7 +61,7 @@ function NavBar({ user }) {
             </MDBNavbarNav>
             <MDBNavbarNav className='flex justify-content-center align-items-center text-md-center nav_item'>
               <MDBNavbarItem className="me-4">
-                <Link to={"/user_profile"} className="global-links nav_items"><strong>user</strong></Link>
+              <Link to={"/user_profile"} className="global-links nav_items"><strong>User</strong></Link>
               </MDBNavbarItem>
               <MDBNavbarItem className="me-4">
                 <Link to={"/catch_map"} className="global-links nav_items"><strong>Catch Map</strong></Link>
@@ -57,6 +71,9 @@ function NavBar({ user }) {
               </MDBNavbarItem>
             </MDBNavbarNav>
             <MDBNavbarNav className="flex-row justify-content-end align-items-center flex-nowrap">
+              <MDBNavbarItem className="me-4">
+                {user ? <div className='weather'>{getWeather()} <img className='weather_icon' src={weatherIcon} alt="Weather" /><h5>{Math.floor(temp)}˚</h5></div>  : null}
+              </MDBNavbarItem>
               <MDBNavbarItem className="me-4">
                 {user ? <MDBBtn onClick={(event) => { handleClick(event) }} style={{ backgroundColor: '#62acee' }} className="text-dark" >Sign Out</MDBBtn> : null}
               </MDBNavbarItem>

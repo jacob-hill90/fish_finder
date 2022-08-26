@@ -12,18 +12,21 @@ class AppUser(AbstractUser):
     last_name = models.CharField(max_length=100)
     zipcode = models.PositiveIntegerField()
     state = models.CharField(max_length=2)
+    profile_picture = models.CharField(max_length=150)
     is_active = models.BooleanField(default=True)
 
 
 class CatchData(models.Model):
     date = models.DateField()
-    # location = 
     season = models.CharField(max_length=20)
     species = models.CharField(max_length=100)
     weight = models.PositiveIntegerField()
-    fishingMethod =  models.CharField(max_length=100)
+    fishing_method =  models.CharField(max_length=100)
     length = models.PositiveIntegerField()
-    photo = models.CharField(max_length=225)
+    latitude = models.PositiveBigIntegerField(null=True)
+    longitude = models.PositiveBigIntegerField(null=True)
+    catch_picture = models.CharField(max_length=225)
+    owner = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='catches')
 
 class FishDB(models.Model):
     name = models.CharField(max_length=100)

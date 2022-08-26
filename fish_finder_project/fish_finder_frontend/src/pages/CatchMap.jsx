@@ -1,7 +1,15 @@
-import { useCallback, useState, useRef, useMemo } from 'react'
+import React , { useCallback, useState, useRef, useMemo } from 'react'
 import MapStyles from "../MapStyles"
 import fishicon from "../assets/fishicon.png"
 import hookicon from "../assets/hookicon.png"
+import newcatch from "../assets/newcatch.png"
+import usePlacesAutocomplete, {
+    getGeocode,
+    getLatLng,
+} from "use-places-autocomplete"
+import { clearSuggestions } from 'use-places-autocomplete';
+
+
 
 // // import Google Maps
 import {
@@ -29,7 +37,7 @@ function CatchMap() {
         height: '600px'
     };
 
-    const center = {
+    let center = {
         lat: 34.48686532,
         lng: -82.8805130
     };
@@ -43,12 +51,13 @@ function CatchMap() {
 
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
-        
-        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-        //  R E P L A C E   T H I S   L I N E   W I T H   G O O G L E   M A P S   K E Y (line 8 of .env file)
-        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
-        libraries
+        // process is undefined
+        // googleMapsApiKey: { process.env.REACT_APP_GOOGLE_MAPS_API },
+        googleMapsApiKey:
+            // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+            //  R E P L A C E   T H I S   L I N E   W I T H   G O O G L E   M A P S   K E Y
+            // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+            libraries
     })
 
     const [map, setMap] = useState(null)
@@ -97,11 +106,71 @@ function CatchMap() {
 
     let markerCount = 4;
 
+    // const panTo = useCallback(({ lat, lng }) => {
+    //     mapRef.current.panTo({ lat, lng });
+    //     mapRef.current.setZoom(14);
+    //     let newLat = lat;
+    //     let newLng = lng
+    //     console.log("new lat-lng " + newLat + newLng)
+    //     center = { lat: newLat, lng: newLng }
+    //     console.log("Great Success!")
+    // }, []);
+
+    const [newFishMarker, setNewFishMarker] = useState(false)
+
+    /* THIS IS STATE CODE FOR THE SEARCHBOX FUNCTIONALITY */
+    //Pan To function declaration takes a latitude and a longitude
+    const panTo = React.useCallback(({lat, lng}) => {
+        mapRef.current.panTo({lat, lng})
+        mapRef.current.setZoom(14)
+    }, [])
+    //setting state for autocomplete instance
+    const[autocomplete,setAutocomplete] = useState(null)
+
+    // onLoad callback called when autocomplete has loaded.
+    const onLoad = (autocomplete) => {
+        // console.log('autocomplete', autocomplete)
+        //setting the instaance of autocomplete
+        setAutocomplete(autocomplete)
+    }
+
+    // onPlaceChanged is called when a user selects a location from the suggestions in the box dropdown.
+    const onPlaceChanged = () => {
+        if (autocomplete !== null){
+
+            let lat = autocomplete.getPlace().geometry.location.lat()
+            let lng = autocomplete.getPlace().geometry.location.lng()
+            console.log('lat and long', lat, lng)
+            let LatLng = {lat:lat,lng:lng}
+            panTo(LatLng)
+
+
+            
+        }
+        else {
+            console.log('Autocomplete is not loaded yet')
+        }
+    }
+
     return isLoaded ? (
         <div class="MapPage">
-            <h2 id="MapTitle">Welcome to the Map Page</h2>
-            <br />
-            <h3 id="MapInstructions">This is a placeholder for the instructions that will tell the user how to interact with this page.</h3>
+            <h2 id="MapTitle">See What Local Anglers Have Been Catching Near You!</h2>
+            <div id="MapInstructions">
+                <p>Find your local fishing location using the search bar below.</p>
+                <p> Then click the "Add Catch" button to add a new fish to the map.</p>
+                <p> Drag the fish icon to the location where you landed your fish.</p>
+                <p> Double click the icon to add details about the catch and save it to the map.</p>
+                <button onClick={() => {
+                    if (newFishMarker == false) {
+                        setNewFishMarker(true)
+                    }
+                    else {
+                        setNewFishMarker(false)
+                    }
+                }}>
+                    Add Catch
+                </button>
+            </div>
             <br />
             <div id="MapBox">
                 <GoogleMap
@@ -111,15 +180,44 @@ function CatchMap() {
                     options={options}
                     onLoad={onMapLoad}
                     onUnmount={onUnmount}
-                    onClick={(event) => {
-                        setMarkers(current => [...current, {
-                            lat: event.latLng.lat(),
-                            lng: event.latLng.lng()
-                        }]);
+                    onClick={() => {
                         setActiveMarker(null);
-                        markerCount += 1;
                     }}
+                // onClick={(event) => {
+                //     setMarkers(current => [...current, {
+                //         lat: event.latLng.lat(),
+                //         lng: event.latLng.lng()
+                //     }]);
+                //     setActiveMarker(null);
+                //     markerCount += 1;
+                // }}
                 >
+                    <Autocomplete
+                        onLoad={onLoad}
+                        onPlaceChanged = {onPlaceChanged}
+                        >
+                        <input
+                            type="text"
+                            placeholder="Enter your favorite fishing spot!"
+                            id='searchbox'
+                            style={{
+                            boxSizing: `border-box`,
+                            border: `1px solid transparent`,
+                            width: `240px`,
+                            height: `32px`,
+                            padding: `0 12px`,
+                            borderRadius: `3px`,
+                            boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+                            fontSize: `14px`,
+                            outline: `none`,
+                            textOverflow: `ellipses`,
+                            position: "absolute",
+                            left: "50%",
+                            marginLeft: "-120px"
+                            }}
+                            // onChange = {searchInput}
+                        />
+                    </Autocomplete>
                     {/* adding marker repositions map to default center zoom */}
                     {markers.map((marker) => (
                         <Marker
@@ -142,6 +240,21 @@ function CatchMap() {
                                 </InfoWindow>
                             ) : null}
                         </Marker>))}
+                    {newFishMarker &&
+                        <Marker
+                            key={markerCount}
+                            position={center}
+                            icon={newcatch}
+                            draggable={true}
+                            onDragEnd={(event) => {
+                                console.log("The Marker Has Moved")
+                                console.log(event.latLng)
+
+                            }}
+                            onDblClick={(event) => {
+                                console.log("We can have the user use the double click property to set his icon and bring up the fish data form")
+                            }}
+                        />}
                     <></>
                 </GoogleMap>
             </div>

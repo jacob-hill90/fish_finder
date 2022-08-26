@@ -7,9 +7,10 @@
             "season": "Spring",
             "species": "Swordfish",
             "weight": "10",
-            "fishingMethod": "bait fishing",
+            "fishing_method": "bait fishing",
             "length": "12",
-            "photo": "http://www.hatchmag.com/sites/default/files/styles/extra-large/public/field/image/553A1958.jpg"
+            "catch_picture": "/static/fishdb/bass_spotted.png",
+            "owner": 1
         }
     },
     {
@@ -20,9 +21,10 @@
             "season": "Fall",
             "species": "Tilapia",
             "weight": "20",
-            "fishingMethod": "fly-fishing",
+            "fishing_method": "fly-fishing",
             "length": "24",
-            "photo": "http://www.hatchmag.com/sites/default/files/styles/extra-large/public/field/image/553A1958.jpg"
+            "catch_picture": "/static/fishdb/bass_spotted.png",
+            "owner": 1
         }
     },
     {
@@ -33,9 +35,10 @@
             "season": "Spring",
             "species": "Salmon",
             "weight": "13",
-            "fishingMethod": "bait casting",
+            "fishing_method": "bait casting",
             "length": "34",
-            "photo": "http://www.hatchmag.com/sites/default/files/styles/extra-large/public/field/image/553A1958.jpg"
+            "catch_picture": "/static/fishdb/bass_spotted.png",
+            "owner": 1
         }
     },
     {
@@ -46,9 +49,10 @@
             "season": "Fall",
             "species": "Catfish",
             "weight": "24",
-            "fishingMethod": "spinning",
+            "fishing_method": "spinning",
             "length": "15",
-            "photo": "http://www.hatchmag.com/sites/default/files/styles/extra-large/public/field/image/553A1958.jpg"
+            "catch_picture": "/static/fishdb/bass_spotted.png",
+            "owner": 1
         }
     },
     {
@@ -59,9 +63,10 @@
             "season": "Summer",
             "species": "Carp",
             "weight": "14",
-            "fishingMethod": "trolling",
+            "fishing_method": "trolling",
             "length": "24",
-            "photo": "http://www.hatchmag.com/sites/default/files/styles/extra-large/public/field/image/553A1958.jpg"
+            "catch_picture": "/static/fishdb/bass_spotted.png",
+            "owner": 1
         }
     },
     {
@@ -72,9 +77,10 @@
             "season": "Seummer",
             "species": "oarfish",
             "weight": "42",
-            "fishingMethod": "bait",
+            "fishing_method": "bait",
             "length": "32",
-            "photo": "http://www.hatchmag.com/sites/default/files/styles/extra-large/public/field/image/553A1958.jpg"
+            "catch_picture": "/static/fishdb/bass_spotted.png",
+            "owner": 1
         }
     },
     {
@@ -85,9 +91,10 @@
             "season": "Spring",
             "species": "goldfish",
             "weight": "32",
-            "fishingMethod": "spooning",
+            "fishing_method": "spooning",
             "length": "10",
-            "photo": "http://www.hatchmag.com/sites/default/files/styles/extra-large/public/field/image/553A1958.jpg"
+            "catch_picture": "/static/fishdb/bass_spotted.png",
+            "owner": 1
         }
     }
 ]
