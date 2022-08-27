@@ -15,7 +15,6 @@ import {
 } from 'mdb-react-ui-kit';
 import { signOutUser } from '../api/UserAPI';
 import LoginModal from './LoginModal'
-// import SignUp from './SignUp';
 
 
 
@@ -53,7 +52,7 @@ function NavBar({ user, temp, weatherIcon }) {
               <Link to={"/user_profile"} className="global-links nav_items"><strong>User</strong></Link>
               </MDBNavbarItem>
               <MDBNavbarItem className="me-4">
-                <Link to={"/catch_map"} className="global-links nav_items"><strong>Catch Map</strong></Link>
+                {user ? <Link to={"/catch_map"} className="global-links nav_items"><strong>Catch Map</strong></Link> : null }
               </MDBNavbarItem>
               <MDBNavbarItem className="me-4">
                 <Link to={"/fish_DB"} className="global-links nav_items"><strong>Game Fish Database</strong></Link>
@@ -66,9 +65,9 @@ function NavBar({ user, temp, weatherIcon }) {
               <MDBNavbarItem className="me-4">
                 {user ? <MDBBtn onClick={(event) => { handleClick(event) }} style={{ backgroundColor: '#62acee' }} className="text-dark" >Sign Out</MDBBtn> : null}
               </MDBNavbarItem>
-              {/* <MDBNavbarItem className="me-4">
-                {user ? null : <SignUp />}
-              </MDBNavbarItem> */}
+              <MDBNavbarItem className="me-4">
+                {user ? null : <Link to={"/signup"} className="global-links nav_items" ><MDBBtn style={{ backgroundColor: '#62acee' }} className="text-dark" >Sign Up</MDBBtn></Link>}
+              </MDBNavbarItem>
               <MDBNavbarItem className="me-4">
                 {user ? null : <LoginModal />}
               </MDBNavbarItem>

@@ -66,8 +66,8 @@ def sign_up(request):
 
     # error handling
     except Exception as e:
-        print('Signup Error!')
-        print(str(e))
+        return JsonResponse({'data': "server error -user already exists !"})
+
     # since the user just signed up successfully I am logging them in so they are logged in when
     user = authenticate(username=json.loads(request.body)[
                         'username'], password=json.loads(request.body)['password'])
@@ -81,8 +81,7 @@ def sign_up(request):
 def log_in(request):
 
     # grabbing the values and then the user
-    user = authenticate(username=json.loads(request.body)[
-                        'username'], password=json.loads(request.body)['password'])
+    user = authenticate(username=json.loads(request.body)['username1'], password=json.loads(request.body)['password'])
 
     # logging them in if they exist and are active user
     if user is not None:
@@ -90,8 +89,8 @@ def log_in(request):
             try:
                 login(request, user)
             except Exception as e:
-                print('Login Error!')
-                print(str(e))
+                return JsonResponse({'data': str(e)})
+
     # friendly messages depending on outcome to be displayed to user in an alert
             return JsonResponse({'data': 'Successfully logged in!'})
         else:
@@ -105,6 +104,14 @@ def log_in(request):
 def sign_out(request):
     logout(request)
     return JsonResponse({'data': 'User logged out!'})
+
+# view to validate username uniqueness
+@api_view(['POST'])
+def username_validate(request):
+    print(json.loads(request.body)['username'])
+    if AppUser.objects.filter(username=json.loads(request.body)['username']).exists():
+        return JsonResponse({'data': 'Username already taken'})
+    return JsonResponse({'data': 'Username available'})
 
 
 @api_view(['GET'])

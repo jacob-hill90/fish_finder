@@ -13,6 +13,7 @@ urlpatterns = [
     path('sign_up', views.sign_up),
     path('log_in', views.log_in),
     path('sign_out', views.sign_out),
+    path('username_validate', views.username_validate),
     path('whoami', views.who_am_i),
     path('catch', views.catch),
     path('fishdb', views.fish_db),

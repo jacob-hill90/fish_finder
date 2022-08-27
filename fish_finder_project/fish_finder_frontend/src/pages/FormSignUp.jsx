@@ -3,12 +3,16 @@ import { useFormik } from 'formik';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
-import { Calendar } from 'primereact/calendar';
 import { Password } from 'primereact/password';
 import { Checkbox } from 'primereact/checkbox';
 import { Divider } from 'primereact/divider';
 import { classNames } from 'primereact/utils';
 import { MDBContainer } from 'mdb-react-ui-kit';
+import logo from '../assets/ff.png'
+import { signupSchema } from '../schemas';
+import { signUpUser } from '../api/UserAPI';
+import {swals, swalse} from '../components/Swal';
+
 
 
 const stateSelectItems = [
@@ -75,52 +79,51 @@ const stateSelectItems = [
 function FormSignUp(){
 
     const [formData, setFormData] = useState({});
-    
+    const [submit, setSubmit] = useState(false);
+
 
     const formik = useFormik({
         initialValues: {
-            name: '',
+            first_name: '',
+            last_name: '',
+            username: '',
+            zipcode: '',
+            state: 'null',
             email: '',
             password: '',
-            date: null,
-            country: null,
+            confirmPassword: '',
             accept: false
         },
-        validate: (data) => {
-            let errors = {};
-
-            if (!data.name) {
-                errors.name = 'Name is required.';
-            }
-
-            if (!data.email) {
-                errors.email = 'Email is required.';
-            }
-            else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(data.email)) {
-                errors.email = 'Invalid email address. E.g. example@email.com';
-            }
-
-            if (!data.password) {
-                errors.password = 'Password is required.';
-            }
-
-            if (!data.accept) {
-                errors.accept = 'You need to agree to the terms and conditions.';
-            }
-
-            return errors;
-        },
+        validationSchema: signupSchema,
         onSubmit: (data) => {
             setFormData(data);
-            setShowMessage(true);
-
-            formik.resetForm();
+            setSubmit(true)
         }
     });
 
+    useEffect( () => {
+        if (submit != false){
+
+            let response = signUpUser(formData)
+            .then((response) => {
+                if (response.data.data === "server error -user already exists !" ) {
+                    swalse(response).then( () => {
+                        formik.resetForm();
+                        window.location.href = "/" })
+                } else {
+                    swals(response).then( () => {
+                        formik.resetForm();
+                        window.location.href = "/" })
+                }
+                    
+                
+            });
+        } 
+    }, [submit])
+
     const isFormFieldValid = (name) => !!(formik.touched[name] && formik.errors[name]);
     const getFormErrorMessage = (name) => {
-        return isFormFieldValid(name) && <small className="p-error">{formik.errors[name]}</small>;
+        return isFormFieldValid(name) && <small className="error">{formik.errors[name]}</small>;
     };
 
 
@@ -144,51 +147,80 @@ function FormSignUp(){
                 <div className="p-4 w-50">
                     <div className="flex-column">
                         <div className="text-center mb-5"> 
-                            <img src={logo} alt="RB" height={50} className="mb-3" />
+                            <img src={logo} alt="RB" height={100} className="mb-3" />
                             <div className="text-900 text-3xl font-medium mb-3">Please Register</div>
                         </div>
                         <form onSubmit={formik.handleSubmit} className="p-fluid">
-                            <div className="field">
+                            <div className="field pb-3">
                                 <span className="p-float-label">
-                                    <InputText id="name" name="name" value={formik.values.name} onChange={formik.handleChange} autoFocus className={classNames({ 'p-invalid': isFormFieldValid('name') })} />
-                                    <label htmlFor="name" className={classNames({ 'p-error': isFormFieldValid('name') })}>Name*</label>
+                                    <InputText id="first_name" name="first_name" value={formik.values.first_name} onChange={formik.handleChange} onBlur={formik.handleBlur}  className={classNames({ 'input-error': isFormFieldValid('first_name') })} />
+                                    <label htmlFor="first_name" className={classNames({ 'input-error': isFormFieldValid('first_name') })}>First Name*</label>
                                 </span>
-                                {getFormErrorMessage('name')}
+                                {getFormErrorMessage('first_name')}
                             </div>
-                            <div className="field">
-                                <span className="p-float-label p-input-icon-right">
-                                    <i className="pi pi-envelope" />
-                                    <InputText id="email" name="email" value={formik.values.email} onChange={formik.handleChange} className={classNames({ 'p-invalid': isFormFieldValid('email') })} />
-                                    <label htmlFor="email" className={classNames({ 'p-error': isFormFieldValid('email') })}>Email*</label>
-                                </span>
-                                {getFormErrorMessage('email')}
-                            </div>
-                            <div className="field">
+                            <div className="field pb-3">
                                 <span className="p-float-label">
-                                    <Password id="password" name="password" value={formik.values.password} onChange={formik.handleChange} toggleMask
-                                        className={classNames({ 'p-invalid': isFormFieldValid('password') })} header={passwordHeader} footer={passwordFooter} />
-                                    <label htmlFor="password" className={classNames({ 'p-error': isFormFieldValid('password') })}>Password*</label>
+                                    <InputText id="last_name" name="last_name" value={formik.values.last_name} onChange={formik.handleChange} onBlur={formik.handleBlur} className={classNames({ 'input-error': isFormFieldValid('last_name') })} />
+                                    <label htmlFor="last_name" className={classNames({ 'input-error': isFormFieldValid('last_name') })}>Last Name*</label>
                                 </span>
-                                {getFormErrorMessage('password')}
+                                {getFormErrorMessage('last_name')}
                             </div>
-                            <div className="field">
+                            <div className="field pb-3">
                                 <span className="p-float-label">
-                                    <Calendar id="date" name="date" value={formik.values.date} onChange={formik.handleChange} dateFormat="dd/mm/yy" mask="99/99/9999" showIcon />
-                                    <label htmlFor="date">Birthday</label>
+                                    <InputText id="username" name="username" value={formik.values.username} onChange={formik.handleChange} onBlur={formik.handleBlur} className={classNames({ 'input-error': isFormFieldValid('username') })} />
+                                    <label htmlFor="username" className={classNames({ 'input-error': isFormFieldValid('username') })}>Username*</label>
                                 </span>
+                                {getFormErrorMessage('username')}
                             </div>
-                            <div className="field">
+                            <div className="field pb-3">
+                                <span className="p-float-label">
+                                    <InputText id="zipcode" name="zipcode" value={formik.values.zipcode} onChange={formik.handleChange} onBlur={formik.handleBlur} className={classNames({ 'input-error': isFormFieldValid('zipcode') })} />
+                                    <label htmlFor="zipcode" className={classNames({ 'input-error': isFormFieldValid('zipcode') })}>Zipcode*</label>
+                                </span>
+                                {getFormErrorMessage('zipcode')}
+                            </div>
+                            <div className="field pb-3">
+                                <span className="p-float-label">
+                                    <Dropdown id="state" name="state" value={formik.values.state} onChange={formik.handleChange} onBlur={formik.handleBlur} options={stateSelectItems} optionLabel="label" className={classNames({ 'p-invalid': isFormFieldValid('state') })} />
+                                    <label htmlFor="state" className={classNames({ 'input-error': isFormFieldValid('state') })}>State or US Territory*</label>
+                                </span>
+                                {getFormErrorMessage('state')}
+                            </div>
+                            {/* <div className="field">
                                 <span className="p-float-label">
                                     <Dropdown id="country" name="country" value={formik.values.country} onChange={formik.handleChange} options={stateSelectItems} optionLabel="label" />
                                     <label htmlFor="country">Country</label>
                                 </span>
+                            </div> */}
+                            <div className="field pb-3">
+                                <span className="p-float-label p-input-icon-right">
+                                    <i className="pi pi-envelope" />
+                                    <InputText id="email" name="email" value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur} className={classNames({ 'input-error': isFormFieldValid('email') })} />
+                                    <label htmlFor="email" className={classNames({ 'input-error': isFormFieldValid('email') })}>Email*</label>
+                                </span>
+                                {getFormErrorMessage('email')}
                             </div>
-                            <div className="field-checkbox">
-                                <Checkbox inputId="accept" name="accept" checked={formik.values.accept} onChange={formik.handleChange} className={classNames({ 'p-invalid': isFormFieldValid('accept') })} />
+                            <div className="field pb-3">
+                                <span className="p-float-label">
+                                    <Password id="password" name="password" value={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur} toggleMask
+                                        className={classNames({ 'p-invalid': isFormFieldValid('password') })} header={passwordHeader} footer={passwordFooter} />
+                                    <label htmlFor="password" className={classNames({ 'input-error': isFormFieldValid('password') })}>Password*</label>
+                                </span>
+                                {getFormErrorMessage('password')}
+                            </div>
+                            <div className="field pb-3">
+                                <span className="p-float-label">
+                                    <Password id="confirmPassword" name="confirmPassword" value={formik.values.confirmPassword} onChange={formik.handleChange} onBlur={formik.handleBlur} toggleMask
+                                        className={classNames({ 'p-invalid': isFormFieldValid('confirmPassword') })} />
+                                    <label htmlFor="confirmPassword" className={classNames({ 'input-error': isFormFieldValid('confirmPassword') })}>Confirm Password*</label>
+                                </span>
+                                {getFormErrorMessage('confirmPassword')}
+                            </div>
+                            <div className="field-checkbox pb-2">
+                                <Checkbox inputId="accept" name="accept" checked={formik.values.accept} onChange={formik.handleChange} onBlur={formik.handleBlur} className={classNames({ 'p-invalid': isFormFieldValid('accept') })} />
                                 <label htmlFor="accept" className={classNames({ 'p-error': isFormFieldValid('accept') })}>I agree to the terms and conditions*</label>
                             </div>
-
-                            <Button type="submit" label="Submit" className="mt-2" />
+                            <Button type="submit" label="Submit" style={{ backgroundColor: '#62acee' }} className="text-dark mt-2" />
                         </form>
                     </div>
                 </div>

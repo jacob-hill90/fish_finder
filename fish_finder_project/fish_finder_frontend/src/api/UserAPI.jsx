@@ -1,6 +1,6 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
-import swals from '../components/Swal';
+import {swals} from '../components/Swal';
 
 //Setting the default csrftoken
 axios.defaults.headers.common['X-CSRFToken'] = Cookies.get('csrftoken');
@@ -20,9 +20,7 @@ async function signOutUser() {
 async function logInUser(data) {
 
     let response = await axios.post('/log_in', data)
-    .then((response) => {
-        swals(response).then( () => window.location.href = "/" )
-    });
+    return response
 
 }
 

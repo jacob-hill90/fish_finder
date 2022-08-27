@@ -18,4 +18,25 @@ function swals(response){
     )
 }
 
-export default swals
+function swalse(response){
+
+    return (
+        swal({
+            title: "Fishtories Admin Says:",
+            text: response['data']['data'],
+            icon: "error",
+            button: {
+                text: "Bummer!",
+                value: true,
+                visible: true,
+                className: "",
+                closeModal: true
+            },
+        })
+    )
+}
+
+export {
+    swals,
+    swalse,
+}
