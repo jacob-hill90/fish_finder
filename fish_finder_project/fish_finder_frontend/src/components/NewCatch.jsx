@@ -14,8 +14,9 @@ import { RadioButton } from 'primereact/radiobutton';
 import ProfileHeader from './ProfileHeader';
 import UploadPic from './UploadPic';
 import { getUserCatches, updateCatch } from '../api/CatchAPI';
+import { newCatch } from '../api/CatchAPI';
 
-function Fishtory({ user }) {
+function NewCatch ({newCatchLng, newCatchLat}) {
 
     let emptyProduct = {
         date: '',
@@ -25,19 +26,19 @@ function Fishtory({ user }) {
         species: '',
         weight: '',
     };
-
+    
     const [allCatches, setallCatches] = useState([])
-    const [productDialog, setProductDialog] = useState(false);
+    const [productDialog, setProductDialog] = useState(true);
     const [deleteProductDialog, setDeleteProductDialog] = useState(false);
     const [catch_picture, setCatchPicture] = useState();
     const [product, setProduct] = useState(emptyProduct);
-
-    const helperFunction = (file) => {
-        setCatchPicture(file)
+    
+    const activateProductDialog = (change) => {
+        setProductDialog(change)
     }
-
-
+    
     useEffect(() => {
+
         let response = getUserCatches()
             .then((response) => {
                 setallCatches(response['data']['data'])
@@ -66,8 +67,11 @@ function Fishtory({ user }) {
             'season': product.season,
             'species': product.species,
             'weight': product.weight,
-            'catch_picture': catch_picture
+            'catch_picture': catch_picture,
+            'latitude': newCatchLat.toString(),
+            'longitute': newCatchLat.toString(),
         }
+
 
 
         let config = {
@@ -77,13 +81,13 @@ function Fishtory({ user }) {
             }
         }
         
-        let response = updateCatch(data, config)
-        .then((response) => {
+        let response = newCatch(data, config)
+        // .then((response) => {
             toast.current.show({ severity: 'success', summary: 'Success', detail: `${response.data.status}`, life: 3000 });
-                setTimeout(function () {
-                    // window.location.reload();
-                }, 2000);
-        })
+        //         setTimeout(function () {
+        //             // window.location.reload();
+        //         }, 2000);
+        // })
 
     }
 
@@ -151,6 +155,7 @@ function Fishtory({ user }) {
 
     // catch image
     const imageBodyTemplate = (rowData) => {
+        console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>',rowData.catch_picture)
         let source = `/static/media/${rowData.catch_picture}`
         return <img src={source} onError={(e) => e.target.src = 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} className="product-image" width="150px" />
     }
@@ -160,37 +165,13 @@ function Fishtory({ user }) {
         _product['category'] = e.value;
         setProduct(_product);
     }
-
     return (
         <div>
             <Toast ref={toast} />
-            <ProfileHeader user={user} />
-
-            <ConfirmDialog />
-            {/* Rows/columns fields */}
-            <div className="card workout-history-table container">
-                <DataTable value={allCatches}
-                    dataKey="id" paginator rows={5} rowsPerPageOptions={[5, 10, 25]}
-                    paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} catches"
-                    header={header} responsiveLayout="scroll">
-                    <Column field="catch_picture" header="Image" body={imageBodyTemplate}></Column>
-                    <Column field="date" header="Date" sortable style={{ minWidth: '2rem' }}></Column>
-                    <Column field="fishing_method" header="Fishing Method" sortable style={{ minWidth: '2rem' }}></Column>
-                    <Column field="length" header="Length" sortable style={{ minWidth: '2rem' }}></Column>
-                    <Column field="season" header="Season" sortable style={{ minWidth: '2rem' }}></Column>
-                    <Column field="species" header="Species" sortable style={{ minWidth: '2rem' }}></Column>
-                    <Column field="weight" header="Weight" sortable style={{ minWidth: '2rem' }}></Column>
-                    {/* Edit/delete icons in the table */}
-                    <Column body={actionBodyTemplate} exportable={false} style={{ minWidth: '2rem' }} ></Column>
-                </DataTable>
-
-
-
-                {/* pop up window for editing catches individually */}
-                <Dialog visible={productDialog} style={{ width: '450px' }} header="Edit Catch" modal footer={productDialogFooter} onHide={hideDialog} >
+            {/* pop up window for editing catches individually */}
+            <Dialog visible={productDialog} style={{ width: '450px' }} header="New Catch" modal footer={productDialogFooter} onHide={hideDialog} >
                     <div className="date">
-                        <UploadPic helperFunction={helperFunction} />
+                        {/* <UploadPic /> helperFunction={helperFunction}  */}
                     </div>
                     <div className="p-fluid">
                         <div className="date">
@@ -237,18 +218,8 @@ function Fishtory({ user }) {
                         </div>
                     </div>
                 </Dialog>
-
-
-                {/* popup box for deleting just one item */}
-                <Dialog visible={deleteProductDialog} style={{ width: '450px' }} header="Delete Confirmation" modal footer={deleteProductDialogFooter} onHide={hideDeleteProductDialog}>
-                    <div className="confirmation-content">
-                        <i className="pi pi-trash mr-3" style={{ fontSize: '2rem' }} />
-                        {product && <span>Do you want to delete this entry <b></b>?</span>}
-                    </div>
-                </Dialog>
-            </div>
         </div>
     )
 }
 
-export default Fishtory
+export default NewCatch

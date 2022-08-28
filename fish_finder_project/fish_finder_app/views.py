@@ -1,3 +1,4 @@
+import string
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login, logout
@@ -8,7 +9,8 @@ import json
 from dotenv import load_dotenv
 import os
 from .models import AppUser, FishDB, CatchData
-import os
+import requests 
+import shutil
 
 load_dotenv()
 
@@ -51,7 +53,6 @@ def fishdb_byid(request):
 # view for sign up
 @api_view(['POST'])
 def sign_up(request):
-    
     # pulling out user deatails and assigning the email to username for good measure
     try:
         # creating new user
@@ -81,7 +82,8 @@ def sign_up(request):
 def log_in(request):
 
     # grabbing the values and then the user
-    user = authenticate(username=json.loads(request.body)['username1'], password=json.loads(request.body)['password'])
+    user = authenticate(username=json.loads(request.body)[
+                        'username1'], password=json.loads(request.body)['password'])
 
     # logging them in if they exist and are active user
     if user is not None:
@@ -106,9 +108,11 @@ def sign_out(request):
     return JsonResponse({'data': 'User logged out!'})
 
 # view to validate username uniqueness
+
+
 @api_view(['POST'])
 def username_validate(request):
-    print(json.loads(request.body)['username'])
+    # print(json.loads(request.body)['username'])
     if AppUser.objects.filter(username=json.loads(request.body)['username']).exists():
         return JsonResponse({'data': 'Username already taken'})
     return JsonResponse({'data': 'Username available'})
@@ -117,7 +121,7 @@ def username_validate(request):
 @api_view(['GET'])
 def who_am_i(request):
     if request.user.is_authenticated:
-        data = serializers.serialize("json", [request.user], fields=['username', 'first_name', 'last_name', 'zipcode'])
+        data = serializers.serialize("json", [request.user], fields=['id', 'email', 'username', 'first_name', 'last_name', 'zipcode', 'state', 'profile_picture'])
         return HttpResponse(data)
     else:
         return JsonResponse({'user': None})
@@ -125,20 +129,113 @@ def who_am_i(request):
 
 ######################--- USER FISHTORY REQUEST---#######################
 
+@api_view(['POST'])
+def new_catch(request):
+    user = AppUser.objects.get(id = request.user.id )
+    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>USER',user)
+    return JsonResponse({'status': 'working on it'})
 
-@api_view(['GET', 'PUT'])
+@api_view(['POST'])
+def update_catch(request):
+
+    # pulling out user deatails and assigning the email to username for good measure
+    try:
+        edited_catch = CatchData.objects.get(id=request.data['id'])
+        edited_catch.date = request.data['date']
+        edited_catch.fishing_method = request.data['fishing_method']
+        edited_catch.length = request.data['length']
+        edited_catch.season = request.data['season']
+        edited_catch.species = request.data['species']
+        edited_catch.weight = request.data['weight']
+        edited_catch.catch_picture = request.data['catch_picture']
+        edited_catch.save()
+
+    # error handling
+    except Exception as e:
+        # print(str(e))
+        return JsonResponse({'status': str(e)})
+        
+    return JsonResponse({'status': 'Catch updated succesfully'})
+
+
+@api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def catch(request):
     if request.method == 'GET':
-        catches = CatchData.objects.filter(owner_id= request.user.id).values()
+        catches = CatchData.objects.filter(owner_id=request.user.id).values()
         data = list(catches)
         return JsonResponse({'data': data})
+    if request.method == 'POST':
+        # pulling out user and assigning to variable
+        try:
+            user = AppUser.objects.all().filter(username=request.data['owner'])[0]
+
+            # creating new user
+            CatchData.objects.create(
+            owner = user,
+            date=request.data["date"],
+            fishing_method=request.data['fishingMethod'],
+            length=request.data['length'],
+            season=request.data['season'],
+            species=request.data['species'],
+            weight=request.data['weight'],
+            catch_picture=request.data['catch_picture'])
+        
+        # error handling
+        except Exception as e:
+            print(str(e))
+            return JsonResponse({'data': str(e)})
+
+        return JsonResponse({'data': 'Catch saved!'})
+
     if request.method == 'PUT':
         data = request.data
-        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>',data)
-        edited_catch = CatchData.objects.filter(owner_id= request.user.id).values().get(id =request.data['id'])
+        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>', data)
+        edited_catch = CatchData.objects.filter(
+            owner_id=request.user.id).values().get(id=request.data['id'])
         # edited_catch = CatchData(**data)
         # edited_catch.save()
+
+        # file_name = '../static/catch_picture/'
         return JsonResponse({'status': 'Catch updated succesfully'})
+    if request.method == 'DELETE':
+        delete_catch = CatchData.objects.get(id = request.data['id'])
+        # delete_catch.delete()
+        return JsonResponse({'status': 'Catch deleted succesfully'})
+
+
+######################---EDIT USER---#######################
+@api_view (['POST', 'DELETE'])
+def edit_user(request):
+    if request.method == 'POST':    
+        try:
+            user = AppUser.objects.get(id = request.user.id)
+            user.first_name = request.data['first_name']
+            user.last_name = request.data['last_name']
+            user.state = request.data['state']
+            user.zipcode = request.data['zipcode']
+            user.profile_picture = request.data['profile_picture']
+            user.save()
+            # error handling
+        except Exception as e:
+            print(str(e))
+            return JsonResponse({'status': str(e)})
+        return JsonResponse({'status': 'User details updated succesfully'})
+    if request.method == 'DELETE': 
+        try:
+            user = AppUser.objects.get(id = request.user.id)
+            # user.delete()
+        # error handling
+        except Exception as e:
+            # print(str(e))
+            return JsonResponse({'status': str(e)})
+        return JsonResponse({'status': 'Account deleted succesfully'})
+
+@api_view(['GET'])
+def get_fish_data(request):
+    fish_data = CatchData.objects.all()
+    data = serializers.serialize("json", fish_data, fields=[
+        "date", "season", "species", "weight", "fishing_method", "length", "depth", "latitude", "longitude", "catch_picture", "notes", "owner"])
+    return JsonResponse({'data': data})
 
 
 ######################---REQUEST WEATHER---#######################
@@ -152,7 +249,4 @@ def weather_api(request, zipcode):
         f'https://api.openweathermap.org/data/2.5/weather?zip={zipcode},US&apikey={apikey}&units=imperial')
 
     responseJSON = API_response.json()
-
-    # print(responseJSON)
-
     return JsonResponse(responseJSON)

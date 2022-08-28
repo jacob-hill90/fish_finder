@@ -314,6 +314,7 @@ input[type="number"]::-webkit-inner-spin-button {
 .image-text {
   vertical-align: middle;
   margin-left: .5rem;
+  
 }
 
 .p-multiselect-representative-option {
@@ -356,4 +357,192 @@ span.flag {
 
 img.flag {
   width:30px
+}
+
+/*Weather Page*/
+
+.weather-page{
+  height: 79vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.top-container{
+  position: relative;
+  width: 60vw;
+  height: 300px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0,.2);
+  margin-top: 50px;
+  border-radius: .4em;
+  font-family: 'K2D', sans-serif;
+  font-weight: bold;
+}
+
+.city-name{
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  height: 20px;
+  left: 10px;
+  font-size: larger;
+}
+
+.temp{
+  position:absolute;
+  width: 100%;
+  height: 80%;
+  line-height: 130px;
+  font-size: 42px;  
+  left: 10px;
+}
+
+.description{
+  font-size: large;
+}
+
+.sunrise{
+  position: absolute;
+  width: 100%;
+  height: 20px;
+  bottom: 10px;
+  left: 10px;
+  font-size: larger;
+  margin-bottom: 50px;
+}
+
+.sunset{
+  position: absolute;
+  width: 100%;
+  height: 20px;
+  bottom: 10px;
+  left: 210px;
+  font-size: larger;
+  margin-bottom: 50px;
+}
+
+.wind{
+  position: absolute;
+  width: 100%;
+  height: 20px;
+  bottom: 10px;
+  left: 10px;
+  margin-bottom: 120px;
+}
+
+.weather-symb{
+  position: absolute;
+  width: 40%;
+  height: 80px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.weather-icon{
+  width: 200px;
+  background-color: gray;
+  border-radius: 50%;
+}
+
+.bottom-container{
+  position: relative;
+  width: 50vw;
+  height: 140px;
+  margin: auto;
+  border-radius: .4em;
+  background-color: #abbed8;
+}
+
+.high{
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  text-align: center;
+  font-size: x-large;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.low{
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  right: 0px;
+  text-align: center;
+  font-size: x-large;
+  font-weight: bold;
+  text-decoration: underline;
+  display: flex;
+  flex-direction: column;
+}
+
+.high-text{
+  position: absolute;
+  bottom: 20px;
+  text-decoration: none;
+  font-size: 50px;
+  left: 42%;
+}
+
+.low-text{
+    position: absolute;
+    bottom: 20px;
+    text-decoration: none;
+    font-size: 50px;
+    left: 42%;
+}
+
+.divider{
+  position: absolute;
+  background-color: black;
+  opacity: 50%;
+  width: 1px;
+  height: 100%;
+  left: 50%;
+}
+
+@media screen and (max-width: 992px) {
+  .temp{
+    font-size: 18px;
+  }
+  .high-text{
+    font-size: 40px;
+  }
+  .low-text{
+    font-size: 40px;
+  }
+}
+
+#geolocate {
+  position: absolute;
+  right: 6%;
+  top: 0;
+  max-width: 60px;
+  height: auto;
+  z-index: 100;
+  cursor:pointer;
+}
+
+#infoPic{
+  max-width: 200px;
+  height: auto;
+}
+
+#infoWindow {
+  border: 3px solid #23547B;
+  text-align: center;
+  max-width: 250px;
+  height:auto;
+}
+
+#searchbox{
+  border: 2px solid black;
+  top: 1;
 }

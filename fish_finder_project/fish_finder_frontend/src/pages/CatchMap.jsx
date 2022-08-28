@@ -3,12 +3,14 @@ import MapStyles from "../MapStyles"
 import fishicon from "../assets/fishicon.png"
 import hookicon from "../assets/hookicon.png"
 import newcatch from "../assets/newcatch.png"
+import compass from "../assets/compass6.png"
 import usePlacesAutocomplete, {
     getGeocode,
     getLatLng,
 } from "use-places-autocomplete"
 import { clearSuggestions } from 'use-places-autocomplete';
-
+import axios from "axios"
+import NewCatch from '../components/NewCatch'
 
 // // import Google Maps
 import {
@@ -31,6 +33,7 @@ import {
 // require("dotenv").config({path: path.resolve(__fish_finder_project, './.env')});
 
 function CatchMap() {
+    const [dragEvent, setDragEvent] = useState(false)
     // this variable allows the search bar to populate places
     const libraries = ["places"]
     //this variable is the google maps api key:
@@ -62,12 +65,16 @@ function CatchMap() {
     // loads google map api's script
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
+
         // process is undefined
-        googleMapsApiKey: "AIzaSyCvRBwjBlzY9tMrm46tx6ksnRzGvxvUI5U",
-        // apiKey,  
-            // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-            //  R E P L A C E   T H I S   L I N E   W I T H   G O O G L E   M A P S   K E Y
-            // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        // googleMapsApiKey: { process.env.REACT_APP_GOOGLE_MAPS_API },
+        // apiKey,
+
+        googleMapsApiKey:
+        
+        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        //  R E P L A C E   T H I S   L I N E   W I T H   G O O G L E   M A P S   K E Y
+        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
         libraries
     })
 
@@ -144,8 +151,10 @@ function CatchMap() {
             let panLng = autocomplete.getPlace().geometry.location.lng()
             console.log('lat and long', panLat, panLng)
             let LatLng = { lat: panLat, lng: panLng }
-            setMapCenter(LatLng)
-            panTo(LatLng)
+            setMapCenter(LatLng);
+            panTo(LatLng);
+            setAutocomplete(null);
+
 
 
 
@@ -159,18 +168,43 @@ function CatchMap() {
     const [newCatchLat, setNewCatchLat] = useState(34.48686532)
     const [newCatchLng, setNewCatchLng] = useState(-82.8805130)
 
+    // console.log(fishData)
+    const [allFishData, setAllFishData] = useState([])
+
+    useEffect(() => {
+        axios.get('fish_data')
+            .then((response) => {
+                console.log("we are now in the frontend")
+                let data = response['data']['data']
+                let convertedData = JSON.parse(data)
+                console.log(convertedData)
+                console.log("did parse work?")
+                // gives me the primary key
+                console.log(convertedData[0].pk)
+                // gives me the feild variables
+                console.log(convertedData[0].fields.fishing_method)
+                setAllFishData(convertedData)
+            })
+    }, [])
+
+
+    function convertCoords(coord) {
 
 
 
+    }
+    // let fishKey = 1;
 
-
-
+    // console.log(allFishData)
+    // let newdata = JSON.parse(allFishData)
+    // console.log(newdata)
+    // console.log(typeof (newdata))
 
     return isLoaded ? (
         <div class="MapPage">
             <h2 id="MapTitle">See What Local Anglers Have Been Catching Near You!</h2>
             <div id="MapInstructions">
-                <p>Find your local fishing location using the search bar below.</p>
+                <p>Find your local fishing location using the search bar below or click the compass icon to find your location by your device.</p>
                 <p> Then click the "Add Catch" button to add a new fish to the map.</p>
                 <p> Drag the fish icon to the location where you landed your fish.</p>
                 <p> Double click the icon to add details about the catch and save it to the map.</p>
@@ -184,27 +218,34 @@ function CatchMap() {
                 }}>
                     Add Catch
                 </button>
-                <button onClick={() => {
-                    navigator.geolocation.getCurrentPosition(
-                        (position) => {
-                            panTo({
-                                lat: position.coords.latitude,
-                                lng: position.coords.longitude,
-                            });
-                            setMapCenter({
-                                lat: position.coords.latitude,
-                                lng: position.coords.longitude
-                            })
-                        },
-                        () => null
-                    );
-                }}
-                >
-                    Find Home
-                </button>
             </div>
             <br />
             <div id="MapBox">
+                <img src={compass} id="geolocate"
+                    onClick={() => {
+                        alert("Ensure Location Services Are Allowed in Browser")
+                        // try {
+                        navigator.geolocation.getCurrentPosition(
+                            (position) => {
+                                console.log(position)
+                                panTo({
+                                    lat: position.coords.latitude,
+                                    lng: position.coords.longitude,
+                                });
+                                setMapCenter({
+                                    lat: position.coords.latitude,
+                                    lng: position.coords.longitude
+                                })
+                            },
+                            () => null
+                        );
+                        // }
+                        // catch {
+                        //     console.log("this didnt work")
+                        //     alert("You must enable location services in your browser to use this function")
+                        // }
+                    }}
+                />
                 <GoogleMap
                     mapContainerStyle={containerStyle}
                     center={mapCenter}
@@ -234,7 +275,7 @@ function CatchMap() {
                             id='searchbox'
                             style={{
                                 boxSizing: `border-box`,
-                                border: `1px solid transparent`,
+                                border: `1px solid black`,
                                 width: `240px`,
                                 height: `32px`,
                                 padding: `0 12px`,
@@ -244,34 +285,51 @@ function CatchMap() {
                                 outline: `none`,
                                 textOverflow: `ellipses`,
                                 position: "absolute",
+                                // display: "flex",
                                 left: "50%",
-                                marginLeft: "-120px"
+                                marginLeft: "-120px",
+                                top: "10px"
                             }}
+                        // clearSuggestions={clearSuggestions()}
                         // onChange = {searchInput}
                         />
                     </Autocomplete>
-                    {/* adding marker repositions map to default center zoom */}
-                    {markers.map((marker) => (
+                    {/* {markers.map((marker) => (
                         <Marker
                             key={markerCount}
                             icon={hookicon}
                             position={{ lat: marker.lat, lng: marker.lng }}
                             draggable={true}
                         />
-                    ))}
-                    {testMarkers.map(({ id, name, position }) => (
+                    ))} */}
+                    {allFishData.map(({ pk, fields }) => (
                         <Marker
-                            key={id}
-                            position={position}
+                            key={pk}
+                            position={{
+                                lat: parseFloat(fields.latitude),
+                                lng: parseFloat(fields.longitude),
+                            }}
                             icon={fishicon}
-                            onClick={() => handleActiveMarker(id)}
+                            onClick={() => handleActiveMarker(pk)}
                         >
-                            {activeMarker === id ? (
+                            {activeMarker == pk ? (
                                 <InfoWindow onCloseClick={() => setActiveMarker(null)}>
-                                    <div>{name}</div>
+                                    <div id="infoWindow">
+                                        <b><div>Species: {fields.species}</div></b>
+                                        <b><div>Date: {fields.date}</div></b>
+                                        <b><div>Method: {fields.fishing_method}</div></b>
+                                        <b><div>Depth: {fields.depth} ft.</div></b>
+                                        <b><div>Weight: {fields.weight} lbs.</div></b>
+                                        <b><div>Length: {fields.length} in.</div></b>
+                                        <b><div>Field Notes:</div></b>
+                                        <b><div>{fields.notes}</div></b>
+                                        <img id="infoPic" src={fields.catch_picture} />
+                                    </div>
                                 </InfoWindow>
                             ) : null}
-                        </Marker>))}
+                        </Marker>))
+                    }
+                    {/* new fish marker logic */}
                     {newFishMarker &&
                         <Marker
                             key={markerCount}
@@ -279,6 +337,9 @@ function CatchMap() {
                             icon={newcatch}
                             draggable={true}
                             onDragEnd={(event) => {
+
+                                setDragEvent(true)
+
                                 console.log("The Marker Has Moved")
                                 console.log(event.latLng.lat())
                                 console.log(event.latLng.lng())
@@ -290,10 +351,13 @@ function CatchMap() {
                                 console.log("We can have the user use the double click property to set his icon and bring up the fish data form")
                                 console.log("My catch coord states have been set to  " + newCatchLat + " and " + newCatchLng)
                             }}
-                        />}
+                            />}
                     <></>
                 </GoogleMap>
             </div>
+                            {
+                                dragEvent ? <NewCatch newCatchLat={newCatchLat} newCatchLng={newCatchLng} /> : null
+                            }
         </div >
     ) : <></>
 
@@ -333,3 +397,30 @@ export default CatchMap
     }}
 />
 </div> */}
+
+
+
+
+// {allFishData.map(({ pk, fields }) => (
+//     <Marker
+//         key={pk}
+//         position={{
+//             lat: parseFloat(fields.latitude),
+//             lng: parseFloat(fields.longitude),
+//         }}
+//         icon={fishicon}
+//         onClick={() => handleActiveMarker(pk)}
+//     >
+//         {activeMarker == pk ? (
+//             <InfoWindow onCloseClick={() => setActiveMarker(null)}>
+//                 <div>Species: {fields.species}</div>
+//                 <div>Date: {fields.date}</div>
+//                 <div>Method: {fields.fishing_method}</div>
+//                 <div>Depth: {fields.depth}</div>
+//                 <div>Weight: {fields.weight}</div>
+//                 <div>Length: {fields.length}</div>
+//                 <div>Field Notes: {fields.notes}</div>
+//             </InfoWindow>
+//         ) : null}
+//     </Marker>))
+// }

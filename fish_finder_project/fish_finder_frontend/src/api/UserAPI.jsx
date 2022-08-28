@@ -31,9 +31,15 @@ async function whoAmI() {
     return user
 }
 
+async function updateUser(data, config) {
+    let response = await axios.post('/edit_user', data, config)
+    return response
+}
+
 export {
     signUpUser, 
     signOutUser,
     logInUser,
-    whoAmI
+    whoAmI,
+    updateUser
 }
