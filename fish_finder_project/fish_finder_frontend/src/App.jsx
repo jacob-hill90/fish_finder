@@ -52,7 +52,7 @@ function App() {
           <Route exact path="/" element={<HomePage />} />
           <Route path="/signup" element={<FormSignUp />} />
           <Route path="/user_profile" element={<ProfilePage />} />
-          <Route path="/user_weather" element={<WeatherPage fullWeather={fullWeather}/>} />
+          <Route path="/user_weather" element={<WeatherPage fullWeather={fullWeather} user={user}/>} />
           <Route path="/catch_map" element={<CatchMap />} />
           <Route path="/fish_DB" element={<FishDB />} />
           <Route path="/fish_detail/:fishID" element={<FishDBDetail />} />

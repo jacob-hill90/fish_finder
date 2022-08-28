@@ -117,13 +117,42 @@ def username_validate(request):
 @api_view(['GET'])
 def who_am_i(request):
     if request.user.is_authenticated:
-        data = serializers.serialize("json", [request.user], fields=['username', 'first_name', 'last_name', 'zipcode'])
+        print(request.user.id)
+        data = serializers.serialize("json", [request.user], fields=['id', 'email', 'username', 'first_name', 'last_name', 'zipcode', 'state', 'profile_picture'])
         return HttpResponse(data)
     else:
         return JsonResponse({'user': None})
 
 
 ######################--- USER FISHTORY REQUEST---#######################
+
+@api_view(['POST'])
+def add_catch(request):
+    # pulling out user deatails and assigning the email to username for good measure
+    try:
+        user = AppUser.objects.all().filter(username=request.data['owner'])[0]
+
+        # creating new user
+        CatchData.objects.create(
+        owner = user,
+        date=request.data["date"],
+        fishing_method=request.data['fishingMethod'],
+        length=request.data['length'],
+        season=request.data['season'],
+        species=request.data['species'],
+        weight=request.data['weight'],
+        catch_picture=request.data['catch_picture'])
+
+
+    # error handling
+    except Exception as e:
+        print(str(e))
+        return JsonResponse({'data': str(e)})
+
+    return JsonResponse({'data': 'Catch saved!'})
+
+
+
 
 
 @api_view(['GET', 'PUT'])
