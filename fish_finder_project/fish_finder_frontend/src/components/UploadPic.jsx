@@ -12,14 +12,14 @@ import { Tooltip } from 'primereact/tooltip';
 import { Tag } from 'primereact/tag';
 
 
-function UploadPic({helperFunction}) {
+function UploadPic({ helperFunction }) {
     const [totalSize, setTotalSize] = useState(0);
     const toast = useRef(null);
-    const fileUploadRef = useRef(null);  
+    const fileUploadRef = useRef(null);
 
     const onTemplateSelect = (e) => {
         let _totalSize = totalSize;
-        
+
         _totalSize += e.files[0]['size'];
         setTotalSize(_totalSize);
     }
@@ -34,7 +34,7 @@ function UploadPic({helperFunction}) {
     }
 
     const headerTemplate = (options) => {
-        const { className, chooseButton,  cancelButton } = options;
+        const { className, chooseButton, cancelButton } = options;
         const value = totalSize / 100000;
         const formatedValue = fileUploadRef && fileUploadRef.current ? fileUploadRef.current.formatSize(totalSize) : '0 B';
 
@@ -50,16 +50,21 @@ function UploadPic({helperFunction}) {
     const itemTemplate = (file, props) => {
         helperFunction(file)
         return (
-            <div className="flex align-items-center ">
-                <div className="flex align-items-center" style={{ width: '40%' }}>
-                    <img alt={file.name} role="presentation" src={file.objectURL} width={100} />
-                    <span className="flex flex-column text-left ml-3">
+            <div>
+                <div className="flex justify-content-center ">
+                    <div className="flex justify-content-center " style={{ width: '40%' }}>
+                        <img alt={file.name} role="presentation" src={file.objectURL} width={100} className="mr-6" />
+                    </div>
+                    <div>
+                        <Button type="button" icon="pi pi-times" className="p-button-outlined p-button-rounded p-button-danger ml-auto" onClick={() => onTemplateRemove(file, props.onRemove)} />
+                    </div>
+                </div>
+                <div className="text-center mt-3" >
+                    <span >
                         {file.name}
-                        <small>{new Date().toLocaleDateString()}</small>
+                        {/* <small>{new Date().toLocaleDateString()}</small> */}
                     </span>
                 </div>
-                <Tag value={props.formatSize} severity="warning" className="px-3 py-2" />
-                <Button type="button" icon="pi pi-times" className="p-button-outlined p-button-rounded p-button-danger ml-auto" onClick={() => onTemplateRemove(file, props.onRemove)} />
             </div>
         )
     }
@@ -86,12 +91,11 @@ function UploadPic({helperFunction}) {
 
             <div className="container">
                 {
-
-                    <FileUpload ref={fileUploadRef} name="demo[]"  accept="image/*" maxFileSize={100000000} 
-                    onSelect={onTemplateSelect} onError={onTemplateClear} onClear={onTemplateClear}
-                    headerTemplate={headerTemplate} itemTemplate={itemTemplate} emptyTemplate={emptyTemplate}
-                    chooseOptions={chooseOptions}  
-                    cancelOptions={cancelOptions} 
+                    <FileUpload ref={fileUploadRef} name="demo[]" accept="image/*" maxFileSize={100000000}
+                        onSelect={onTemplateSelect} onError={onTemplateClear} onClear={onTemplateClear}
+                        headerTemplate={headerTemplate} itemTemplate={itemTemplate} emptyTemplate={emptyTemplate}
+                        chooseOptions={chooseOptions}
+                        cancelOptions={cancelOptions}
                     />
                 }
             </div>

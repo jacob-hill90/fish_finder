@@ -11,7 +11,6 @@ import 'primereact/resources/primereact.css';
 import { Toast } from 'primereact/toast';
 import { ConfirmDialog } from 'primereact/confirmdialog';
 import { RadioButton } from 'primereact/radiobutton';
-// ##### --PAGES-- #####
 import ProfileHeader from './ProfileHeader';
 import UploadPic from './UploadPic';
 import { getUserCatches, updateCatch } from '../api/CatchAPI';

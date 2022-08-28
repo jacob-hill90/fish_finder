@@ -6,7 +6,7 @@ def fish_upload_path(instance, filename):
     return '/'.join(['fish_picture', str(instance.owner), filename])
 
 def profile_upload_path(instance, filename):
-    return '/'.join(['profile_picture', str(instance.owner), filename])
+    return '/'.join(['profile_picture', str(instance.username), filename])
 
 
 

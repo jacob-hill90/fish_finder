@@ -12,6 +12,8 @@ import 'primereact/resources/primereact.css';
 import { Toast } from 'primereact/toast';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { RadioButton } from 'primereact/radiobutton';
+import UploadPic from './UploadPic';
+import { updateUser } from '../api/UserAPI';
 
 function EditProfileButton({ user }) {
     let emptyProduct = {
@@ -24,34 +26,46 @@ function EditProfileButton({ user }) {
     const [productDialog, setProductDialog] = useState(false);
     const [deleteProductDialog, setDeleteProductDialog] = useState(false);
     const [selectedPicture, setSelectedPicture] = useState(null);
-    const [selectedPictureName, setSelectedPictureName] = useState('');
     const [product, setProduct] = useState(emptyProduct);
     const [checkDelete, setCheckDelete] = useState(false)
     const [radioChecked, setRadioChecked] = useState(false)
     const [confirmDelete, setConfirmDelete] = useState(true)
+
     const toast = useRef(null);
 
+
+    const helperFunction = (file) => {
+        setSelectedPicture(file)
+    }
 
     const hideDialog = () => {
         setProductDialog(false);
     }
 
     const updateProfile = () => {
-        console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>', product.first_name)
         setProductDialog(false);
         let data = {
             'first_name': product.first_name,
             'last_name': product.last_name,
             'state': product.state,
             'zipcode': product.zipcode,
+            'profile_picture': selectedPicture
         }
-        // axios.put('edit_user', data)
-        // .then((response) => {
-        //         toast.current.show({ severity: 'success', summary: 'Success', detail: `${response.data.status}`, life: 3000 });
-        //         setTimeout(function () {
-        //             window.location.reload();
-        //         }, 2000);
-        //     })
+
+        let config = {
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "multipart/form-data",
+            }
+        }
+        
+        let response = updateUser(data, config)
+        .then((response) => {
+            toast.current.show({ severity: 'success', summary: 'Success', detail: `${response.data.status}`, life: 3000 });
+                setTimeout(function () {
+                    window.location.reload();
+                }, 2000);
+        })
     }
 
     const deleteAccount = () => {
@@ -74,6 +88,7 @@ function EditProfileButton({ user }) {
         let _product = { ...product };
         _product[`${name}`] = val;
         setProduct(_product);
+
     }
 
     const header = (
@@ -125,11 +140,11 @@ function EditProfileButton({ user }) {
 
             <MDBBtn style={{ backgroundColor: '#FFEB3B' }} className="text-dark" onClick={editProduct} >Edit Profile</MDBBtn>
 
-            {/* pop up window for editing profile */}
+            {/* pop up window for editing user's profile */}
             <Dialog visible={productDialog} style={{ width: '450px' }} header="Edit Profile" modal footer={productDialogFooter} onHide={hideDialog} >
-                {/* <div className="date">
-                        <UploadPic helperFunction={helperFunction} />
-                    </div> */}
+                <div className="date">
+                    <UploadPic helperFunction={helperFunction} />
+                </div>
                 <div className="p-fluid">
                     <div className="first-name">
                         <label htmlFor="first-name">First Name</label>
