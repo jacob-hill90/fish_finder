@@ -1,3 +1,4 @@
+import string
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login, logout
@@ -8,7 +9,8 @@ import json
 from dotenv import load_dotenv
 import os
 from .models import AppUser, FishDB, CatchData
-import os
+import requests 
+import shutil
 
 load_dotenv()
 
@@ -51,7 +53,6 @@ def fishdb_byid(request):
 # view for sign up
 @api_view(['POST'])
 def sign_up(request):
-
     # pulling out user deatails and assigning the email to username for good measure
     try:
         # creating new user
@@ -110,7 +111,7 @@ def sign_out(request):
 @api_view(['GET'])
 def who_am_i(request):
     if request.user.is_authenticated:
-        data = serializers.serialize("json", [request.user], fields=['username', 'first_name', 'last_name', 'zipcode'])
+        data = serializers.serialize("json", [request.user], fields=['username', 'first_name', 'last_name', 'email', 'state', 'zipcode', 'profile_picture'])
         return HttpResponse(data)
     else:
         return JsonResponse({'user': None})
@@ -119,23 +120,55 @@ def who_am_i(request):
 ######################--- USER FISHTORY REQUEST---#######################
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
+
+@api_view(['GET', 'POST', 'DELETE'])
 def catch(request):
     if request.method == 'GET':
         catches = CatchData.objects.filter(owner_id= request.user.id).values()
         data = list(catches)
         return JsonResponse({'data': data})
-    if request.method == 'PUT':
-        data = request.data
-        edited_catch = CatchData.objects.filter(owner_id= request.user.id).values().get(id =request.data['id'])
-        edited_catch = CatchData(**data)
-        edited_catch.save()
+    if request.method == 'POST':
+        # data = request.data
+
+        data ={
+            'catch_picture': dict(request.FILES)['catch_picture'],
+            'date':dict(request.data)['date'][0],
+            'id':dict(request.data)['id'][0],
+            'length':dict(request.data)['length'][0],
+            'owner_id':dict(request.data)['owner_id'][0],
+            'season':dict(request.data)['season'][0],
+            'species':dict(request.data)['species'][0],
+            'weight':dict(request.data)['weight'][0],
+            }
+        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>DATA',data)
+        # edited_catch = CatchData.objects.filter(owner_id= request.user.id).values().get(id =dict(request.data)['id'][0])
+        # edited_catch = CatchData(**data)
+        # edited_catch.save()
+        
+        # edited_catch = CatchData.objects.filter(owner_id= request.user.id).values().get(id =request.data['data']['id'])
+        # edited_catch = CatchData(**data)
+        # edited_catch.save()
+
+        # file_name = '../static/catch_picture/'
         return JsonResponse({'status': 'Catch updated succesfully'})
     if request.method == 'DELETE':
         delete_catch = CatchData.objects.get(id = request.data['id'])
         # delete_catch.delete()
         return JsonResponse({'status': 'Catch deleted succesfully'})
 
+
+######################---EDIT USER---#######################
+@api_view (['PUT', 'DELETE'])
+def edit_user(request):
+    if request.method == 'PUT':    
+        user = AppUser.objects.get(id = request.user.id)
+        user = AppUser(**request.data)
+        # user.save()
+        return JsonResponse({'status': 'User details updated succesfully'})
+    if request.method == 'DELETE': 
+        user = AppUser.objects.get(id = request.user.id)
+        # user.delete()
+        return JsonResponse({'status': 'Account deleted succesfully'})
 
 ######################---REQUEST WEATHER---#######################
 

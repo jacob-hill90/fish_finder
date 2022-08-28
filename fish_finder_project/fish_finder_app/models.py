@@ -25,7 +25,7 @@ class CatchData(models.Model):
     length = models.PositiveIntegerField()
     latitude = models.PositiveBigIntegerField(null=True)
     longitude = models.PositiveBigIntegerField(null=True)
-    catch_picture = models.CharField(max_length=225)
+    catch_picture = models.ImageField(null=True, blank=True, upload_to='catch_pictures' )
     owner = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='catches')
 
 class FishDB(models.Model):
