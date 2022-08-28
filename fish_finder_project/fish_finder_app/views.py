@@ -82,7 +82,8 @@ def sign_up(request):
 def log_in(request):
 
     # grabbing the values and then the user
-    user = authenticate(username=json.loads(request.body)['username1'], password=json.loads(request.body)['password'])
+    user = authenticate(username=json.loads(request.body)[
+                        'username1'], password=json.loads(request.body)['password'])
 
     # logging them in if they exist and are active user
     if user is not None:
@@ -107,6 +108,8 @@ def sign_out(request):
     return JsonResponse({'data': 'User logged out!'})
 
 # view to validate username uniqueness
+
+
 @api_view(['POST'])
 def username_validate(request):
     # print(json.loads(request.body)['username'])
@@ -118,9 +121,7 @@ def username_validate(request):
 @api_view(['GET'])
 def who_am_i(request):
     if request.user.is_authenticated:
-
         data = serializers.serialize("json", [request.user], fields=['id', 'email', 'username', 'first_name', 'last_name', 'zipcode', 'state', 'profile_picture'])
-
         return HttpResponse(data)
     else:
         return JsonResponse({'user': None})
@@ -155,7 +156,7 @@ def update_catch(request):
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def catch(request):
     if request.method == 'GET':
-        catches = CatchData.objects.filter(owner_id= request.user.id).values()
+        catches = CatchData.objects.filter(owner_id=request.user.id).values()
         data = list(catches)
         return JsonResponse({'data': data})
     if request.method == 'POST':
@@ -182,13 +183,10 @@ def catch(request):
         return JsonResponse({'data': 'Catch saved!'})
 
     if request.method == 'PUT':
-
-        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>DATA',data)
-        # edited_catch = CatchData.objects.filter(owner_id= request.user.id).values().get(id =dict(request.data)['id'][0])
-        # edited_catch = CatchData(**data)
-        # edited_catch.save()
-        
-        # edited_catch = CatchData.objects.filter(owner_id= request.user.id).values().get(id =request.data['data']['id'])
+        data = request.data
+        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>', data)
+        edited_catch = CatchData.objects.filter(
+            owner_id=request.user.id).values().get(id=request.data['id'])
         # edited_catch = CatchData(**data)
         # edited_catch.save()
 
@@ -212,6 +210,14 @@ def edit_user(request):
         user = AppUser.objects.get(id = request.user.id)
         # user.delete()
         return JsonResponse({'status': 'Account deleted succesfully'})
+
+@api_view(['GET'])
+def get_fish_data(request):
+    fish_data = CatchData.objects.all()
+    data = serializers.serialize("json", fish_data, fields=[
+        "date", "season", "species", "weight", "fishing_method", "length", "depth", "latitude", "longitude", "catch_picture", "notes", "owner"])
+    return JsonResponse({'data': data})
+
 
 ######################---REQUEST WEATHER---#######################
 

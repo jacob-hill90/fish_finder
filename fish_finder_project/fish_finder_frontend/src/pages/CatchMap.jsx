@@ -60,11 +60,11 @@ function CatchMap() {
         // process is undefined
         // googleMapsApiKey: { process.env.REACT_APP_GOOGLE_MAPS_API },
 
-        googleMapsApiKey:"",
-            // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-            //  R E P L A C E   T H I S   L I N E   W I T H   G O O G L E   M A P S   K E Y
-            // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-            libraries
+        googleMapsApiKey: "",
+        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        //  R E P L A C E   T H I S   L I N E   W I T H   G O O G L E   M A P S   K E Y
+        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        libraries
     })
 
     const [map, setMap] = useState(null)
@@ -264,7 +264,7 @@ function CatchMap() {
                             id='searchbox'
                             style={{
                                 boxSizing: `border-box`,
-                                border: `1px solid transparent`,
+                                border: `1px solid black`,
                                 width: `240px`,
                                 height: `32px`,
                                 padding: `0 12px`,
@@ -274,8 +274,10 @@ function CatchMap() {
                                 outline: `none`,
                                 textOverflow: `ellipses`,
                                 position: "absolute",
+                                // display: "flex",
                                 left: "50%",
-                                marginLeft: "-120px"
+                                marginLeft: "-120px",
+                                top: "10px"
                             }}
                         // clearSuggestions={clearSuggestions()}
                         // onChange = {searchInput}
@@ -301,14 +303,16 @@ function CatchMap() {
                         >
                             {activeMarker == pk ? (
                                 <InfoWindow onCloseClick={() => setActiveMarker(null)}>
-                                    <div>
-                                        <div>Species: {fields.species}</div>
-                                        <div>Date: {fields.date}</div>
-                                        <div>Method: {fields.fishing_method}</div>
-                                        <div>Depth: {fields.depth}</div>
-                                        <div>Weight: {fields.weight}</div>
-                                        <div>Length: {fields.length}</div>
-                                        <div>Field Notes: {fields.notes}</div>
+                                    <div id="infoWindow">
+                                        <b><div>Species: {fields.species}</div></b>
+                                        <b><div>Date: {fields.date}</div></b>
+                                        <b><div>Method: {fields.fishing_method}</div></b>
+                                        <b><div>Depth: {fields.depth} ft.</div></b>
+                                        <b><div>Weight: {fields.weight} lbs.</div></b>
+                                        <b><div>Length: {fields.length} in.</div></b>
+                                        <b><div>Field Notes:</div></b>
+                                        <b><div>{fields.notes}</div></b>
+                                        <img id="infoPic" src={fields.catch_picture} />
                                     </div>
                                 </InfoWindow>
                             ) : null}

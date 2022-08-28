@@ -529,3 +529,20 @@ img.flag {
   z-index: 100;
   cursor:pointer;
 }
+
+#infoPic{
+  max-width: 200px;
+  height: auto;
+}
+
+#infoWindow {
+  border: 3px solid #23547B;
+  text-align: center;
+  max-width: 250px;
+  height:auto;
+}
+
+#searchbox{
+  border: 2px solid black;
+  top: 1;
+}
