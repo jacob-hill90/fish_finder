@@ -15,27 +15,15 @@ import {
 } from 'mdb-react-ui-kit';
 import { signOutUser } from '../api/UserAPI';
 import LoginModal from './LoginModal'
-import SignUpModal from './SignUpModal';
-import axios from 'axios';
-// import SignUpOffCanvas from './SignUpOffCanvas';
 
-function NavBar({ user }) {
+function NavBar({ user, temp, weatherIcon }) {
 
   const [showNavNoTogglerSecond, setShowNavNoTogglerSecond] = useState(false);
-  const [weatherIcon, setWeatherIcon] = useState(null)
-  const [temp, setTemp] = useState(null)
+
 
   function handleClick(event) {
     event.preventDefault()
     let tada = signOutUser()
-  }
-
-  function getWeather(){
-
-    axios.get(`/API/${user.zipcode}`).then((response) => {
-      setWeatherIcon(`http://openweathermap.org/img/wn/${response.data.weather[0].icon}.png`)
-      setTemp(response.data.main.temp)
-      })
   }
 
   return (
@@ -61,7 +49,7 @@ function NavBar({ user }) {
               <Link to={"/user_profile"} className="global-links nav_items"><strong>User</strong></Link>
               </MDBNavbarItem>
               <MDBNavbarItem className="me-4">
-                <Link to={"/catch_map"} className="global-links nav_items"><strong>Catch Map</strong></Link>
+                {user ? <Link to={"/catch_map"} className="global-links nav_items"><strong>Catch Map</strong></Link> : null }
               </MDBNavbarItem>
               <MDBNavbarItem className="me-4">
                 <Link to={"/fish_DB"} className="global-links nav_items"><strong>Game Fish Database</strong></Link>
@@ -69,13 +57,13 @@ function NavBar({ user }) {
             </MDBNavbarNav>
             <MDBNavbarNav className="flex-row justify-content-end align-items-center flex-nowrap">
               <MDBNavbarItem className="me-4">
-                {user ? <div className='weather'>{getWeather()} <img className='weather_icon' src={weatherIcon} alt="Weather" /><h5>{Math.floor(temp)}˚</h5></div>  : null}
+                {user ? <Link to={"/user_weather"} className="global-links nav_items"><div className='weather'><img className='weather_icon' src={weatherIcon} alt="Weather" /><h5>{Math.floor(temp)}˚</h5></div></Link>  : null}
               </MDBNavbarItem>
               <MDBNavbarItem className="me-4">
                 {user ? <MDBBtn onClick={(event) => { handleClick(event) }} style={{ backgroundColor: '#62acee' }} className="text-dark" >Sign Out</MDBBtn> : null}
               </MDBNavbarItem>
               <MDBNavbarItem className="me-4">
-                {user ? null : <SignUpModal />}
+                {user ? null : <Link to={"/signup"} className="global-links nav_items" ><MDBBtn style={{ backgroundColor: '#62acee' }} className="text-dark" >Sign Up</MDBBtn></Link>}
               </MDBNavbarItem>
               <MDBNavbarItem className="me-4">
                 {user ? null : <LoginModal />}

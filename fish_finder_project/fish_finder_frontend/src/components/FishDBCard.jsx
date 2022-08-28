@@ -25,7 +25,7 @@ function FishDBCard({name,latin_name, fish_record, fish_pic, id}) {
         </MDBCardText>
         <div className="flex justify-content-center">
           <Link to={`/fish_detail/${id}`}>
-            <MDBBtn style={{ backgroundColor: '#FFEB3B' }} className="text-dark" >Details</MDBBtn>
+            <MDBBtn style={{ backgroundColor: '#62acee' }} className="text-dark" >Details</MDBBtn>
           </Link>
         </div>
       </MDBCardBody>

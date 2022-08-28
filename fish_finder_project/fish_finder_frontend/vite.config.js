@@ -15,5 +15,5 @@ export default defineConfig({
     emptyOutDir: true,
     sourcemap: true,
   },
-  plugins: [react()]
+  plugins: [react()],
 			})
