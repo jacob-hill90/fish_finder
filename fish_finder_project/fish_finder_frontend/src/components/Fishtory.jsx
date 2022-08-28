@@ -13,18 +13,9 @@ import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { RadioButton } from 'primereact/radiobutton';
 // ##### --PAGES-- #####
 import ProfileHeader from './ProfileHeader';
-import UploadPicture from './UploadPicture';
+import UploadPic from './UploadPic';
 
-function Fishtory() {
-
-    const [allCatches, setallCatches] = useState([])
-
-    useEffect(() => {
-        axios.get('catch')
-            .then((response) => {
-                setallCatches(response['data']['data'])
-            })
-    }, [])
+function Fishtory({ user }) {
 
     let emptyProduct = {
         date: '',
@@ -35,9 +26,30 @@ function Fishtory() {
         weight: '',
     };
 
+    const [allCatches, setallCatches] = useState([])
     const [productDialog, setProductDialog] = useState(false);
     const [deleteProductDialog, setDeleteProductDialog] = useState(false);
+    const [selectedPicture, setSelectedPicture] = useState(null);
+    const [selectedPictureName, setSelectedPictureName] = useState('');
     const [product, setProduct] = useState(emptyProduct);
+
+    const helperFunction = (param) => {
+        setSelectedPicture(param)
+        // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>NEW', param)
+        // setSelectedPictureName(param.name)
+    }
+
+
+
+
+    useEffect(() => {
+        axios.get('catch')
+            .then((response) => {
+                setallCatches(response['data']['data'])
+            })
+    }, [])
+
+
 
     const hideDialog = () => {
         setProductDialog(false);
@@ -52,22 +64,44 @@ function Fishtory() {
         setProductDialog(false);
         let data = {
             'date': product.date,
-            'fishingMethod': product.fishingMethod,
+            'fishing_method': product.fishingMethod,
             'id': product.id,
             'length': product.length,
             'owner_id': product.owner_id,
             'season': product.season,
             'species': product.species,
             'weight': product.weight,
-            // 'photo': product.photo,          //<<<<<<<< NEED to add this 
+            'catch_picture': selectedPicture
         }
-        axios.put('catch', data)
+
+
+        // axios.post('catch', {'data': data, 'selectedPicture': selectedPicture} ,  {
+        //     headers: {
+        //         'Content-Type': 'multipart/form-data'
+        //     }
+        // })
+        axios.post('catch', data, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
             .then((response) => {
                 toast.current.show({ severity: 'success', summary: 'Success', detail: `${response.data.status}`, life: 3000 });
                 setTimeout(function () {
+                    // window.location.reload();
+                }, 2000);
+            })
+    }
+
+    const deleteProduct = () => {
+        let data = { 'id': product.id }
+        setDeleteProductDialog(false);
+        axios.delete('catch', { 'data': data })
+            .then((response) => {
+                toast.current.show({ severity: 'error', summary: 'Attention', detail: `${response['data']['status']}`, life: 3000 });
+                setTimeout(function () {
                     window.location.reload();
                 }, 2000);
-                console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>', response)
             })
     }
     const editProduct = (product) => {
@@ -80,18 +114,6 @@ function Fishtory() {
         setDeleteProductDialog(true);
     }
 
-    const deleteProduct = () => {
-        // let data = { 'id': product.id }
-        setDeleteProductDialog(false);
-
-        // axios.delete('edit_workout', { 'data': data })
-        //     .then((response) => {
-        //         toast.current.show({ severity: 'warn', summary: 'Attention', detail: `${response.data.Status}`, life: 3000 });
-        //         setTimeout(function () {
-        //             window.location.reload();
-        //         }, 2000);
-        //     })
-    }
 
     const onInputChange = (e, name) => {
         const val = (e.target && e.target.value) || '';
@@ -120,7 +142,7 @@ function Fishtory() {
     }
 
     const productDialogFooter = (
-        <React.Fragment>
+        <React.Fragment enctype="multipart/form-data">
             <Button label="Cancel" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
             <Button label="Save" icon="pi pi-check" className="p-button-text" onClick={saveProduct} />
         </React.Fragment>
@@ -146,9 +168,9 @@ function Fishtory() {
 
     return (
         <div>
-            <ProfileHeader />
-
             <Toast ref={toast} />
+            <ProfileHeader user={user} />
+
             <ConfirmDialog />
             {/* Rows/columns fields */}
             <div className="card workout-history-table container">
@@ -164,64 +186,64 @@ function Fishtory() {
                     <Column field="season" header="Season" sortable style={{ minWidth: '2rem' }}></Column>
                     <Column field="species" header="Species" sortable style={{ minWidth: '2rem' }}></Column>
                     <Column field="weight" header="Weight" sortable style={{ minWidth: '2rem' }}></Column>
-                    {/* Edit/delete icons inserted into the table */}
+                    {/* Edit/delete icons in the table */}
                     <Column body={actionBodyTemplate} exportable={false} style={{ minWidth: '2rem' }} ></Column>
                 </DataTable>
 
+
+
                 {/* pop up window for editing catches individually */}
-                <div>
-                    <UploadPicture />
-                </div>
-                <Dialog visible={productDialog} style={{ width: '450px' }} header="Edit Catch" modal footer={productDialogFooter} onHide={hideDialog}>
+                <Dialog visible={productDialog} style={{ width: '450px' }} header="Edit Catch" modal footer={productDialogFooter} onHide={hideDialog} >
                     <div className="date">
-                        <UploadPicture />
+                        <UploadPic helperFunction={helperFunction} />
                     </div>
                     <div className="p-fluid">
-
-                    <div className="date">
-                        <label htmlFor="fishing-method">Date</label>
-                        <InputText id="date" onChange={(e) => onInputChange(e, 'date')} value={product.date} />
-                    </div>
-                    <div className="field">
-                        <label htmlFor="fishing-method">Fishing Method</label>
-                        <InputText id="fishingMethod" onChange={(e) => onInputChange(e, 'fishingMethod')} value={product.fishingMethod} />
-                    </div>
-                    <div className="field">
-                        <label htmlFor="length">Length (in)</label>
-                        <InputText id="length" onChange={(e) => onInputChange(e, 'length')} value={product.length} />
-                    </div>
-                    {/* Season checkboxes */}
-                    <div className="field">
-                        <label className="mb-3">Season</label>
-                        <div className="formgrid grid">
-                            <div className="field-radiobutton col-6">
-                                <RadioButton inputId="spring" name="spring" value="Spring" onChange={onSeasonChange} checked={product.category === 'Spring'} />
-                                <label htmlFor="spring">Spring</label>
-                            </div>
-                            <div className="field-radiobutton col-6">
-                                <RadioButton inputId="summer" name="summer" value="Summer" onChange={onSeasonChange} checked={product.category === 'Summer'} />
-                                <label htmlFor="summer">Summer</label>
-                            </div>
-                            <div className="field-radiobutton col-6">
-                                <RadioButton inputId="fall" name="fall" value="Fall" onChange={onSeasonChange} checked={product.category === 'Fall'} />
-                                <label htmlFor="fall">Fall</label>
-                            </div>
-                            <div className="field-radiobutton col-6">
-                                <RadioButton inputId="Winter" name="Winter" value="Winter" onChange={onSeasonChange} checked={product.category === 'Winter'} />
-                                <label htmlFor="Winter">Winter</label>
+                        <div className="date">
+                            <label htmlFor="fishing-method">Date</label>
+                            <InputText id="date" onChange={(e) => onInputChange(e, 'date')} value={product.date} />
+                        </div>
+                        <div className="field">
+                            <label htmlFor="fishing-method">Fishing Method</label>
+                            <InputText id="fishingMethod" onChange={(e) => onInputChange(e, 'fishingMethod')} value={product.fishingMethod} />
+                        </div>
+                        <div className="field">
+                            <label htmlFor="length">Length (in)</label>
+                            <InputText id="length" onChange={(e) => onInputChange(e, 'length')} value={product.length} />
+                        </div>
+                        {/* Season checkboxes */}
+                        <div className="field">
+                            <label className="mb-3">Season</label>
+                            <div className="formgrid grid">
+                                <div className="field-radiobutton col-6">
+                                    <RadioButton inputId="spring" name="spring" value="Spring" onChange={onSeasonChange} checked={product.category === 'Spring'} />
+                                    <label htmlFor="spring">Spring</label>
+                                </div>
+                                <div className="field-radiobutton col-6">
+                                    <RadioButton inputId="summer" name="summer" value="Summer" onChange={onSeasonChange} checked={product.category === 'Summer'} />
+                                    <label htmlFor="summer">Summer</label>
+                                </div>
+                                <div className="field-radiobutton col-6">
+                                    <RadioButton inputId="fall" name="fall" value="Fall" onChange={onSeasonChange} checked={product.category === 'Fall'} />
+                                    <label htmlFor="fall">Fall</label>
+                                </div>
+                                <div className="field-radiobutton col-6">
+                                    <RadioButton inputId="Winter" name="Winter" value="Winter" onChange={onSeasonChange} checked={product.category === 'Winter'} />
+                                    <label htmlFor="Winter">Winter</label>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="field">
-                        <label htmlFor="species">Species</label>
-                        <InputText id="species" onChange={(e) => onInputChange(e, 'species')} value={product.species} />
-                    </div>
-                    <div className="field">
-                        <label htmlFor="weight">Weight (lbs)</label>
-                        <InputText id="weight" onChange={(e) => onInputChange(e, 'weight')} value={product.weight} />
-                    </div>
+                        <div className="field">
+                            <label htmlFor="species">Species</label>
+                            <InputText id="species" onChange={(e) => onInputChange(e, 'species')} value={product.species} />
+                        </div>
+                        <div className="field">
+                            <label htmlFor="weight">Weight (lbs)</label>
+                            <InputText id="weight" onChange={(e) => onInputChange(e, 'weight')} value={product.weight} />
+                        </div>
                     </div>
                 </Dialog>
+
+
                 {/* popup box for deleting just one item */}
                 <Dialog visible={deleteProductDialog} style={{ width: '450px' }} header="Delete Confirmation" modal footer={deleteProductDialogFooter} onHide={hideDeleteProductDialog}>
                     <div className="confirmation-content">

@@ -16,8 +16,6 @@ import {
 import { signOutUser } from '../api/UserAPI';
 import LoginModal from './LoginModal'
 
-
-
 function NavBar({ user, temp, weatherIcon }) {
 
   const [showNavNoTogglerSecond, setShowNavNoTogglerSecond] = useState(false);
@@ -27,7 +25,6 @@ function NavBar({ user, temp, weatherIcon }) {
     event.preventDefault()
     let tada = signOutUser()
   }
-
 
   return (
     <>

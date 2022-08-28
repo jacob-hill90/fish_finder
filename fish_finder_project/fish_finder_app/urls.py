@@ -19,6 +19,7 @@ urlpatterns = [
     path('add_catch', views.add_catch),
     path('fishdb', views.fish_db),
     path('fishdbbyid', views.fishdb_byid),
+    path('edit_user', views.edit_user),
     path('API/<int:zipcode>', views.weather_api),
     re_path(r'^', views.home_page),
 ]

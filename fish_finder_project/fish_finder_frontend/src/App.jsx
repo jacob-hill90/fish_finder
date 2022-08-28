@@ -15,6 +15,7 @@ import FishDB from './pages/FishDB';
 import FishDBDetail from './components/FishDBDetail';
 import CatchMap from './pages/CatchMap';
 import getWeather from './api/WeatherAPI';
+// import axios from "axios";
 
 
 function App() {
@@ -33,26 +34,40 @@ function App() {
   }, [])
 
   useEffect(() => {
-      if(user){
-        let res = getWeather(user)
+    if (user) {
+      let res = getWeather(user)
         .then((response) => {
           setWeatherIcon(`http://openweathermap.org/img/wn/${response.data.weather[0].icon}.png`)
           setTemp(response.data.main.temp)
           setFullWeather(response.data)
         })
-      } 
+    }
   }, [user])
+
+  // const [fishData, setFishData] = useState([])
+
+  // useEffect(() => {
+  //   axios
+  //     .get('/fish_data')
+  //     .then((response) => {
+  //       const catch_data = response.data;
+  //       setFishData(fishData.map((fish) => fish.fields))
+  //       console.log(fishData)
+  //     })
+  // }, [])
+
+
 
 
   return (
     <div className="App">
       <BrowserRouter>
-        <NavBar user={user} temp={temp} weatherIcon={weatherIcon}/>
+        <NavBar user={user} temp={temp} weatherIcon={weatherIcon} />
         <Routes>
           <Route exact path="/" element={<HomePage />} />
           <Route path="/signup" element={<FormSignUp />} />
-          <Route path="/user_profile" element={<ProfilePage />} />
-          <Route path="/user_weather" element={<WeatherPage fullWeather={fullWeather} user={user}/>} />
+          <Route path="/user_profile" element={<ProfilePage user={user}/>} />
+          <Route path="/user_weather" element={<WeatherPage fullWeather={fullWeather} user={user} />} />
           <Route path="/catch_map" element={<CatchMap />} />
           <Route path="/fish_DB" element={<FishDB />} />
           <Route path="/fish_detail/:fishID" element={<FishDBDetail />} />

@@ -13,25 +13,35 @@ import { Button } from 'primereact/button';
 import { Tooltip } from 'primereact/tooltip';
 import { Tag } from 'primereact/tag';
 
-function UploadPicture() {
+
+function UploadPic({helperFunction}) {
     const [totalSize, setTotalSize] = useState(0);
     const toast = useRef(null);
     const fileUploadRef = useRef(null);
+    const [selectedFile, setSelectedFile] = useState(null)
 
     const onUpload = () => {
         toast.current.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded' });
     }
 
     const onTemplateSelect = (e) => {
-        let _totalSize = totalSize;
-        e.files.forEach(file => {
-            _totalSize += file.size;
-        });
 
+        let _totalSize = totalSize;
+        // setSelectedFile(e.files[0])                //<<<<<<<<<<<<< getting the file object
+        // let data = e.files[0]
+        console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>EMPLE SELECT',e.files[0])
+
+        helperFunction(e.files[0])
+        const fileData = new FormData();
+        // fileData.append('image', selectedFile )
+        
+        
+        _totalSize += e.files[0]['size'];
         setTotalSize(_totalSize);
     }
-
+    
     const onTemplateUpload = (e) => {
+        e.preventDefault()
         let _totalSize = 0;
         e.files.forEach(file => {
             _totalSize += (file.size || 0);
@@ -48,14 +58,6 @@ function UploadPicture() {
 
     const onTemplateClear = () => {
         setTotalSize(0);
-    }
-
-    const onBasicUpload = () => {
-        toast.current.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Basic Mode' });
-    }
-
-    const onBasicUploadAuto = () => {
-        toast.current.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Auto Mode' });
     }
 
     const headerTemplate = (options) => {
@@ -106,7 +108,7 @@ function UploadPicture() {
         reader.readAsDataURL(blob);
         reader.onloadend = function () {
             const base64data = reader.result;
-            console.log(base64data);
+
         }
     }
 
@@ -125,7 +127,7 @@ function UploadPicture() {
             <div className="container">
                 {
 
-                    <FileUpload ref={fileUploadRef} name="demo[]" url="https://primefaces.org/primereact/showcase/upload.php" multiple accept="image/*" maxFileSize={100000000}
+                    <FileUpload ref={fileUploadRef} name="demo[]"  accept="image/*" maxFileSize={100000000} 
                     onUpload={onTemplateUpload} onSelect={onTemplateSelect} onError={onTemplateClear} onClear={onTemplateClear}
                     headerTemplate={headerTemplate} itemTemplate={itemTemplate} emptyTemplate={emptyTemplate}
                     chooseOptions={chooseOptions} 
@@ -138,4 +140,4 @@ function UploadPicture() {
     )
 }
 
-export default UploadPicture
+export default UploadPic
