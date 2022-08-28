@@ -20,7 +20,12 @@ import getWeather from './api/WeatherAPI';
 function App() {
   const [user, setUser] = useState(null)
   const [weatherIcon, setWeatherIcon] = useState(null)
+  const [bigWeatherIcon, setbigWeatherIcon] = useState(null)
   const [temp, setTemp] = useState(null)
+  const [city, setCity] = useState(null)
+  const [description, setDescription] = useState(null)
+  const [high, setHigh] = useState(null)
+  const [low, setLow] = useState(null)
   const [fullWeather, setFullWeather] = useState(null)
 
 
@@ -37,12 +42,16 @@ function App() {
         let res = getWeather(user)
         .then((response) => {
           setWeatherIcon(`http://openweathermap.org/img/wn/${response.data.weather[0].icon}.png`)
+          setbigWeatherIcon(`http://openweathermap.org/img/wn/${response.data.weather[0].icon}@4x.png`)
           setTemp(response.data.main.temp)
-          setFullWeather(response.data)
+          setCity(response.data.name)
+          setDescription(response.data.weather[0].description)
+          setHigh(response.data.main.temp_max)
+          setLow(response.data.main.temp_min)
+          setFullWeather(response)
         })
       } 
   }, [user])
-
 
   return (
     <div className="App">
@@ -52,7 +61,7 @@ function App() {
           <Route exact path="/" element={<HomePage />} />
           <Route path="/signup" element={<FormSignUp />} />
           <Route path="/user_profile" element={<ProfilePage />} />
-          <Route path="/user_weather" element={<WeatherPage fullWeather={fullWeather}/>} />
+          <Route path="/user_weather" element={<WeatherPage fullWeather={fullWeather} temp={temp} bigWeatherIcon={bigWeatherIcon} city={city} description={description} high={high} low={low}/>} />
           <Route path="/catch_map" element={<CatchMap />} />
           <Route path="/fish_DB" element={<FishDB />} />
           <Route path="/fish_detail/:fishID" element={<FishDBDetail />} />
