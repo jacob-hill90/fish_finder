@@ -27,8 +27,10 @@ function App() {
   const [description, setDescription] = useState(null)
   const [high, setHigh] = useState(null)
   const [low, setLow] = useState(null)
+  const [sunrise, setSunrise] = useState(null)
+  const [sunset, setSunset] = useState(null)
+  const [wind, setWind] = useState(null)
   const [fullWeather, setFullWeather] = useState(null)
-
 
   useEffect(() => {
     let response = whoAmI()
@@ -49,6 +51,9 @@ function App() {
           setDescription(response.data.weather[0].description)
           setHigh(response.data.main.temp_max)
           setLow(response.data.main.temp_min)
+          setSunrise(response.data.sys.sunrise)
+          setSunset(response.data.sys.sunset)
+          setWind(response.data.wind.speed)
           setFullWeather(response)
         })
     }
@@ -74,7 +79,7 @@ function App() {
           <Route exact path="/" element={<HomePage />} />
           <Route path="/signup" element={<FormSignUp />} />
           <Route path="/user_profile" element={<ProfilePage user={user}/>} />
-          <Route path="/user_weather" element={<WeatherPage fullWeather={fullWeather} temp={temp} bigWeatherIcon={bigWeatherIcon} city={city} description={description} high={high} low={low}/>} />
+          <Route path="/user_weather" element={<WeatherPage fullWeather={fullWeather} temp={temp} bigWeatherIcon={bigWeatherIcon} city={city} description={description} high={high} low={low} sunrise={sunrise} sunset={sunset} wind={wind}/>}/>
           <Route path="/catch_map" element={<CatchMap />} />
           <Route path="/fish_DB" element={<FishDB />} />
           <Route path="/fish_detail/:fishID" element={<FishDBDetail />} />

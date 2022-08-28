@@ -361,6 +361,13 @@ img.flag {
 
 /*Weather Page*/
 
+.weather-page{
+  height: 79vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .top-container{
   position: relative;
   width: 60vw;
@@ -387,20 +394,44 @@ img.flag {
 
 .temp{
   position:absolute;
-  width: 20%;
+  width: 100%;
   height: 80%;
-  line-height: 240px;
-  font-size: 50px;  
+  line-height: 130px;
+  font-size: 42px;  
   left: 10px;
 }
 
 .description{
+  font-size: large;
+}
+
+.sunrise{
   position: absolute;
-  width: 40%;
+  width: 100%;
   height: 20px;
   bottom: 10px;
   left: 10px;
   font-size: larger;
+  margin-bottom: 50px;
+}
+
+.sunset{
+  position: absolute;
+  width: 100%;
+  height: 20px;
+  bottom: 10px;
+  left: 210px;
+  font-size: larger;
+  margin-bottom: 50px;
+}
+
+.wind{
+  position: absolute;
+  width: 100%;
+  height: 20px;
+  bottom: 10px;
+  left: 10px;
+  margin-bottom: 120px;
 }
 
 .weather-symb{
@@ -409,12 +440,15 @@ img.flag {
   height: 80px;
   right: 10px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
 .weather-icon{
   width: 200px;
+  background-color: gray;
+  border-radius: 50%;
 }
 
 .bottom-container{
@@ -422,7 +456,7 @@ img.flag {
   width: 50vw;
   height: 140px;
   margin: auto;
-  border-radius: 0 0 .4em .4em;
+  border-radius: .4em;
   background-color: #abbed8;
 }
 
@@ -451,7 +485,7 @@ img.flag {
 
 .high-text{
   position: absolute;
-  bottom: 0px;
+  bottom: 20px;
   text-decoration: none;
   font-size: 50px;
   left: 42%;
@@ -459,7 +493,7 @@ img.flag {
 
 .low-text{
     position: absolute;
-    bottom: 0px;
+    bottom: 20px;
     text-decoration: none;
     font-size: 50px;
     left: 42%;
@@ -472,6 +506,18 @@ img.flag {
   width: 1px;
   height: 100%;
   left: 50%;
+}
+
+@media screen and (max-width: 992px) {
+  .temp{
+    font-size: 18px;
+  }
+  .high-text{
+    font-size: 40px;
+  }
+  .low-text{
+    font-size: 40px;
+  }
 }
 
 #geolocate {

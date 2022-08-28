@@ -129,6 +129,11 @@ def who_am_i(request):
 
 ######################--- USER FISHTORY REQUEST---#######################
 
+@api_view(['POST'])
+def new_catch(request):
+    user = AppUser.objects.get(id = request.user.id )
+    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>USER',user)
+    return JsonResponse({'status': 'working on it'})
 
 @api_view(['POST'])
 def update_catch(request):
@@ -199,16 +204,30 @@ def catch(request):
 
 
 ######################---EDIT USER---#######################
-@api_view (['PUT', 'DELETE'])
+@api_view (['POST', 'DELETE'])
 def edit_user(request):
-    if request.method == 'PUT':    
-        user = AppUser.objects.get(id = request.user.id)
-        user = AppUser(**request.data)
-        # user.save()
+    if request.method == 'POST':    
+        try:
+            user = AppUser.objects.get(id = request.user.id)
+            user.first_name = request.data['first_name']
+            user.last_name = request.data['last_name']
+            user.state = request.data['state']
+            user.zipcode = request.data['zipcode']
+            user.profile_picture = request.data['profile_picture']
+            user.save()
+            # error handling
+        except Exception as e:
+            print(str(e))
+            return JsonResponse({'status': str(e)})
         return JsonResponse({'status': 'User details updated succesfully'})
     if request.method == 'DELETE': 
-        user = AppUser.objects.get(id = request.user.id)
-        # user.delete()
+        try:
+            user = AppUser.objects.get(id = request.user.id)
+            # user.delete()
+        # error handling
+        except Exception as e:
+            # print(str(e))
+            return JsonResponse({'status': str(e)})
         return JsonResponse({'status': 'Account deleted succesfully'})
 
 @api_view(['GET'])
