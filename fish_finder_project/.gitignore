@@ -5,6 +5,6 @@
 ./fish_finder_app/migrations
 .DS_Store
 ./fish_finder_project/.DS_Store
-./static/fishdb
+./static/media/
 .venv
 ../../.DS_Store
