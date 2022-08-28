@@ -25,9 +25,17 @@ import {
     searchBox,
 } from "@react-google-maps/api"
 
+// const dotenv = require('dotenv').config()
+// console.log(process.env)
+// const path = require('path');
+// require("dotenv").config({path: path.resolve(__fish_finder_project, './.env')});
+
 function CatchMap() {
     // this variable allows the search bar to populate places
     const libraries = ["places"]
+    //this variable is the google maps api key:
+    // const apiKey = process.env.REACT_APP_googleMapsApiKey
+
     // this variable is a short hand way of changing the current map component
     const mapRef = useRef();
     // sets the display size of the map
@@ -55,12 +63,12 @@ function CatchMap() {
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
         // process is undefined
-        // googleMapsApiKey: { process.env.REACT_APP_GOOGLE_MAPS_API },
-        googleMapsApiKey:  
+        googleMapsApiKey: "AIzaSyCvRBwjBlzY9tMrm46tx6ksnRzGvxvUI5U",
+        // apiKey,  
             // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
             //  R E P L A C E   T H I S   L I N E   W I T H   G O O G L E   M A P S   K E Y
             // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-            libraries
+        libraries
     })
 
     const [map, setMap] = useState(null)

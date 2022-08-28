@@ -3,6 +3,11 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    watch: {
+      usePolling: true
+    },
+  },
 
   // vite uses this as a prefix for href and src URLs
   base: '/static/frontend/',
@@ -15,5 +20,6 @@ export default defineConfig({
     emptyOutDir: true,
     sourcemap: true,
   },
-  plugins: [react()],
+  plugins: [react(), ],
+
 			})
