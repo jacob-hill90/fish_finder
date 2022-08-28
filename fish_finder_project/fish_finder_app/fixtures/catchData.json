@@ -9,7 +9,11 @@
             "weight": "10",
             "fishing_method": "bait fishing",
             "length": "12",
-            "catch_picture": "fishdb/bass_spotted.png",
+            "depth": "30",
+            "latitude": "34.50901111697322",
+            "longitude": "-82.84790328865657",
+            "catch_picture": "/static/fishdb/bass_largemouth.png",
+            "notes": "Great day on the water",
             "owner": 1
         }
     },
@@ -23,7 +27,11 @@
             "weight": "20",
             "fishing_method": "fly-fishing",
             "length": "24",
-            "catch_picture": "fishdb/bass_spotted.png",
+            "depth": "5",
+            "latitude": "34.51085001610561",
+            "longitude": "-82.82215408308932",
+            "catch_picture": "/static/fishdb/bass_largemouth.png",
+            "notes": "Fantastic day on the water",
             "owner": 1
         }
     },
@@ -37,7 +45,11 @@
             "weight": "13",
             "fishing_method": "bait casting",
             "length": "34",
-            "catch_picture": "fishdb/bass_spotted.png",
+            "depth": "80",
+            "latitude": "34.39718651178236",
+            "longitude": "-82.89648345649346",
+            "catch_picture": "/static/fishdb/bass_largemouth.png",
+            "notes": "Fabulous day on the water",
             "owner": 1
         }
     },
@@ -51,7 +63,11 @@
             "weight": "24",
             "fishing_method": "spinning",
             "length": "15",
-            "catch_picture": "fishdb/bass_spotted.png",
+            "depth": "3",
+            "latitude": "34.44066018962539",
+            "longitude": "-82.80876449619433",
+            "catch_picture": "/static/fishdb/bass_largemouth.png",
+            "notes": "Incredible day on the water",
             "owner": 1
         }
     },
@@ -65,7 +81,11 @@
             "weight": "14",
             "fishing_method": "trolling",
             "length": "24",
-            "catch_picture": "fishdb/bass_spotted.png",
+            "depth": "40",
+            "latitude": "34.49387402120938",
+            "longitude": "-82.94214538103272",
+            "catch_picture": "/static/fishdb/bass_largemouth.png",
+            "notes": "Incredible day on the water",
             "owner": 1
         }
     },
@@ -79,7 +99,11 @@
             "weight": "42",
             "fishing_method": "bait",
             "length": "32",
-            "catch_picture": "fishdb/bass_spotted.png",
+            "depth": "110",
+            "latitude": "34.53574188803758",
+            "longitude": "-82.82060912970798",
+            "catch_picture": "/static/fishdb/bass_largemouth.png",
+            "notes": "Sweet day on the water",
             "owner": 1
         }
     },
@@ -93,7 +117,65 @@
             "weight": "32",
             "fishing_method": "spooning",
             "length": "10",
-            "catch_picture": "fishdb/bass_spotted.png",
+            "depth": "35",
+            "latitude": "34.545922782028825",
+            "longitude": "-82.79211334221353",
+            "catch_picture": "/static/fishdb/bass_largemouth.png",
+            "notes": "Amazing day on the water",
+            "owner": 1
+        }
+    },
+    {
+        "pk": 8,
+        "model": "fish_finder_app.catchdata",
+        "fields": {
+            "date": "2019-08-09",
+            "season": "Spring",
+            "species": "goldfish",
+            "weight": "32",
+            "fishing_method": "spooning",
+            "length": "10",
+            "depth": "50",
+            "latitude": "34.546771133652065",
+            "longitude": "-82.77220062324152",
+            "catch_picture": "/static/fishdb/bass_largemouth.png",
+            "notes": "Fine day on the water",
+            "owner": 1
+        }
+    },
+    {
+        "pk": 9,
+        "model": "fish_finder_app.catchdata",
+        "fields": {
+            "date": "2019-08-09",
+            "season": "Spring",
+            "species": "goldfish",
+            "weight": "32",
+            "fishing_method": "spooning",
+            "length": "10",
+            "depth": "25",
+            "latitude": "34.56334618834597",
+            "longitude": "-82.73876789632163",
+            "catch_picture": "/static/fishdb/bass_largemouth.png",
+            "notes": "Lovely day on the water",
+            "owner": 1
+        }
+    },
+    {
+        "pk": 10,
+        "model": "fish_finder_app.catchdata",
+        "fields": {
+            "date": "2019-08-09",
+            "season": "Spring",
+            "species": "goldfish",
+            "weight": "32",
+            "fishing_method": "spooning",
+            "length": "10",
+            "depth": "60",
+            "latitude": "34.441543587531285",
+            "longitude": "-82.84433964099475",
+            "catch_picture": "/static/fishdb/bass_largemouth.png",
+            "notes": "Good day on the water",
             "owner": 1
         }
     }
