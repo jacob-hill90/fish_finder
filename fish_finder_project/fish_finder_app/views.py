@@ -109,7 +109,7 @@ def sign_out(request):
 # view to validate username uniqueness
 @api_view(['POST'])
 def username_validate(request):
-    print(json.loads(request.body)['username'])
+    # print(json.loads(request.body)['username'])
     if AppUser.objects.filter(username=json.loads(request.body)['username']).exists():
         return JsonResponse({'data': 'Username already taken'})
     return JsonResponse({'data': 'Username available'})
@@ -118,12 +118,9 @@ def username_validate(request):
 @api_view(['GET'])
 def who_am_i(request):
     if request.user.is_authenticated:
-<<<<<<< HEAD
-        print(request.user.id)
+
         data = serializers.serialize("json", [request.user], fields=['id', 'email', 'username', 'first_name', 'last_name', 'zipcode', 'state', 'profile_picture'])
-=======
-        data = serializers.serialize("json", [request.user], fields=['username', 'first_name', 'last_name', 'email', 'state', 'zipcode', 'profile_picture'])
->>>>>>> d6fafafe29f13c28ea8f2c1c7efeca1717755679
+
         return HttpResponse(data)
     else:
         return JsonResponse({'user': None})
@@ -131,55 +128,61 @@ def who_am_i(request):
 
 ######################--- USER FISHTORY REQUEST---#######################
 
+
 @api_view(['POST'])
-def add_catch(request):
+def update_catch(request):
+
     # pulling out user deatails and assigning the email to username for good measure
     try:
-        user = AppUser.objects.all().filter(username=request.data['owner'])[0]
-
-        # creating new user
-        CatchData.objects.create(
-        owner = user,
-        date=request.data["date"],
-        fishing_method=request.data['fishingMethod'],
-        length=request.data['length'],
-        season=request.data['season'],
-        species=request.data['species'],
-        weight=request.data['weight'],
-        catch_picture=request.data['catch_picture'])
-
+        edited_catch = CatchData.objects.get(id=request.data['id'])
+        edited_catch.date = request.data['date']
+        edited_catch.fishing_method = request.data['fishing_method']
+        edited_catch.length = request.data['length']
+        edited_catch.season = request.data['season']
+        edited_catch.species = request.data['species']
+        edited_catch.weight = request.data['weight']
+        edited_catch.catch_picture = request.data['catch_picture']
+        edited_catch.save()
 
     # error handling
     except Exception as e:
-        print(str(e))
-        return JsonResponse({'data': str(e)})
-
-    return JsonResponse({'data': 'Catch saved!'})
-
-
+        # print(str(e))
+        return JsonResponse({'status': str(e)})
+        
+    return JsonResponse({'status': 'Catch updated succesfully'})
 
 
-
-
-@api_view(['GET', 'POST', 'DELETE'])
+@api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def catch(request):
     if request.method == 'GET':
         catches = CatchData.objects.filter(owner_id= request.user.id).values()
         data = list(catches)
         return JsonResponse({'data': data})
     if request.method == 'POST':
-        # data = request.data
+        # pulling out user and assigning to variable
+        try:
+            user = AppUser.objects.all().filter(username=request.data['owner'])[0]
 
-        data ={
-            'catch_picture': dict(request.FILES)['catch_picture'],
-            'date':dict(request.data)['date'][0],
-            'id':dict(request.data)['id'][0],
-            'length':dict(request.data)['length'][0],
-            'owner_id':dict(request.data)['owner_id'][0],
-            'season':dict(request.data)['season'][0],
-            'species':dict(request.data)['species'][0],
-            'weight':dict(request.data)['weight'][0],
-            }
+            # creating new user
+            CatchData.objects.create(
+            owner = user,
+            date=request.data["date"],
+            fishing_method=request.data['fishingMethod'],
+            length=request.data['length'],
+            season=request.data['season'],
+            species=request.data['species'],
+            weight=request.data['weight'],
+            catch_picture=request.data['catch_picture'])
+        
+        # error handling
+        except Exception as e:
+            print(str(e))
+            return JsonResponse({'data': str(e)})
+
+        return JsonResponse({'data': 'Catch saved!'})
+
+    if request.method == 'PUT':
+
         print('>>>>>>>>>>>>>>>>>>>>>>>>>>>DATA',data)
         # edited_catch = CatchData.objects.filter(owner_id= request.user.id).values().get(id =dict(request.data)['id'][0])
         # edited_catch = CatchData(**data)

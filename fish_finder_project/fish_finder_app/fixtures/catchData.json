@@ -9,7 +9,7 @@
             "weight": "10",
             "fishing_method": "bait fishing",
             "length": "12",
-            "catch_picture": "/static/fishdb/bass_spotted.png",
+            "catch_picture": "fishdb/bass_spotted.png",
             "owner": 1
         }
     },
@@ -23,7 +23,7 @@
             "weight": "20",
             "fishing_method": "fly-fishing",
             "length": "24",
-            "catch_picture": "/static/fishdb/bass_spotted.png",
+            "catch_picture": "fishdb/bass_spotted.png",
             "owner": 1
         }
     },
@@ -37,7 +37,7 @@
             "weight": "13",
             "fishing_method": "bait casting",
             "length": "34",
-            "catch_picture": "/static/fishdb/bass_spotted.png",
+            "catch_picture": "fishdb/bass_spotted.png",
             "owner": 1
         }
     },
@@ -51,7 +51,7 @@
             "weight": "24",
             "fishing_method": "spinning",
             "length": "15",
-            "catch_picture": "/static/fishdb/bass_spotted.png",
+            "catch_picture": "fishdb/bass_spotted.png",
             "owner": 1
         }
     },
@@ -65,7 +65,7 @@
             "weight": "14",
             "fishing_method": "trolling",
             "length": "24",
-            "catch_picture": "/static/fishdb/bass_spotted.png",
+            "catch_picture": "fishdb/bass_spotted.png",
             "owner": 1
         }
     },
@@ -79,7 +79,7 @@
             "weight": "42",
             "fishing_method": "bait",
             "length": "32",
-            "catch_picture": "/static/fishdb/bass_spotted.png",
+            "catch_picture": "fishdb/bass_spotted.png",
             "owner": 1
         }
     },
@@ -93,7 +93,7 @@
             "weight": "32",
             "fishing_method": "spooning",
             "length": "10",
-            "catch_picture": "/static/fishdb/bass_spotted.png",
+            "catch_picture": "fishdb/bass_spotted.png",
             "owner": 1
         }
     }

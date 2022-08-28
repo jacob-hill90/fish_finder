@@ -31,15 +31,10 @@ async function whoAmI() {
     return user
 }
 
-async function saveCatch(data, config) {
-    let response = await axios.post('/add_catch', data, config)
-    return response
-}
 
 export {
     signUpUser, 
     signOutUser,
     logInUser,
-    whoAmI,
-    saveCatch
+    whoAmI
 }

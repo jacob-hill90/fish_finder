@@ -9,11 +9,12 @@ import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import 'primereact/resources/primereact.css';
 import { Toast } from 'primereact/toast';
-import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
+import { ConfirmDialog } from 'primereact/confirmdialog';
 import { RadioButton } from 'primereact/radiobutton';
 // ##### --PAGES-- #####
 import ProfileHeader from './ProfileHeader';
 import UploadPic from './UploadPic';
+import { getUserCatches, updateCatch } from '../api/CatchAPI';
 
 function Fishtory({ user }) {
 
@@ -29,24 +30,19 @@ function Fishtory({ user }) {
     const [allCatches, setallCatches] = useState([])
     const [productDialog, setProductDialog] = useState(false);
     const [deleteProductDialog, setDeleteProductDialog] = useState(false);
-    const [selectedPicture, setSelectedPicture] = useState(null);
-    const [selectedPictureName, setSelectedPictureName] = useState('');
+    const [catch_picture, setCatchPicture] = useState();
     const [product, setProduct] = useState(emptyProduct);
 
-    const helperFunction = (param) => {
-        setSelectedPicture(param)
-        // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>NEW', param)
-        // setSelectedPictureName(param.name)
+    const helperFunction = (file) => {
+        setCatchPicture(file)
     }
 
 
-
-
     useEffect(() => {
-        axios.get('catch')
+        let response = getUserCatches()
             .then((response) => {
                 setallCatches(response['data']['data'])
-            })
+            })  
     }, [])
 
 
@@ -71,26 +67,25 @@ function Fishtory({ user }) {
             'season': product.season,
             'species': product.species,
             'weight': product.weight,
-            'catch_picture': selectedPicture
+            'catch_picture': catch_picture
         }
 
 
-        // axios.post('catch', {'data': data, 'selectedPicture': selectedPicture} ,  {
-        //     headers: {
-        //         'Content-Type': 'multipart/form-data'
-        //     }
-        // })
-        axios.post('catch', data, {
+        let config = {
             headers: {
-                'Content-Type': 'multipart/form-data'
+                Accept: "application/json",
+                "Content-Type": "multipart/form-data",
             }
-        })
-            .then((response) => {
-                toast.current.show({ severity: 'success', summary: 'Success', detail: `${response.data.status}`, life: 3000 });
+        }
+        
+        let response = updateCatch(data, config)
+        .then((response) => {
+            toast.current.show({ severity: 'success', summary: 'Success', detail: `${response.data.status}`, life: 3000 });
                 setTimeout(function () {
                     // window.location.reload();
                 }, 2000);
-            })
+        })
+
     }
 
     const deleteProduct = () => {
@@ -157,7 +152,8 @@ function Fishtory({ user }) {
 
     // Profile image
     const imageBodyTemplate = (rowData) => {
-        return <img src={rowData.catch_picture} onError={(e) => e.target.src = 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} className="product-image" width="150px" />
+        let source = `/static/media/${rowData.catch_picture}`
+        return <img src={source} onError={(e) => e.target.src = 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} className="product-image" width="150px" />
     }
 
     const onSeasonChange = (e) => {

@@ -14,7 +14,7 @@
             "last_name": "User", 
             "zipcode": 17602, 
             "state": "PA", 
-            "profile_picture": "/static/profile_picture/profilePicture.webp", 
+            "profile_picture": "/static/media/profile_picture/profilePicture.webp", 
             "is_active": true, 
             "groups": [], 
             "user_permissions": []
