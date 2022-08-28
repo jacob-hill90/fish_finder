@@ -2,6 +2,15 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser 
 
 
+def fish_upload_path(instance, filename):
+    return '/'.join(['fish_picture', str(instance.owner), filename])
+
+def profile_upload_path(instance, filename):
+    return '/'.join(['profile_picture', str(instance.owner), filename])
+
+
+
+
 class AppUser(AbstractUser):
     email = models.EmailField(
         verbose_name='email address',
@@ -12,7 +21,7 @@ class AppUser(AbstractUser):
     last_name = models.CharField(max_length=100)
     zipcode = models.PositiveIntegerField()
     state = models.CharField(max_length=2)
-    profile_picture = models.CharField(max_length=150, null=True)
+    profile_picture = models.ImageField(null=True, upload_to=profile_upload_path)
     is_active = models.BooleanField(default=True)
 
 
@@ -26,7 +35,7 @@ class CatchData(models.Model):
     depth = models.PositiveIntegerField(null=True)
     latitude = models.CharField(max_length=30, null=True)
     longitude = models.CharField(max_length=30, null=True)
-    catch_picture = models.CharField(max_length=225, null=True)
+    catch_picture = models.ImageField(null=True, upload_to=fish_upload_path)
     notes = models.TextField(null=True)
     owner = models.ForeignKey(AppUser, on_delete=models.CASCADE, related_name='catches')
 

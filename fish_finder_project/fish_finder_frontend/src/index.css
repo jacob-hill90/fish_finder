@@ -473,3 +473,13 @@ img.flag {
   height: 100%;
   left: 50%;
 }
+
+#geolocate {
+  position: absolute;
+  right: 6%;
+  top: 0;
+  max-width: 60px;
+  height: auto;
+  z-index: 100;
+  cursor:pointer;
+}

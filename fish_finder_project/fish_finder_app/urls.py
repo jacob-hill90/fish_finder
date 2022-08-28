@@ -16,8 +16,10 @@ urlpatterns = [
     path('username_validate', views.username_validate),
     path('whoami', views.who_am_i),
     path('catch', views.catch),
+    path('update_catch', views.update_catch),
     path('fishdb', views.fish_db),
     path('fishdbbyid', views.fishdb_byid),
+    path('edit_user', views.edit_user),
     path('API/<int:zipcode>', views.weather_api),
     re_path(r'^', views.home_page),
 ]
