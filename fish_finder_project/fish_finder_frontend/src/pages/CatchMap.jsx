@@ -10,7 +10,7 @@ import usePlacesAutocomplete, {
 } from "use-places-autocomplete"
 import { clearSuggestions } from 'use-places-autocomplete';
 import axios from "axios"
-
+import NewCatch from '../components/NewCatch'
 
 // // import Google Maps
 import {
@@ -28,6 +28,7 @@ import {
 } from "@react-google-maps/api"
 
 function CatchMap() {
+    const [dragEvent, setDragEvent] = useState(false)
     // this variable allows the search bar to populate places
     const libraries = ["places"]
     // this variable is a short hand way of changing the current map component
@@ -60,7 +61,8 @@ function CatchMap() {
         // process is undefined
         // googleMapsApiKey: { process.env.REACT_APP_GOOGLE_MAPS_API },
 
-        googleMapsApiKey: "",
+        googleMapsApiKey:
+        
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
         //  R E P L A C E   T H I S   L I N E   W I T H   G O O G L E   M A P S   K E Y
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -326,6 +328,9 @@ function CatchMap() {
                             icon={newcatch}
                             draggable={true}
                             onDragEnd={(event) => {
+
+                                setDragEvent(true)
+
                                 console.log("The Marker Has Moved")
                                 console.log(event.latLng.lat())
                                 console.log(event.latLng.lng())
@@ -337,10 +342,13 @@ function CatchMap() {
                                 console.log("We can have the user use the double click property to set his icon and bring up the fish data form")
                                 console.log("My catch coord states have been set to  " + newCatchLat + " and " + newCatchLng)
                             }}
-                        />}
+                            />}
                     <></>
                 </GoogleMap>
             </div>
+                            {
+                                dragEvent ? <NewCatch newCatchLat={newCatchLat} newCatchLng={newCatchLng} /> : null
+                            }
         </div >
     ) : <></>
 

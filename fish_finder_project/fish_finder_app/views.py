@@ -129,6 +129,11 @@ def who_am_i(request):
 
 ######################--- USER FISHTORY REQUEST---#######################
 
+@api_view(['POST'])
+def new_catch(request):
+    user = AppUser.objects.get(id = request.user.id )
+    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>USER',user)
+    return JsonResponse({'status': 'working on it'})
 
 @api_view(['POST'])
 def update_catch(request):

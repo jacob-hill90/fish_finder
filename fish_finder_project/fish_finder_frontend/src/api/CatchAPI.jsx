@@ -20,6 +20,10 @@ async function updateCatch(data, config) {
     return response
 }
 
+async function newCatch(data, config) {
+    let response = await axios.post('/new_catch', data, config)
+    return response
+}
 
 
 
@@ -28,5 +32,6 @@ async function updateCatch(data, config) {
 export {
     getUserCatches,
     saveCatch,
-    updateCatch
+    updateCatch,
+    newCatch
 }

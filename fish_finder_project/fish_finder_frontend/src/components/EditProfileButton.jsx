@@ -131,6 +131,7 @@ function EditProfileButton({ user }) {
 
     // Profile image
     const imageBodyTemplate = (rowData) => {
+        
         return <img src={rowData.catch_picture} onError={(e) => e.target.src = 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} className="product-image" width="150px" />
     }
 
