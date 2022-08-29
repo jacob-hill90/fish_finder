@@ -68,12 +68,11 @@ function CatchMap() {
 
         // process is undefined
         // googleMapsApiKey: { process.env.REACT_APP_GOOGLE_MAPS_API },
-        // apiKey,
-        googleMapsApiKey:
-            // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-            //  R E P L A C E   T H I S   L I N E   W I T H   G O O G L E   M A P S   K E Y
-            // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-            libraries
+        googleMapsApiKey: "AIzaSyCvRBwjBlzY9tMrm46tx6ksnRzGvxvUI5U",
+        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        //  R E P L A C E   T H I S   L I N E   W I T H   G O O G L E   M A P S   K E Y
+        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        libraries
     })
 
     const [map, setMap] = useState(null)
@@ -221,7 +220,7 @@ function CatchMap() {
             <div id="MapBox">
                 <img src={compass} id="geolocate"
                     onClick={() => {
-                        alert("Ensure Location Services Are Allowed in Browser")
+                        alert("Ensure Location Services Are Enabled in This Browser")
                         // try {
                         navigator.geolocation.getCurrentPosition(
                             (position) => {
