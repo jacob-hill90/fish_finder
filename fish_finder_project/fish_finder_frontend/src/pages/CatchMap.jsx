@@ -70,7 +70,7 @@ function CatchMap() {
         // googleMapsApiKey: { process.env.REACT_APP_GOOGLE_MAPS_API },
         // apiKey,
 
-        googleMapsApiKey: 
+        googleMapsApiKey: "AIzaSyCvRBwjBlzY9tMrm46tx6ksnRzGvxvUI5U",
         
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
         //  R E P L A C E   T H I S   L I N E   W I T H   G O O G L E   M A P S   K E Y
@@ -337,7 +337,7 @@ function CatchMap() {
                             icon={newcatch}
                             draggable={true}
                             onDragEnd={(event) => {
-
+                                    // Setting state to true for the add new catch popup window
                                 setDragEvent(true)
 
                                 console.log("The Marker Has Moved")

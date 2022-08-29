@@ -128,37 +128,28 @@ def who_am_i(request):
 
 
 ######################--- USER FISHTORY REQUEST---#######################
-
+# adding a new catch entry to the database
 @api_view(['POST'])
 def new_catch(request):
     user = AppUser.objects.get(id = request.user.id )
-    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>USER',user)
-    print('>>>>>>>Dan print>>>', request.data)
-    new_catch_data = request.data
-    #SEASON ISN'T SUBMITTED from form to 
     try:
         new_catch = CatchData.objects.create(
             owner=user,
-            date=new_catch_data['date'],
-            season=new_catch_data['season'],
-            species=new_catch_data['species'], 
-            weight=new_catch_data['weight'], 
-            fishing_method=new_catch_data['fishing_method'], 
-            length=new_catch_data['length'], 
-            latitude=new_catch_data['latitude'],
-            longitude=new_catch_data['longitude'])
-
-        print(new_catch.date,new_catch.owner)
+            date=request.data['date'],
+            season=request.data['season'],
+            species=request.data['species'], 
+            weight=request.data['weight'], 
+            fishing_method=request.data['fishing_method'], 
+            length=request.data['length'], 
+            latitude=request.data['latitude'],
+            longitude=request.data['longitude'],
+            catch_picture=request.data['catch_picture'])
     except Exception as e:
         return JsonResponse({'status': str(e)})
-
-    #owner = user.id; 
-    # new_catch = CatchData(date = )
-    return JsonResponse({'status': 'working on it'})
+    return JsonResponse({'status': 'New catch created succesfully'})
 
 @api_view(['POST'])
 def update_catch(request):
-
     # pulling out user deatails and assigning the email to username for good measure
     try:
         edited_catch = CatchData.objects.get(id=request.data['id'])

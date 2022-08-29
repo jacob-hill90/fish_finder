@@ -29,8 +29,8 @@ function Fishtory({ user }) {
     const [allCatches, setallCatches] = useState([])
     const [productDialog, setProductDialog] = useState(false);
     const [deleteProductDialog, setDeleteProductDialog] = useState(false);
-    const [catch_picture, setCatchPicture] = useState();
     const [product, setProduct] = useState(emptyProduct);
+    const [catch_picture, setCatchPicture] = useState();
 
     const helperFunction = (file) => {
         setCatchPicture(file)
@@ -68,7 +68,6 @@ function Fishtory({ user }) {
             'weight': product.weight,
             'catch_picture': catch_picture
         }
-
 
         let config = {
             headers: {
@@ -157,7 +156,7 @@ function Fishtory({ user }) {
 
     const onSeasonChange = (e) => {
         let _product = { ...product };
-        _product['category'] = e.value;
+        _product['season'] = e.value;
         setProduct(_product);
     }
 
@@ -210,7 +209,7 @@ function Fishtory({ user }) {
                             <label className="mb-3">Season</label>
                             <div className="formgrid grid">
                                 <div className="field-radiobutton col-6">
-                                    <RadioButton inputId="spring" name="spring" value="Spring" onChange={onSeasonChange} checked={product.category === 'Spring'} />
+                                    <RadioButton inputId="spring" name="spring" value="Spring" onChange={(e) => onSeasonChange(e)} checked={product.category === 'Spring'} />
                                     <label htmlFor="spring">Spring</label>
                                 </div>
                                 <div className="field-radiobutton col-6">

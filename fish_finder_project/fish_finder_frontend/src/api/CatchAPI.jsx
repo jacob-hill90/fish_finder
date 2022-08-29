@@ -25,10 +25,6 @@ async function newCatch(data, config) {
     return response
 }
 
-
-
-
-
 export {
     getUserCatches,
     saveCatch,

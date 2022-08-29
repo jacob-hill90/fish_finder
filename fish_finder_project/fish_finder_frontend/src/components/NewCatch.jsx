@@ -32,20 +32,20 @@ function NewCatch ({newCatchLng, newCatchLat}) {
     const [deleteProductDialog, setDeleteProductDialog] = useState(false);
     const [catch_picture, setCatchPicture] = useState();
     const [product, setProduct] = useState(emptyProduct);
-    
+
+    const helperFunction = (file) => {
+        setCatchPicture(file)
+    }
     const activateProductDialog = (change) => {
         setProductDialog(change)
     }
     
     useEffect(() => {
-
         let response = getUserCatches()
             .then((response) => {
                 setallCatches(response['data']['data'])
             })  
     }, [])
-
-
 
     const hideDialog = () => {
         setProductDialog(false);
@@ -60,19 +60,15 @@ function NewCatch ({newCatchLng, newCatchLat}) {
         setProductDialog(false);
         let data = {
             'date': product.date,
-            'fishing_method': product.fishingMethod,
-            'id': product.id,
-            'length': product.length,
-            'owner_id': product.owner_id,
             'season': product.season,
             'species': product.species,
             'weight': product.weight,
-            'catch_picture': catch_picture,
+            'fishing_method': product.fishingMethod,
+            'length': product.length,
             'latitude': newCatchLat.toString(),
             'longitude': newCatchLng.toString(),
+            'catch_picture': catch_picture,
         }
-
-
 
         let config = {
             headers: {
@@ -83,11 +79,10 @@ function NewCatch ({newCatchLng, newCatchLat}) {
         
         let response = newCatch(data, config)
         .then((response) => {
-            // toast.current.show({ severity: 'success', summary: 'Success', detail: `${response.data['status']}`, life: 3000 });
-            console.log(response)
-        //         setTimeout(function () {
-        //             // window.location.reload();
-        //         }, 2000);
+            toast.current.show({ severity: 'success', summary: 'Success', detail: `${response.data['status']}`, life: 3000 });
+                setTimeout(function () {
+                    // window.location.reload();
+                }, 2000);
         // })
 
     })}
@@ -163,7 +158,7 @@ function NewCatch ({newCatchLng, newCatchLat}) {
 
     const onSeasonChange = (e) => {
         let _product = { ...product };
-        _product['category'] = e.value;
+        _product['season'] = e.value;
         setProduct(_product);
     }
     return (
@@ -172,7 +167,7 @@ function NewCatch ({newCatchLng, newCatchLat}) {
             {/* pop up window for editing catches individually */}
             <Dialog visible={productDialog} style={{ width: '450px' }} header="New Catch" modal footer={productDialogFooter} onHide={hideDialog} >
                     <div className="date">
-                        {/* <UploadPic /> helperFunction={helperFunction}  */}
+                        <UploadPic helperFunction={helperFunction} /> 
                     </div>
                     <div className="p-fluid">
                         <div className="date">
