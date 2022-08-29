@@ -107,9 +107,8 @@ def sign_out(request):
     logout(request)
     return JsonResponse({'data': 'User logged out!'})
 
+
 # view to validate username uniqueness
-
-
 @api_view(['POST'])
 def username_validate(request):
     # print(json.loads(request.body)['username'])
@@ -161,7 +160,6 @@ def update_catch(request):
         edited_catch.weight = request.data['weight']
         edited_catch.catch_picture = request.data['catch_picture']
         edited_catch.save()
-
     # error handling
     except Exception as e:
         # print(str(e))
@@ -180,8 +178,7 @@ def catch(request):
         # pulling out user and assigning to variable
         try:
             user = AppUser.objects.all().filter(username=request.data['owner'])[0]
-
-            # creating new user
+            # creating new catch
             CatchData.objects.create(
             owner = user,
             date=request.data["date"],
@@ -191,27 +188,21 @@ def catch(request):
             species=request.data['species'],
             weight=request.data['weight'],
             catch_picture=request.data['catch_picture'])
-        
         # error handling
         except Exception as e:
             print(str(e))
             return JsonResponse({'data': str(e)})
-
         return JsonResponse({'data': 'Catch saved!'})
-
     if request.method == 'PUT':
         data = request.data
         print('>>>>>>>>>>>>>>>>>>>>>>>>>>>', data)
-        edited_catch = CatchData.objects.filter(
-            owner_id=request.user.id).values().get(id=request.data['id'])
-        # edited_catch = CatchData(**data)
-        # edited_catch.save()
-
-        # file_name = '../static/catch_picture/'
+        edited_catch = CatchData.objects.filter(owner_id=request.user.id).values().get(id=request.data['id'])
+        edited_catch = CatchData(**data)
+        edited_catch.save()
         return JsonResponse({'status': 'Catch updated succesfully'})
     if request.method == 'DELETE':
         delete_catch = CatchData.objects.get(id = request.data['id'])
-        # delete_catch.delete()
+        delete_catch.delete()
         return JsonResponse({'status': 'Catch deleted succesfully'})
 
 
