@@ -69,7 +69,7 @@ function NewCatch ({newCatchLng, newCatchLat}) {
             'weight': product.weight,
             'catch_picture': catch_picture,
             'latitude': newCatchLat.toString(),
-            'longitute': newCatchLat.toString(),
+            'longitude': newCatchLng.toString(),
         }
 
 
@@ -82,14 +82,15 @@ function NewCatch ({newCatchLng, newCatchLat}) {
         }
         
         let response = newCatch(data, config)
-        // .then((response) => {
-            toast.current.show({ severity: 'success', summary: 'Success', detail: `${response.data.status}`, life: 3000 });
+        .then((response) => {
+            // toast.current.show({ severity: 'success', summary: 'Success', detail: `${response.data['status']}`, life: 3000 });
+            console.log(response)
         //         setTimeout(function () {
         //             // window.location.reload();
         //         }, 2000);
         // })
 
-    }
+    })}
 
     const deleteProduct = () => {
         let data = { 'id': product.id }
