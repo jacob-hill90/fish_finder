@@ -8,7 +8,7 @@ import usePlacesAutocomplete, {
     getGeocode,
     getLatLng,
 } from "use-places-autocomplete"
-import { clearSuggestions } from 'use-places-autocomplete';
+// import { clearSuggestions } from 'use-places-autocomplete';
 import axios from "axios"
 import NewCatch from '../components/NewCatch'
 
@@ -19,12 +19,12 @@ import {
     Marker,
     InfoBox,
     Circle,
-    MarkerCluster,
+    // MarkerCluster,
     InfoWindow,
     useJsApiLoader,
     StandaloneSearchBox,
     Autocomplete,
-    searchBox,
+    // searchBox,
 } from "@react-google-maps/api"
 
 // const dotenv = require('dotenv').config()
@@ -69,7 +69,7 @@ function CatchMap() {
 
         // process is undefined
         // googleMapsApiKey: { process.env.REACT_APP_GOOGLE_MAPS_API },
-        googleMapsApiKey: "",
+        googleMapsApiKey: "AIzaSyCvRBwjBlzY9tMrm46tx6ksnRzGvxvUI5U",
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
         //  R E P L A C E   T H I S   L I N E   W I T H   G O O G L E   M A P S   K E Y
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
