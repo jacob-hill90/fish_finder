@@ -15,10 +15,15 @@ import {
 } from 'mdb-react-ui-kit';
 import { signOutUser } from '../api/UserAPI';
 import LoginModal from './LoginModal'
+import UserAvatar from './UserAvatar';
+
+
+
 
 function NavBar({ user, temp, weatherIcon }) {
 
   const [showNavNoTogglerSecond, setShowNavNoTogglerSecond] = useState(false);
+  const [open, setOpen] = useState(false);
 
 
   function handleClick(event) {
@@ -36,18 +41,12 @@ function NavBar({ user, temp, weatherIcon }) {
             data-target='#navbarTogglerDemo02'
             onClick={() => setShowNavNoTogglerSecond(!showNavNoTogglerSecond)}
           >
-            <MDBIcon fas icon="bars" />
+            <MDBIcon className="toggler" fas icon="bars" />
           </MDBNavbarToggler>
           <MDBCollapse navbar show={showNavNoTogglerSecond} className=" justify-content-center align-items-center">
-            <MDBNavbarNav className='flex-row align-items-center text-md-center '>
-              <MDBNavbarItem>
-                {user ? <Chip label={user.username} /> : null}
-              </MDBNavbarItem>
+            <MDBNavbarNav className='flex-row align-items-center text-md-center '>  
             </MDBNavbarNav>
-            <MDBNavbarNav className='flex justify-content-center align-items-center text-md-center nav_item'>
-              <MDBNavbarItem className="me-4">
-              <Link to={"/user_profile"} className="global-links nav_items"><strong>User</strong></Link>
-              </MDBNavbarItem>
+            <MDBNavbarNav className='flex justify-content-center align-items-center text-md-center nav_item me-5'>
               <MDBNavbarItem className="me-4">
                 {user ? <Link to={"/catch_map"} className="global-links nav_items"><strong>Catch Map</strong></Link> : null }
               </MDBNavbarItem>
@@ -56,18 +55,23 @@ function NavBar({ user, temp, weatherIcon }) {
               </MDBNavbarItem>
             </MDBNavbarNav>
             <MDBNavbarNav className="flex-row justify-content-end align-items-center flex-nowrap">
-              <MDBNavbarItem className="me-4">
-                {user ? <Link to={"/user_weather"} className="global-links nav_items"><div className='weather'><img className='weather_icon' src={weatherIcon} alt="Weather" /><h5>{Math.floor(temp)}˚</h5></div></Link>  : null}
+              {user 
+              ?<MDBNavbarItem className="me-4">
+                <Link to={"/user_weather"} className="global-links nav_items"><div className='weather'><img className='weather_icon' src={weatherIcon} alt="Weather" /><h5>{Math.floor(temp)}˚</h5></div></Link>
               </MDBNavbarItem>
-              <MDBNavbarItem className="me-4">
-                {user ? <MDBBtn onClick={(event) => { handleClick(event) }} style={{ backgroundColor: '#62acee' }} className="text-dark" >Sign Out</MDBBtn> : null}
-              </MDBNavbarItem>
-              <MDBNavbarItem className="me-4">
-                {user ? null : <Link to={"/signup"} className="global-links nav_items" ><MDBBtn style={{ backgroundColor: '#62acee' }} className="text-dark" >Sign Up</MDBBtn></Link>}
-              </MDBNavbarItem>
-              <MDBNavbarItem className="me-4">
-                {user ? null : <LoginModal />}
-              </MDBNavbarItem>
+              :null
+              }
+              { user? null
+                :<MDBNavbarItem className="me-4">
+                  <Link to={"/signup"} className="global-links nav_items" ><MDBBtn style={{ backgroundColor: '#62acee' }} className="text-dark" >Sign Up</MDBBtn></Link>
+                </MDBNavbarItem>
+              }
+              {user? null
+                :<MDBNavbarItem className="me-4">
+                  <LoginModal />
+                </MDBNavbarItem>
+              }
+              {user ? <UserAvatar user={user} setOpen={setOpen} open={open} handleClick={handleClick}> </UserAvatar>  : null}
             </MDBNavbarNav>
           </MDBCollapse>
         </MDBContainer>
