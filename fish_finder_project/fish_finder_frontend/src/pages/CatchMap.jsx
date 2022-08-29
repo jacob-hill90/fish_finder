@@ -57,10 +57,11 @@ function CatchMap() {
     // option gives us 1. Map CSS, Disable all default widgets, gives user zoom control, gives user a distance scale
     const options = {
         // styles: MapStyles,
-        disableDefaultUI: true,
+        // disableDefaultUI: true,
         zoomControl: true,
         scaleControl: true,
-        mapTypeControl: true,
+        // mapTypeControl: true,
+        mapTypeId: 'terrain'
     };
     // loads google map api's script
     const { isLoaded } = useJsApiLoader({
@@ -68,12 +69,11 @@ function CatchMap() {
 
         // process is undefined
         // googleMapsApiKey: { process.env.REACT_APP_GOOGLE_MAPS_API },
-        // apiKey,
-        googleMapsApiKey:
-            // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-            //  R E P L A C E   T H I S   L I N E   W I T H   G O O G L E   M A P S   K E Y
-            // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-            libraries
+        googleMapsApiKey: "",
+        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        //  R E P L A C E   T H I S   L I N E   W I T H   G O O G L E   M A P S   K E Y
+        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        libraries
     })
 
     const [map, setMap] = useState(null)
@@ -97,30 +97,30 @@ function CatchMap() {
         setActiveMarker(marker);
     };
     // dummy test markers, using until json model can support 
-    const testMarkers = [
-        {
-            id: 1,
-            name: "Fish 1",
-            position: { lat: 34.394142, lng: -82.874662 }
-        },
-        {
-            id: 2,
-            name: "Fish 2",
-            position: { lat: 34.434243, lng: -82.828167 }
-        },
-        {
-            id: 3,
-            name: "Fish 3",
-            position: { lat: 34.495208, lng: -82.857333 }
-        },
-        {
-            id: 4,
-            name: "Fish 4",
-            position: { lat: 34.518695, lng: -82.806761 }
-        }
-    ]
+    // const testMarkers = [
+    //     {
+    //         id: 1,
+    //         name: "Fish 1",
+    //         position: { lat: 34.394142, lng: -82.874662 }
+    //     },
+    //     {
+    //         id: 2,
+    //         name: "Fish 2",
+    //         position: { lat: 34.434243, lng: -82.828167 }
+    //     },
+    //     {
+    //         id: 3,
+    //         name: "Fish 3",
+    //         position: { lat: 34.495208, lng: -82.857333 }
+    //     },
+    //     {
+    //         id: 4,
+    //         name: "Fish 4",
+    //         position: { lat: 34.518695, lng: -82.806761 }
+    //     }
+    // ]
     // id used for new marker key, will use primary key in model when using real db data
-    let markerCount = 4;
+    let markerCount = 26;
     // hook for generating a new catch icon on map (used with Add Catch button)
     const [newFishMarker, setNewFishMarker] = useState(false)
 
@@ -155,10 +155,6 @@ function CatchMap() {
             setMapCenter(LatLng);
             panTo(LatLng);
             console.log(autocomplete)
-
-
-
-
 
         }
         else {
@@ -202,30 +198,36 @@ function CatchMap() {
     // console.log(newdata)
     // console.log(typeof (newdata))
 
+    const [buttonText, setButtonText] = useState("Add a New Catch");
+
+    const changeText = (text) => setButtonText(text);
+
     return isLoaded ? (
         <div class="MapPage">
             <h2 id="MapTitle">See What Local Anglers Have Been Catching Near You!</h2>
             <div id="MapInstructions">
                 <p>Find your local fishing location using the search bar below or click the compass icon to find your location by your device.</p>
-                <p> Then click the "Add Catch" button to add a new fish to the map.</p>
+                <p> Then click the "Add a New Catch" button to add a new fish to the map.</p>
                 <p> Drag the fish icon to the location where you landed your fish.</p>
                 <p> Double click the icon to add details about the catch and save it to the map.</p>
                 <button onClick={() => {
                     if (newFishMarker == false) {
                         setNewFishMarker(true)
+                        changeText("Remove New Marker")
                     }
                     else {
                         setNewFishMarker(false)
+                        changeText("Add a New Catch")
                     }
                 }}>
-                    Add Catch
+                    {buttonText}
                 </button>
             </div>
             <br />
             <div id="MapBox">
                 <img src={compass} id="geolocate"
                     onClick={() => {
-                        alert("Ensure Location Services Are Allowed in Browser")
+                        alert("Ensure Location Services Are Enabled in This Browser")
                         // try {
                         navigator.geolocation.getCurrentPosition(
                             (position) => {
@@ -252,7 +254,7 @@ function CatchMap() {
                     mapContainerStyle={containerStyle}
                     center={mapCenter}
                     zoom={11}
-                    // options={options}
+                    options={options}
                     onLoad={onMapLoad}
                     onUnmount={onUnmount}
                     onClick={() => {
