@@ -5,14 +5,14 @@
         "fields": {
             "date": "2021-03-05",
             "season": "Spring",
-            "species": "Swordfish",
-            "weight": "10",
-            "fishing_method": "bait fishing",
-            "length": "12",
+            "species": "Spotted Bass",
+            "weight": "2.5",
+            "fishing_method": "Bait Fishing",
+            "length": "22",
             "depth": "30",
             "latitude": "34.50901111697322",
             "longitude": "-82.84790328865657",
-            "catch_picture": "fishdb/bass_largemouth.png",
+            "catch_picture": "static/media/fishdb/bass_spotted.png",
             "notes": "Great day on the water",
             "owner": 1
         }
@@ -21,16 +21,16 @@
         "pk": 2,
         "model": "fish_finder_app.catchdata",
         "fields": {
-            "date": "2022-05-11",
+            "date": "2022-09-11",
             "season": "Fall",
-            "species": "Tilapia",
-            "weight": "20",
-            "fishing_method": "fly-fishing",
-            "length": "24",
-            "depth": "5",
+            "species": "Blue Catfish",
+            "weight": "19",
+            "fishing_method": "Noodling",
+            "length": "34",
+            "depth": "4",
             "latitude": "34.51085001610561",
             "longitude": "-82.82215408308932",
-            "catch_picture": "fishdb/bass_largemouth.png",
+            "catch_picture": "static/media/fishdb/catfish_blue.png",
             "notes": "Fantastic day on the water",
             "owner": 1
         }
@@ -39,16 +39,16 @@
         "pk": 3,
         "model": "fish_finder_app.catchdata",
         "fields": {
-            "date": "2019-01-02",
+            "date": "2019-04-02",
             "season": "Spring",
-            "species": "Salmon",
-            "weight": "13",
-            "fishing_method": "bait casting",
-            "length": "34",
-            "depth": "80",
+            "species": "Walleye",
+            "weight": "3.5",
+            "fishing_method": "Casting",
+            "length": "28",
+            "depth": "24",
             "latitude": "34.39718651178236",
             "longitude": "-82.89648345649346",
-            "catch_picture": "fishdb/bass_largemouth.png",
+            "catch_picture": "static/media/fishdb/walleye.png",
             "notes": "Fabulous day on the water",
             "owner": 1
         }
@@ -57,16 +57,16 @@
         "pk": 4,
         "model": "fish_finder_app.catchdata",
         "fields": {
-            "date": "2018-02-02",
+            "date": "2018-10-02",
             "season": "Fall",
             "species": "Catfish",
             "weight": "24",
-            "fishing_method": "spinning",
-            "length": "15",
-            "depth": "3",
+            "fishing_method": "Spinning",
+            "length": "42",
+            "depth": "9",
             "latitude": "34.44066018962539",
             "longitude": "-82.80876449619433",
-            "catch_picture": "fishdb/bass_largemouth.png",
+            "catch_picture": "static/media/fishdb/catfish_channel.png",
             "notes": "Incredible day on the water",
             "owner": 1
         }
@@ -75,16 +75,16 @@
         "pk": 5,
         "model": "fish_finder_app.catchdata",
         "fields": {
-            "date": "2022-05-06",
+            "date": "2022-07-06",
             "season": "Summer",
             "species": "Carp",
-            "weight": "14",
-            "fishing_method": "trolling",
-            "length": "24",
-            "depth": "40",
+            "weight": "6",
+            "fishing_method": "Trolling",
+            "length": "26",
+            "depth": "60",
             "latitude": "34.49387402120938",
             "longitude": "-82.94214538103272",
-            "catch_picture": "fishdb/bass_largemouth.png",
+            "catch_picture": "static/media/fishdb/BWCarp, common.png",
             "notes": "Incredible day on the water",
             "owner": 1
         }
@@ -94,15 +94,15 @@
         "model": "fish_finder_app.catchdata",
         "fields": {
             "date": "2016-05-06",
-            "season": "Seummer",
-            "species": "oarfish",
-            "weight": "42",
-            "fishing_method": "bait",
-            "length": "32",
-            "depth": "110",
+            "season": "Spring",
+            "species": "Flathead",
+            "weight": "8",
+            "fishing_method": "Trolling",
+            "length": "20",
+            "depth": "48",
             "latitude": "34.53574188803758",
             "longitude": "-82.82060912970798",
-            "catch_picture": "fishdb/bass_largemouth.png",
+            "catch_picture": "static/media/fishdb/catfish_flathead.png",
             "notes": "Sweet day on the water",
             "owner": 1
         }
@@ -112,15 +112,15 @@
         "model": "fish_finder_app.catchdata",
         "fields": {
             "date": "2019-08-09",
-            "season": "Spring",
-            "species": "goldfish",
-            "weight": "32",
-            "fishing_method": "spooning",
-            "length": "10",
-            "depth": "35",
+            "season": "Summer",
+            "species": "White Bass",
+            "weight": "4",
+            "fishing_method": "Trolling",
+            "length": "16",
+            "depth": "45",
             "latitude": "34.545922782028825",
             "longitude": "-82.79211334221353",
-            "catch_picture": "fishdb/bass_largemouth.png",
+            "catch_picture": "static/media/fishdb/bass_whiterock.png",
             "notes": "Amazing day on the water",
             "owner": 1
         }
@@ -129,16 +129,16 @@
         "pk": 8,
         "model": "fish_finder_app.catchdata",
         "fields": {
-            "date": "2019-08-09",
+            "date": "2019-05-09",
             "season": "Spring",
-            "species": "goldfish",
-            "weight": "32",
-            "fishing_method": "spooning",
-            "length": "10",
-            "depth": "50",
+            "species": "Largemouth Bass",
+            "weight": "6.5",
+            "fishing_method": "Spooning",
+            "length": "27",
+            "depth": "35",
             "latitude": "34.546771133652065",
             "longitude": "-82.77220062324152",
-            "catch_picture": "fishdb/bass_largemouth.png",
+            "catch_picture": "static/media/fishdb/bass_largemouth.png",
             "notes": "Fine day on the water",
             "owner": 1
         }
@@ -147,16 +147,16 @@
         "pk": 9,
         "model": "fish_finder_app.catchdata",
         "fields": {
-            "date": "2019-08-09",
+            "date": "2019-05-09",
             "season": "Spring",
-            "species": "goldfish",
-            "weight": "32",
-            "fishing_method": "spooning",
-            "length": "10",
-            "depth": "25",
+            "species": "Largemouth Bass",
+            "weight": "5.8",
+            "fishing_method": "Spooning",
+            "length": "24",
+            "depth": "33",
             "latitude": "34.56334618834597",
             "longitude": "-82.73876789632163",
-            "catch_picture": "fishdb/bass_largemouth.png",
+            "catch_picture": "static/media/fishdb/bass_largemouth.png",
             "notes": "Lovely day on the water",
             "owner": 1
         }
@@ -165,17 +165,305 @@
         "pk": 10,
         "model": "fish_finder_app.catchdata",
         "fields": {
-            "date": "2019-08-09",
+            "date": "2019-04-22",
             "season": "Spring",
-            "species": "goldfish",
-            "weight": "32",
-            "fishing_method": "spooning",
-            "length": "10",
-            "depth": "60",
+            "species": "Spotted Bass",
+            "weight": "2.5",
+            "fishing_method": "Trolling",
+            "length": "21",
+            "depth": "50",
             "latitude": "34.441543587531285",
             "longitude": "-82.84433964099475",
-            "catch_picture": "fishdb/bass_largemouth.png",
+            "catch_picture": "static/media/fishdb/bass_spotted.png",
             "notes": "Good day on the water",
+            "owner": 1
+        }
+    },
+    {
+        "pk": 11,
+        "model": "fish_finder_app.catchdata",
+        "fields": {
+            "date": "2022-08-09",
+            "season": "Fall",
+            "species": "Asian Carp",
+            "weight": "22",
+            "fishing_method": "Casting",
+            "length": "28",
+            "depth": "10",
+            "latitude": "41.880004", 
+            "longitude": "-87.638080",
+            "catch_picture": "static/media/fishdb/BWCarp, common.png",
+            "notes": "Good day on the river",
+            "owner": 1
+        }
+    },
+    {
+        "pk": 12,
+        "model": "fish_finder_app.catchdata",
+        "fields": {
+            "date": "2021-03-24",
+            "season": "Spring",
+            "species": "Asian Carp",
+            "weight": "29",
+            "fishing_method": "Casting",
+            "length": "33",
+            "depth": "8",
+            "latitude": "41.886270",
+            "longitude": "-87.637227",
+            "catch_picture": "static/media/fishdb/BWCarp, common.png",
+            "notes": "Splendid day on the river",
+            "owner": 1
+        }
+    },
+    {
+        "pk": 13,
+        "model": "fish_finder_app.catchdata",
+        "fields": {
+            "date": "2016-06-27",
+            "season": "Summer",
+            "species": "Asian Carp",
+            "weight": "14",
+            "fishing_method": "Casting",
+            "length": "20",
+            "depth": "8",
+            "latitude": "41.887385",
+            "longitude": "-87.638544",
+            "catch_picture": "static/media/fishdb/BWCarp, common.png",
+            "notes": "Decent day on the river",
+            "owner": 1
+        }
+    },
+    {
+        "pk": 14,
+        "model": "fish_finder_app.catchdata",
+        "fields": {
+            "date": "2020-04-05",
+            "season": "Spring",
+            "species": "Catfish",
+            "weight": "2.5",
+            "fishing_method": "Casting",
+            "length": "18",
+            "depth": "5",
+            "latitude": "41.886294", 
+            "longitude": "-87.638443",
+            "catch_picture": "static/media/fishdb/catfish_channel.png",
+            "notes": "Best day on the river yet!",
+            "owner": 1
+        }
+    },
+    {
+        "pk": 15,
+        "model": "fish_finder_app.catchdata",
+        "fields": {
+            "date": "2020-07-15",
+            "season": "Summer",
+            "species": "Catfish",
+            "weight": "4",
+            "fishing_method": "Casting",
+            "length": "26",
+            "depth": "6",
+            "latitude": "41.877855", 
+            "longitude": "-87.637484",
+            "catch_picture": "static/media/fishdb/catfish_channel.png",
+            "notes": "Lovely day on the river",
+            "owner": 1
+        }
+    },
+    {
+        "pk": 16,
+        "model": "fish_finder_app.catchdata",
+        "fields": {
+            "date": "2021-05-05",
+            "season": "Spring",
+            "species": "Catfish",
+            "weight": "3",
+            "fishing_method": "Casting",
+            "length": "22",
+            "depth": "5",
+            "latitude": "41.878212", 
+            "longitude": "-87.637963",
+            "catch_picture": "static/media/fishdb/catfish_channel.png",
+            "notes": "Solid day on the river",
+            "owner": 1
+        }
+    },
+    {
+        "pk": 17,
+        "model": "fish_finder_app.catchdata",
+        "fields": {
+            "date": "2021-08-16",
+            "season": "Summer",
+            "species": "Asian Carp",
+            "weight": "8",
+            "fishing_method": "Casting",
+            "length": "19",
+            "depth": "9",
+            "latitude": "41.887305", 
+            "longitude": "-87.628433",
+            "catch_picture": "static/media/fishdb/BWCarp, common.png",
+            "notes": "Can't beat a good day on the river",
+            "owner": 1
+        }
+    },
+    {
+        "pk": 18,
+        "model": "fish_finder_app.catchdata",
+        "fields": {
+            "date": "2021-08-16",
+            "season": "Summer",
+            "species": "Asian Carp",
+            "weight": "14",
+            "fishing_method": "Casting",
+            "length": "24",
+            "depth": "15",
+            "latitude": "41.887638", 
+            "longitude": "-87.630695",
+            "catch_picture": "static/media/fishdb/BWCarp, common.png",
+            "notes": "Amazing day on the river",
+            "owner": 1
+        }
+    },
+    {
+        "pk": 19,
+        "model": "fish_finder_app.catchdata",
+        "fields": {
+            "date": "2021-08-02",
+            "season": "Summer",
+            "species": "Perch",
+            "weight": ".5",
+            "fishing_method": "Bobber",
+            "length": "8",
+            "depth": "15",
+            "latitude": "41.890676", 
+            "longitude": "-87.607783",
+            "catch_picture": "perch_nile.png",
+            "notes": "My kid caught his first fish!",
+            "owner": 1
+        }
+    },
+    {
+        "pk": 20,
+        "model": "fish_finder_app.catchdata",
+        "fields": {
+            "date": "2022-05-02",
+            "season": "Spring",
+            "species": "Perch",
+            "weight": "1",
+            "fishing_method": "Bobber",
+            "length": "12",
+            "depth": "15",
+            "latitude": "41.891251", 
+            "longitude": "-87.600211",
+            "catch_picture": "static/media/fishdb/perch_nile.png",
+            "notes": "Great spot to teach the kids how to fish",
+            "owner": 1
+        }
+    },
+    {
+        "pk": 21,
+        "model": "fish_finder_app.catchdata",
+        "fields": {
+            "date": "2022-07-17",
+            "season": "Summer",
+            "species": "Perch",
+            "weight": ".8",
+            "fishing_method": "Bobber",
+            "length": "9",
+            "depth": "15",
+            "latitude": "41.892345", 
+            "longitude": "-87.598393",
+            "catch_picture": "static/media/fishdb/perch_nile.png",
+            "notes": "Nice little perch caught off the pier",
+            "owner": 1
+        }
+    },
+    {
+        "pk": 22,
+        "model": "fish_finder_app.catchdata",
+        "fields": {
+            "date": "2022-08-24",
+            "season": "Summer",
+            "species": "Perch",
+            "weight": ".5",
+            "fishing_method": "Bobber",
+            "length": "8",
+            "depth": "15",
+            "latitude": "41.892512", 
+            "longitude": "-87.600884",
+            "catch_picture": "static/media/fishdb/perch_nile.png",
+            "notes": "Better than being in the office!",
+            "owner": 1
+        }
+    },
+    {
+        "pk": 23,
+        "model": "fish_finder_app.catchdata",
+        "fields": {
+            "date": "2022-06-07",
+            "season": "Summer",
+            "species": "Largemouth Bass",
+            "weight": "2",
+            "fishing_method": "Casting",
+            "length": "18",
+            "depth": "20",
+            "latitude": "41.882708", 
+            "longitude": "-87.613381",
+            "catch_picture": "static/media/fishdb/bass_largemouth.png",
+            "notes": "Good day on the shore",
+            "owner": 1
+        }
+    },
+    {
+        "pk": 24,
+        "model": "fish_finder_app.catchdata",
+        "fields": {
+            "date": "2022-06-13",
+            "season": "Summer",
+            "species": "Smallmouth Bass",
+            "weight": "1.2",
+            "fishing_method": "Casting",
+            "length": "14",
+            "depth": "25",
+            "latitude": "41.880552", 
+            "longitude": "-87.614929",
+            "catch_picture": "static/media/fishdb/bass_smallmouth.png",
+            "notes": "Good day on Lake Michigan",
+            "owner": 1
+        }
+    },
+    {
+        "pk": 25,
+        "model": "fish_finder_app.catchdata",
+        "fields": {
+            "date": "2022-08-15",
+            "season": "Summer",
+            "species": "Largemouth Bass",
+            "weight": "3",
+            "fishing_method": "Casting",
+            "length": "24",
+            "depth": "25",
+            "latitude": "41.871997", 
+            "longitude": "-87.615142",
+            "catch_picture": "static/media/fishdb/bass_largemouth.png",
+            "notes": "Great catch right off the shore!",
+            "owner": 1
+        }
+    },
+    {
+        "pk": 26,
+        "model": "fish_finder_app.catchdata",
+        "fields": {
+            "date": "2022-05-28",
+            "season": "Summer",
+            "species": "Smallmouth Bass",
+            "weight": "1.4",
+            "fishing_method": "Casting",
+            "length": "16",
+            "depth": "22",
+            "latitude": "41.868993", 
+            "longitude": "-87.614021",
+            "catch_picture": "static/media/fishdb/bass_smallmouth.png",
+            "notes": "Nice to be out of the office!",
             "owner": 1
         }
     }

@@ -19,7 +19,7 @@ function Fishtory({ user }) {
 
     let emptyProduct = {
         date: '',
-        fishingMethod: '',
+        fishing_method: '',
         length: '',
         season: '',
         species: '',
@@ -29,13 +29,13 @@ function Fishtory({ user }) {
     const [allCatches, setallCatches] = useState([])
     const [productDialog, setProductDialog] = useState(false);
     const [deleteProductDialog, setDeleteProductDialog] = useState(false);
-    const [catch_picture, setCatchPicture] = useState();
     const [product, setProduct] = useState(emptyProduct);
+    const [catch_picture, setCatchPicture] = useState();
+    const toast = useRef(null);
 
     const helperFunction = (file) => {
         setCatchPicture(file)
     }
-
 
     useEffect(() => {
         let response = getUserCatches()
@@ -44,12 +44,9 @@ function Fishtory({ user }) {
             })  
     }, [])
 
-
-
     const hideDialog = () => {
         setProductDialog(false);
     }
-    const toast = useRef(null);
 
     const hideDeleteProductDialog = () => {
         setDeleteProductDialog(false);
@@ -59,7 +56,7 @@ function Fishtory({ user }) {
         setProductDialog(false);
         let data = {
             'date': product.date,
-            'fishing_method': product.fishingMethod,
+            'fishing_method': product.fishing_method,
             'id': product.id,
             'length': product.length,
             'owner_id': product.owner_id,
@@ -68,7 +65,6 @@ function Fishtory({ user }) {
             'weight': product.weight,
             'catch_picture': catch_picture
         }
-
 
         let config = {
             headers: {
@@ -81,7 +77,7 @@ function Fishtory({ user }) {
         .then((response) => {
             toast.current.show({ severity: 'success', summary: 'Success', detail: `${response.data.status}`, life: 3000 });
                 setTimeout(function () {
-                    // window.location.reload();
+                    window.location.reload();
                 }, 2000);
         })
 
@@ -108,14 +104,12 @@ function Fishtory({ user }) {
         setDeleteProductDialog(true);
     }
 
-
     const onInputChange = (e, name) => {
         const val = (e.target && e.target.value) || '';
         let _product = { ...product };
         _product[`${name}`] = val;
         setProduct(_product);
     }
-
 
     const header = (
         <div className="table-header text-center">
@@ -137,8 +131,8 @@ function Fishtory({ user }) {
 
     const productDialogFooter = (
         <React.Fragment enctype="multipart/form-data">
-            <Button label="Cancel" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
-            <Button label="Save" icon="pi pi-check" className="p-button-text" onClick={saveProduct} />
+            <Button label="Cancel" icon="pi pi-times" className="p-button-danger p-button-text" onClick={hideDialog} />
+            <Button label="Save" icon="pi pi-check" className="p-button-success" onClick={saveProduct} />
         </React.Fragment>
     );
 
@@ -157,7 +151,7 @@ function Fishtory({ user }) {
 
     const onSeasonChange = (e) => {
         let _product = { ...product };
-        _product['category'] = e.value;
+        _product['season'] = e.value;
         setProduct(_product);
     }
 
@@ -185,8 +179,6 @@ function Fishtory({ user }) {
                     <Column body={actionBodyTemplate} exportable={false} style={{ minWidth: '2rem' }} ></Column>
                 </DataTable>
 
-
-
                 {/* pop up window for editing catches individually */}
                 <Dialog visible={productDialog} style={{ width: '450px' }} header="Edit Catch" modal footer={productDialogFooter} onHide={hideDialog} >
                     <div className="date">
@@ -199,30 +191,30 @@ function Fishtory({ user }) {
                         </div>
                         <div className="field">
                             <label htmlFor="fishing-method">Fishing Method</label>
-                            <InputText id="fishingMethod" onChange={(e) => onInputChange(e, 'fishingMethod')} value={product.fishingMethod} />
+                            <InputText id="fishingMethod" onChange={(e) => onInputChange(e, 'fishing_method')} value={product.fishing_method} />
                         </div>
                         <div className="field">
                             <label htmlFor="length">Length (in)</label>
-                            <InputText id="length" onChange={(e) => onInputChange(e, 'length')} value={product.length} />
+                            <InputText id="length" onChange={(e) => onInputChange(e, 'length')} value={product.length} placeholder='number' type='number' />
                         </div>
                         {/* Season checkboxes */}
                         <div className="field">
                             <label className="mb-3">Season</label>
                             <div className="formgrid grid">
                                 <div className="field-radiobutton col-6">
-                                    <RadioButton inputId="spring" name="spring" value="Spring" onChange={onSeasonChange} checked={product.category === 'Spring'} />
+                                    <RadioButton inputId="spring" name="spring" value="Spring" onChange={(e) => onSeasonChange(e)} checked={product.season === 'Spring'} />
                                     <label htmlFor="spring">Spring</label>
                                 </div>
                                 <div className="field-radiobutton col-6">
-                                    <RadioButton inputId="summer" name="summer" value="Summer" onChange={onSeasonChange} checked={product.category === 'Summer'} />
+                                    <RadioButton inputId="summer" name="summer" value="Summer" onChange={onSeasonChange} checked={product.season === 'Summer'} />
                                     <label htmlFor="summer">Summer</label>
                                 </div>
                                 <div className="field-radiobutton col-6">
-                                    <RadioButton inputId="fall" name="fall" value="Fall" onChange={onSeasonChange} checked={product.category === 'Fall'} />
+                                    <RadioButton inputId="fall" name="fall" value="Fall" onChange={onSeasonChange} checked={product.season === 'Fall'} />
                                     <label htmlFor="fall">Fall</label>
                                 </div>
                                 <div className="field-radiobutton col-6">
-                                    <RadioButton inputId="Winter" name="Winter" value="Winter" onChange={onSeasonChange} checked={product.category === 'Winter'} />
+                                    <RadioButton inputId="Winter" name="Winter" value="Winter" onChange={onSeasonChange} checked={product.season === 'Winter'} />
                                     <label htmlFor="Winter">Winter</label>
                                 </div>
                             </div>
@@ -233,11 +225,10 @@ function Fishtory({ user }) {
                         </div>
                         <div className="field">
                             <label htmlFor="weight">Weight (lbs)</label>
-                            <InputText id="weight" onChange={(e) => onInputChange(e, 'weight')} value={product.weight} />
+                            <InputText id="weight" onChange={(e) => onInputChange(e, 'weight')} value={product.weight} placeholder='number' type='number' />
                         </div>
                     </div>
                 </Dialog>
-
 
                 {/* popup box for deleting just one item */}
                 <Dialog visible={deleteProductDialog} style={{ width: '450px' }} header="Delete Confirmation" modal footer={deleteProductDialogFooter} onHide={hideDeleteProductDialog}>

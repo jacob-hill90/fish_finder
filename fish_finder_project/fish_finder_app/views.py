@@ -9,7 +9,7 @@ import json
 from dotenv import load_dotenv
 import os
 from .models import AppUser, FishDB, CatchData
-import requests 
+import requests
 import shutil
 
 load_dotenv()
@@ -107,9 +107,8 @@ def sign_out(request):
     logout(request)
     return JsonResponse({'data': 'User logged out!'})
 
+
 # view to validate username uniqueness
-
-
 @api_view(['POST'])
 def username_validate(request):
     # print(json.loads(request.body)['username'])
@@ -128,37 +127,30 @@ def who_am_i(request):
 
 
 ######################--- USER FISHTORY REQUEST---#######################
-
+# adding a new catch entry to the database
 @api_view(['POST'])
 def new_catch(request):
-    user = AppUser.objects.get(id = request.user.id )
-    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>USER',user)
-    print('>>>>>>>Dan print>>>', request.data)
-    new_catch_data = request.data
-    #SEASON ISN'T SUBMITTED from form to 
+
+    user = AppUser.objects.get(id=request.user.id)
     try:
         new_catch = CatchData.objects.create(
             owner=user,
-            date=new_catch_data['date'],
-            season=new_catch_data['season'],
-            species=new_catch_data['species'], 
-            weight=new_catch_data['weight'], 
-            fishing_method=new_catch_data['fishing_method'], 
-            length=new_catch_data['length'], 
-            latitude=new_catch_data['latitude'],
-            longitude=new_catch_data['longitude'])
-
-        print(new_catch.date,new_catch.owner)
+            date=request.data['date'],
+            season=request.data['season'],
+            species=request.data['species'],
+            weight=request.data['weight'],
+            fishing_method=request.data['fishing_method'],
+            length=request.data['length'],
+            latitude=request.data['latitude'],
+            longitude=request.data['longitude'],
+            catch_picture=request.data['catch_picture'])
     except Exception as e:
         return JsonResponse({'status': str(e)})
+    return JsonResponse({'status': 'New catch created succesfully'})
 
-    #owner = user.id; 
-    # new_catch = CatchData(date = )
-    return JsonResponse({'status': 'working on it'})
 
 @api_view(['POST'])
 def update_catch(request):
-
     # pulling out user deatails and assigning the email to username for good measure
     try:
         edited_catch = CatchData.objects.get(id=request.data['id'])
@@ -170,12 +162,11 @@ def update_catch(request):
         edited_catch.weight = request.data['weight']
         edited_catch.catch_picture = request.data['catch_picture']
         edited_catch.save()
-
     # error handling
     except Exception as e:
         # print(str(e))
         return JsonResponse({'status': str(e)})
-        
+
     return JsonResponse({'status': 'Catch updated succesfully'})
 
 
@@ -189,8 +180,7 @@ def catch(request):
         # pulling out user and assigning to variable
         try:
             user = AppUser.objects.all().filter(username=request.data['owner'])[0]
-
-            # creating new user
+            # creating new catch
             CatchData.objects.create(
             owner = user,
             date=request.data["date"],
@@ -200,36 +190,31 @@ def catch(request):
             species=request.data['species'],
             weight=request.data['weight'],
             catch_picture=request.data['catch_picture'])
-        
         # error handling
         except Exception as e:
             print(str(e))
             return JsonResponse({'data': str(e)})
-
         return JsonResponse({'data': 'Catch saved!'})
-
     if request.method == 'PUT':
         data = request.data
         print('>>>>>>>>>>>>>>>>>>>>>>>>>>>', data)
-        edited_catch = CatchData.objects.filter(
-            owner_id=request.user.id).values().get(id=request.data['id'])
-        # edited_catch = CatchData(**data)
-        # edited_catch.save()
-
-        # file_name = '../static/catch_picture/'
+        edited_catch = CatchData.objects.filter(owner_id=request.user.id).values().get(id=request.data['id'])
+        edited_catch = CatchData(**data)
+        edited_catch.save()
         return JsonResponse({'status': 'Catch updated succesfully'})
     if request.method == 'DELETE':
         delete_catch = CatchData.objects.get(id = request.data['id'])
-        # delete_catch.delete()
+        delete_catch.delete()
         return JsonResponse({'status': 'Catch deleted succesfully'})
 
 
 ######################---EDIT USER---#######################
-@api_view (['POST', 'DELETE'])
+
+@api_view(['POST', 'DELETE'])
 def edit_user(request):
-    if request.method == 'POST':    
+    if request.method == 'POST':
         try:
-            user = AppUser.objects.get(id = request.user.id)
+            user = AppUser.objects.get(id=request.user.id)
             user.first_name = request.data['first_name']
             user.last_name = request.data['last_name']
             user.state = request.data['state']
@@ -241,15 +226,15 @@ def edit_user(request):
             print(str(e))
             return JsonResponse({'status': str(e)})
         return JsonResponse({'status': 'User details updated succesfully'})
-    if request.method == 'DELETE': 
+    if request.method == 'DELETE':
         try:
-            user = AppUser.objects.get(id = request.user.id)
+            user = AppUser.objects.get(id=request.user.id)
             # user.delete()
         # error handling
         except Exception as e:
             # print(str(e))
             return JsonResponse({'status': str(e)})
-        return JsonResponse({'status': 'Account deleted succesfully'})
+
 
 @api_view(['GET'])
 def get_fish_data(request):
@@ -268,6 +253,18 @@ def weather_api(request, zipcode):
 
     API_response = requests.get(
         f'https://api.openweathermap.org/data/2.5/weather?zip={zipcode},US&apikey={apikey}&units=imperial')
+
+    responseJSON = API_response.json()
+    return JsonResponse(responseJSON)
+
+
+@api_view(['GET'])
+def forecast_api(request, zipcode):
+
+    apikey = os.environ['weather_api_key']
+
+    API_response = requests.get(
+        f'https://api.openweathermap.org/data/2.5/forecast?zip={zipcode},US&apikey={apikey}&units=imperial')
 
     responseJSON = API_response.json()
     return JsonResponse(responseJSON)
