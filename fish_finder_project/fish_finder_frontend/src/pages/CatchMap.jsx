@@ -69,7 +69,8 @@ function CatchMap() {
 
         // process is undefined
         // googleMapsApiKey: { process.env.REACT_APP_GOOGLE_MAPS_API },
-        googleMapsApiKey: "AIzaSyCvRBwjBlzY9tMrm46tx6ksnRzGvxvUI5U",
+        // apiKey,
+        googleMapsApiKey: "",
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
         //  R E P L A C E   T H I S   L I N E   W I T H   G O O G L E   M A P S   K E Y
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -351,7 +352,7 @@ function CatchMap() {
                                 setNewCatchLng(event.latLng.lng())
                                 // newCatchLat and newCatchLng have both been updated, but don't reflect changes until double click
                             }}
-                            onDragStart={(event) =>{
+                            onDragStart={(event) => {
                                 setDragEvent(false)
                                 console.log('>>>>drag start')
                             }}
