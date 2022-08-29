@@ -59,7 +59,7 @@ def sign_up(request):
         AppUser.objects.create_user(
             first_name=json.loads(request.body)['first_name'],
             last_name=json.loads(request.body)['last_name'],
-            zipcode=int(json.loads(request.body)['zipcode']),
+            zipcode=json.loads(request.body)['zipcode'],
             state=json.loads(request.body)['state'],
             username=json.loads(request.body)['username'],
             email=json.loads(request.body)['email'],
