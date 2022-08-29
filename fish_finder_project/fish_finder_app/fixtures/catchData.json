@@ -336,11 +336,7 @@
             "depth": "15",
             "latitude": "41.890676", 
             "longitude": "-87.607783",
-<<<<<<< HEAD
             "catch_picture": "static/media/fishdb/perch_nile.png",
-=======
-            "catch_picture": "fishdb/perch_nile.png",
->>>>>>> refs/remotes/origin/main
             "notes": "My kid caught his first fish!",
             "owner": 1
         }
