@@ -1,5 +1,5 @@
 import React from 'react';
-import map from '../assets/map.jpg'
+import map from '../assets/map_icon.jpg'
 
 function MapImage() {
   return (
