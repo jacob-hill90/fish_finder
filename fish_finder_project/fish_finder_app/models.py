@@ -19,7 +19,7 @@ class AppUser(AbstractUser):
     username = models.CharField(max_length=100, null=False, unique=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    zipcode = models.PositiveIntegerField()
+    zipcode = models.CharField(max_length=11)
     state = models.CharField(max_length=2)
     profile_picture = models.ImageField(null=True, upload_to=profile_upload_path)
     is_active = models.BooleanField(default=True)

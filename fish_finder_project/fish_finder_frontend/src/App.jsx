@@ -19,6 +19,8 @@ import getWeather from './api/WeatherAPI';
 
 
 function App() {
+
+
   const [user, setUser] = useState(null)
   const [weatherIcon, setWeatherIcon] = useState(null)
   const [bigWeatherIcon, setbigWeatherIcon] = useState(null)

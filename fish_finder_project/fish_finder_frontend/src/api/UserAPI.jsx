@@ -13,7 +13,7 @@ async function signUpUser(data) {
 async function signOutUser() {
     let response = await axios.post('/sign_out')
     .then((response) => {
-        swals(response).then( () => window.location.href = "/" )
+        swals(response)
     })
 }
 

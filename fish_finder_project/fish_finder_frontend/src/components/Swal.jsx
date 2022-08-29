@@ -7,13 +7,17 @@ function swals(response){
             title: "Fishtories Admin Says:",
             text: response['data']['data'],
             icon: "success",
+            timer: 2000,
             button: {
                 text: "Awesome Sauce!",
                 value: true,
-                visible: true,
+                visible: false,
                 className: "",
-                closeModal: true
+                closeModal: false
             },
+        }).then(() => {
+            window.location.href = "/"
+            tr.hide()
         })
     )
 }

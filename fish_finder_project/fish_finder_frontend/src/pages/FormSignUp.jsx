@@ -186,12 +186,6 @@ function FormSignUp(){
                                 </span>
                                 {getFormErrorMessage('state')}
                             </div>
-                            {/* <div className="field">
-                                <span className="p-float-label">
-                                    <Dropdown id="country" name="country" value={formik.values.country} onChange={formik.handleChange} options={stateSelectItems} optionLabel="label" />
-                                    <label htmlFor="country">Country</label>
-                                </span>
-                            </div> */}
                             <div className="field pb-3">
                                 <span className="p-float-label p-input-icon-right">
                                     <i className="pi pi-envelope" />

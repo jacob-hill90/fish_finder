@@ -1,7 +1,6 @@
 import logo from '../assets/ff.png'
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
-import { Chip } from 'primereact/chip';
 import {
   MDBNavbar,
   MDBContainer,
@@ -9,7 +8,6 @@ import {
   MDBNavbarToggler,
   MDBNavbarItem,
   MDBCollapse,
-  MDBIcon,
   MDBBtn,
   MDBNavbarNav
 } from 'mdb-react-ui-kit';
@@ -41,7 +39,7 @@ function NavBar({ user, temp, weatherIcon }) {
             data-target='#navbarTogglerDemo02'
             onClick={() => setShowNavNoTogglerSecond(!showNavNoTogglerSecond)}
           >
-            <MDBIcon className="toggler" fas icon="bars" />
+            <i className="pi pi-bars" style={{'fontSize': '1em'}}></i>
           </MDBNavbarToggler>
           <MDBCollapse navbar show={showNavNoTogglerSecond} className=" justify-content-center align-items-center">
             <MDBNavbarNav className='flex-row align-items-center text-md-center '>  
