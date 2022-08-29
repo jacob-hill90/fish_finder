@@ -9,7 +9,7 @@ import json
 from dotenv import load_dotenv
 import os
 from .models import AppUser, FishDB, CatchData
-import requests 
+import requests
 import shutil
 
 load_dotenv()
@@ -121,7 +121,8 @@ def username_validate(request):
 @api_view(['GET'])
 def who_am_i(request):
     if request.user.is_authenticated:
-        data = serializers.serialize("json", [request.user], fields=['id', 'email', 'username', 'first_name', 'last_name', 'zipcode', 'state', 'profile_picture'])
+        data = serializers.serialize("json", [request.user], fields=[
+                                     'id', 'email', 'username', 'first_name', 'last_name', 'zipcode', 'state', 'profile_picture'])
         return HttpResponse(data)
     else:
         return JsonResponse({'user': None})
@@ -131,16 +132,16 @@ def who_am_i(request):
 # adding a new catch entry to the database
 @api_view(['POST'])
 def new_catch(request):
-    user = AppUser.objects.get(id = request.user.id )
-    try:
+  user = AppUser.objects.get(id=request.user.id)
+   try:
         new_catch = CatchData.objects.create(
             owner=user,
             date=request.data['date'],
             season=request.data['season'],
-            species=request.data['species'], 
-            weight=request.data['weight'], 
-            fishing_method=request.data['fishing_method'], 
-            length=request.data['length'], 
+            species=request.data['species'],
+            weight=request.data['weight'],
+            fishing_method=request.data['fishing_method'],
+            length=request.data['length'],
             latitude=request.data['latitude'],
             longitude=request.data['longitude'],
             catch_picture=request.data['catch_picture'])
@@ -166,7 +167,7 @@ def update_catch(request):
     except Exception as e:
         # print(str(e))
         return JsonResponse({'status': str(e)})
-        
+
     return JsonResponse({'status': 'Catch updated succesfully'})
 
 
@@ -179,19 +180,20 @@ def catch(request):
     if request.method == 'POST':
         # pulling out user and assigning to variable
         try:
-            user = AppUser.objects.all().filter(username=request.data['owner'])[0]
+            user = AppUser.objects.all().filter(
+                username=request.data['owner'])[0]
 
             # creating new user
             CatchData.objects.create(
-            owner = user,
-            date=request.data["date"],
-            fishing_method=request.data['fishingMethod'],
-            length=request.data['length'],
-            season=request.data['season'],
-            species=request.data['species'],
-            weight=request.data['weight'],
-            catch_picture=request.data['catch_picture'])
-        
+                owner=user,
+                date=request.data["date"],
+                fishing_method=request.data['fishingMethod'],
+                length=request.data['length'],
+                season=request.data['season'],
+                species=request.data['species'],
+                weight=request.data['weight'],
+                catch_picture=request.data['catch_picture'])
+
         # error handling
         except Exception as e:
             print(str(e))
@@ -210,17 +212,18 @@ def catch(request):
         # file_name = '../static/catch_picture/'
         return JsonResponse({'status': 'Catch updated succesfully'})
     if request.method == 'DELETE':
-        delete_catch = CatchData.objects.get(id = request.data['id'])
+        delete_catch = CatchData.objects.get(id=request.data['id'])
         # delete_catch.delete()
         return JsonResponse({'status': 'Catch deleted succesfully'})
 
 
 ######################---EDIT USER---#######################
-@api_view (['POST', 'DELETE'])
+
+@api_view(['POST', 'DELETE'])
 def edit_user(request):
-    if request.method == 'POST':    
+    if request.method == 'POST':
         try:
-            user = AppUser.objects.get(id = request.user.id)
+            user = AppUser.objects.get(id=request.user.id)
             user.first_name = request.data['first_name']
             user.last_name = request.data['last_name']
             user.state = request.data['state']
@@ -232,15 +235,15 @@ def edit_user(request):
             print(str(e))
             return JsonResponse({'status': str(e)})
         return JsonResponse({'status': 'User details updated succesfully'})
-    if request.method == 'DELETE': 
+    if request.method == 'DELETE':
         try:
-            user = AppUser.objects.get(id = request.user.id)
+            user = AppUser.objects.get(id=request.user.id)
             # user.delete()
         # error handling
         except Exception as e:
             # print(str(e))
             return JsonResponse({'status': str(e)})
-        return JsonResponse({'status': 'Account deleted succesfully'})
+
 
 @api_view(['GET'])
 def get_fish_data(request):
@@ -259,6 +262,18 @@ def weather_api(request, zipcode):
 
     API_response = requests.get(
         f'https://api.openweathermap.org/data/2.5/weather?zip={zipcode},US&apikey={apikey}&units=imperial')
+
+    responseJSON = API_response.json()
+    return JsonResponse(responseJSON)
+
+
+@api_view(['GET'])
+def forecast_api(request, zipcode):
+
+    apikey = os.environ['weather_api_key']
+
+    API_response = requests.get(
+        f'https://api.openweathermap.org/data/2.5/forecast?zip={zipcode},US&apikey={apikey}&units=imperial')
 
     responseJSON = API_response.json()
     return JsonResponse(responseJSON)
