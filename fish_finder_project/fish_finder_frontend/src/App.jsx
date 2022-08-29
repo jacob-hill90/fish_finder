@@ -20,6 +20,8 @@ import getForecast from './api/ForecastAPI';
 
 
 function App() {
+
+
   const [user, setUser] = useState(null)
   const [weatherIcon, setWeatherIcon] = useState(null)
   const [bigWeatherIcon, setbigWeatherIcon] = useState(null)
