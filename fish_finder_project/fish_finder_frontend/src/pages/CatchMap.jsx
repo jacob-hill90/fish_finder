@@ -69,6 +69,9 @@ function CatchMap() {
 
         // process is undefined
         // googleMapsApiKey: { process.env.REACT_APP_GOOGLE_MAPS_API },
+
+        // apiKey,
+        googleMapsApiKey: "",
         googleMapsApiKey: "",
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
         //  R E P L A C E   T H I S   L I N E   W I T H   G O O G L E   M A P S   K E Y
@@ -125,14 +128,17 @@ function CatchMap() {
     const [newFishMarker, setNewFishMarker] = useState(false)
 
     /* THIS IS STATE CODE FOR THE SEARCHBOX FUNCTIONALITY */
+    //setting state for autocomplete instance
+    const [autocomplete, setAutocomplete] = useState(null)
+
     //Pan To function declaration takes a latitude and a longitude
     const panTo = React.useCallback(({ lat, lng }) => {
         mapRef.current.panTo({ lat, lng })
         mapRef.current.setZoom(11)
+        console.log(autocomplete)
 
     }, [])
-    //setting state for autocomplete instance
-    const [autocomplete, setAutocomplete] = useState(null)
+
 
     // onLoad callback called when autocomplete has loaded.
     const onLoad = (autocomplete) => {
@@ -151,11 +157,12 @@ function CatchMap() {
             let LatLng = { lat: panLat, lng: panLng }
             setMapCenter(LatLng);
             panTo(LatLng);
-            setAutocomplete(null);
+            console.log(autocomplete)
 
         }
         else {
             console.log('Autocomplete is not loaded yet')
+            console.log(autocomplete)
         }
     }
 
@@ -346,6 +353,10 @@ function CatchMap() {
                                 setNewCatchLat(event.latLng.lat())
                                 setNewCatchLng(event.latLng.lng())
                                 // newCatchLat and newCatchLng have both been updated, but don't reflect changes until double click
+                            }}
+                            onDragStart={(event) =>{
+                                setDragEvent(false)
+                                console.log('>>>>drag start')
                             }}
                             onDblClick={(event) => {
                                 console.log("We can have the user use the double click property to set his icon and bring up the fish data form")
