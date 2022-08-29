@@ -75,6 +75,11 @@ code {
   background-color:#e3f4f9; 
 }
 
+.static-map{
+  filter: brightness(85%);
+  width: 85%;
+}
+
 .callTo{
   width: 100vw;
   height: 200px;
@@ -388,12 +393,14 @@ img.flag {
 /*Weather Page*/
 
 .weather-page{
-  height: 79vh;
+  height: 85vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-image: url("./assets/rainbackground2.jpg");
+  background-repeat:repeat-x;
   background-size: 100%;
+  object-fit: fill;
 } 
 
 .top-container{
