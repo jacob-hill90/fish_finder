@@ -132,8 +132,8 @@ def who_am_i(request):
 # adding a new catch entry to the database
 @api_view(['POST'])
 def new_catch(request):
-  user = AppUser.objects.get(id=request.user.id)
-   try:
+    user = AppUser.objects.get(id=request.user.id)
+    try:
         new_catch = CatchData.objects.create(
             owner=user,
             date=request.data['date'],

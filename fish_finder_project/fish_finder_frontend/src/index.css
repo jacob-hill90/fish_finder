@@ -21,7 +21,6 @@ code {
 .fish-image-card {
   height: 100%;
   width: 350px;
-  
 }
 
 .home-page {
@@ -62,6 +61,27 @@ code {
 .bg-image{
   width: 100vw;
   max-height: 100vh;
+  margin: auto;
+}
+
+.map-img{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color:#e3f4f9; 
+}
+
+.callTo{
+  width: 100vw;
+  height: 200px;
+  background-image: linear-gradient(180deg, #e3f4f9 67px, #6697cc 66px, #e3f4f9 66px);  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: xx-large;
+  font-family: 'K2D', sans-serif;
+
 }
 
 .splash-top{
@@ -81,13 +101,15 @@ code {
 
 .about{
   position: absolute;
-  width: 600px;
-  height: 250px;
-  background-color: gray;
+  width: 40%;
+  height: 33%;
+  background-color: rgba(220,220,220,.5);
   top: 50px;
   left: 100px;
   border-radius: 1em;
-  opacity: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .navbar{
