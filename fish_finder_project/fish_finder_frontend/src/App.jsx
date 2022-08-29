@@ -100,11 +100,6 @@ function App() {
       let respond = getForecast(user)
         .then((response) => {
           console.log(response.data.list)
-          // console.log(response.data.list[4].main.temp)
-          // console.log(response.data.list[4].weather[0].description)
-          // console.log(response.data.list[4].weather[0].icon)
-          // console.log(response.data.list[4].wind.speed)
-          // console.log(response.data.list[4].dt)
 
           setDayOneTemp(response.data.list[0].main.temp)
           setDayOneDescription(response.data.list[0].weather[0].description)
@@ -135,7 +130,7 @@ function App() {
           setDayFiveIcon(`http://openweathermap.org/img/wn/${response.data.list[32].weather[0].icon}@2x.png`)
           setDayFiveWind(response.data.list[32].wind.speed)
           setDayFiveUnixTime(response.data.list[32].dt)
-          // setForecast(response.data.list)
+
         })
     }
   }, [user])
