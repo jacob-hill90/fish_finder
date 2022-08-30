@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import {
     MDBBtn,
     MDBModal,
@@ -6,15 +5,8 @@ import {
     MDBModalContent,
 } from 'mdb-react-ui-kit';
 import { Avatar } from 'primereact/avatar';
-import { Button } from "primereact/button"
-import { InputText } from "primereact/inputtext"
-import { Password } from 'primereact/password';
-import logo from '../assets/ff.png'
 import { Link } from 'react-router-dom';
-import { logInUser } from '../api/UserAPI';
-import { useFormik } from 'formik';
-import { classNames } from 'primereact/utils';
-import {swals, swalse} from '../components/Swal';
+import default_picture from '../assets/default_picture.png'
 
 
 function UserModal({user, basicModal, setBasicModal, handleClick}) {

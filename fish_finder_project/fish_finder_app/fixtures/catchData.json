@@ -336,7 +336,7 @@
             "depth": "15",
             "latitude": "41.890676", 
             "longitude": "-87.607783",
-            "catch_picture": "perch_nile.png",
+            "catch_picture": "fishdb/perch_nile.png",
             "notes": "My kid caught his first fish!",
             "owner": 1
         }

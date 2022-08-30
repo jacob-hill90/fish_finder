@@ -49,7 +49,7 @@ function Footer(){
                             <MDBCol md="4" lg="3" xl="3" className='mx-auto mb-md-0 mb-4'>
                             <h6 className='text-uppercase fw-bold mb-4'>Contact</h6>
                             <p>
-                                <a href='#!' className='text-reset'>
+                                <a href='https://www.linkedin.com/in/jacob-hill90/' className='text-reset'>
                                     <i className="pi pi-linkedin" style={{'fontSize': '1em'}}></i>
                                 </a>
                             </p>
