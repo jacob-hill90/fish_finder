@@ -34,7 +34,7 @@ function WeatherTop({ fullWeather, bigWeatherIcon, city, temp, description, sunr
       <MDBCol className="topCurrentWeather" size="8">
         <div className="city-name">Current Weather in {city} as of {current}</div>
         <div className="temp">Current Temp: {Math.floor(temp)}˚</div>
-        <h4 className="highAndLowTemp">High: {Math.floor(low)}˚ | Low: {Math.floor(high)}˚</h4>
+        <h4 className="highAndLowTemp">Low: {Math.floor(low)}˚ | High: {Math.floor(high)}˚</h4>
         <h4 className="humidity">Humidity: {humidity}%</h4>
         <h4 className="wind">Wind Speed: {Math.floor(wind)} MPH</h4>
         <div className="sunrise"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-sunrise-fill" viewBox="0 0 16 16">

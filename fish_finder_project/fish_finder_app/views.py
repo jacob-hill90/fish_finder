@@ -276,7 +276,6 @@ def weather_api(request, zipcode):
 
 @api_view(['GET'])
 def forecast_api(request, zipcode):
-
     apikey = os.environ['weather_api_key']
 
     API_response = requests.get(

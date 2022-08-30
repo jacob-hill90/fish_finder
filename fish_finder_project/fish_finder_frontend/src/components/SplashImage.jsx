@@ -12,7 +12,7 @@ function SplashImage() {
       <div className="about">
         <h1 className='about-head'>Fish smarter with Fishtories</h1>
           <div className="about-points">
-            <h5>Fishtories provides you with the tools and information you need to perform exceptionally every time you hit the water. See what other anglers have been catching in your area on our crowd sourced catch map. Sign up and imporove your catching potential today.</h5>
+            <h5>Fishtories provides you with the tools and information you need to perform exceptionally every time you hit the water. See what other anglers have been catching in your area on our crowd sourced catch map. Sign up and improve your catching potential today.</h5>
           </div>
       </div>
     </div>
