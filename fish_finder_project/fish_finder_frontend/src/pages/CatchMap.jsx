@@ -8,7 +8,7 @@ import usePlacesAutocomplete, {
     getGeocode,
     getLatLng,
 } from "use-places-autocomplete"
-import { clearSuggestions } from 'use-places-autocomplete';
+// import { clearSuggestions } from 'use-places-autocomplete';
 import axios from "axios"
 import NewCatch from '../components/NewCatch'
 
@@ -19,12 +19,12 @@ import {
     Marker,
     InfoBox,
     Circle,
-    MarkerCluster,
+    // MarkerCluster,
     InfoWindow,
     useJsApiLoader,
     StandaloneSearchBox,
     Autocomplete,
-    searchBox,
+    // searchBox,
 } from "@react-google-maps/api"
 
 // const dotenv = require('dotenv').config()
@@ -69,9 +69,8 @@ function CatchMap() {
 
         // process is undefined
         // googleMapsApiKey: { process.env.REACT_APP_GOOGLE_MAPS_API },
-
         // apiKey,
-        googleMapsApiKey: "",
+        googleMapsApiKey: "AIzaSyCvRBwjBlzY9tMrm46tx6ksnRzGvxvUI5U",
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
         //  R E P L A C E   T H I S   L I N E   W I T H   G O O G L E   M A P S   K E Y
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -277,12 +276,12 @@ function CatchMap() {
                     >
                         <input
                             type="text"
-                            placeholder="Enter your favorite fishing spot!"
+                            placeholder="Enter a fishing location"
                             id='searchbox'
                             style={{
                                 boxSizing: `border-box`,
                                 border: `1px solid black`,
-                                width: `240px`,
+                                width: `190px`,
                                 height: `32px`,
                                 padding: `0 12px`,
                                 borderRadius: `3px`,
@@ -292,8 +291,8 @@ function CatchMap() {
                                 textOverflow: `ellipses`,
                                 position: "absolute",
                                 // display: "flex",
-                                left: "50%",
-                                marginLeft: "-120px",
+                                left: "40%",
+                                // marginLeft: "-10x",
                                 top: "10px"
                             }}
                         // clearSuggestions={clearSuggestions()}
@@ -329,6 +328,7 @@ function CatchMap() {
                                         <b><div>Length: {fields.length} in.</div></b>
                                         <b><div>Field Notes:</div></b>
                                         <b><div>{fields.notes}</div></b>
+                                        <br />
                                         <img id="infoPic" src={`static/media/${fields.catch_picture}`} />
                                     </div>
                                 </InfoWindow>
@@ -353,7 +353,7 @@ function CatchMap() {
                                 setNewCatchLng(event.latLng.lng())
                                 // newCatchLat and newCatchLng have both been updated, but don't reflect changes until double click
                             }}
-                            onDragStart={(event) =>{
+                            onDragStart={(event) => {
                                 setDragEvent(false)
                                 console.log('>>>>drag start')
                             }}

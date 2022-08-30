@@ -10,9 +10,10 @@ function SplashImage() {
       <img src={splash} className='img-fluid' alt='splash' />
       <div className="splash-bottom"></div>
       <div className="about">
-        <h1>Fish smarter with Fishstories</h1>
-        <h5>Discover great fishing spots, wherever you may be</h5>
-        <h5>Keep track of fish you've caught</h5>
+        <h1 className='about-head'>Fish smarter with Fishtories</h1>
+          <div className="about-points">
+            <h5>Fishtories provides you with the tools and information you need to perform exceptionally every time you hit the water, in order to make sure you have the best fishing experience possible!</h5>
+          </div>
       </div>
     </div>
   );

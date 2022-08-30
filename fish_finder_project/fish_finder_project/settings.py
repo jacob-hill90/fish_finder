@@ -26,11 +26,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ['django_secret_key']
 
-
+######Uncomment me for deploymet and add url#########
+# CSRF_TRUSTED_ORIGINS = ['url to go here']
 
 # SECURITY WARNING: don't run with debug turned on in production!
+#######CHANGE ME TO FALSE FOR DEPLOYMENT
 DEBUG = True
 
+#######ADD URL TO THIS BEFORE DEPLOYMENT if no work ['*']#######
 ALLOWED_HOSTS = []
 
 

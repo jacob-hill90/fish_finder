@@ -108,13 +108,12 @@ code {
   position: absolute;
   width: 40%;
   height: 33%;
-  background-color: rgba(220,220,220,.5);
+  background-color: rgba(220,220,220,.01);
   top: 50px;
   left: 100px;
   border-radius: 1em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  color: rgba(0,0,0,.7);
+  font-family: 'K2D', sans-serif;
 }
 
 .navbar{
@@ -388,6 +387,14 @@ img.flag {
 
 /*Weather Page*/
 
+#weatherInfo{
+  z-index: 10;
+}
+
+.weatherTitle{
+  text-align: center;
+}
+
 .weather-page{
   height: 85vh;
   display: flex;
@@ -482,7 +489,7 @@ padding-top: 85px;
 }
 
 .weather-icon{
-  width: 200px;
+  width: 160px;
   background-color: gray;
   border-radius: 50%;
 }
@@ -580,7 +587,7 @@ padding-top: 85px;
 
 #geolocate {
   position: absolute;
-  right: 6%;
+  right: 10%;
   top: 0;
   max-width: 60px;
   height: auto;
