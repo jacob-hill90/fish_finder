@@ -59,7 +59,7 @@ function Footer(){
                                 </a>
                             </p>
                             <p>
-                                <a href='#!' className='text-reset'>
+                                <a href='https://www.linkedin.com/in/robert-puentes-garces-811077226/' className='text-reset'>
                                     <i className="pi pi-linkedin" style={{'fontSize': '1em'}}></i>
                                 </a>
                             </p>
