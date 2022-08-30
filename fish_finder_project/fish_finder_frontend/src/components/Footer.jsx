@@ -22,27 +22,27 @@ function Footer() {
                                     <MDBIcon icon="gem" className="me-3" />
                                     Company name
                                 </h6>
-                                <p>
+                                <p id="fishSmarter">
                                     Fishtories is a collaborative project designed by members of Code Platoon's Romeo Cohort. We built this site to serve as a showcase of our collective problem solving and design skills, as such the fishing data displayed is for demonstration purposes only. All of our team members are US military veterans or veteran spouses. If you have questions about this project or would like to collaborate on future projects, feel free to connect with us on Linkedin.
                                 </p>
                             </MDBCol>
                             <MDBCol md="2" lg="2" xl="2" className='mx-auto mb-4'>
                                 <h6 className='text-uppercase fw-bold mb-4'>Build Team</h6>
-                                <p>
+                                <b><p>
                                     Jacob Hill
                                 </p>
-                                <p>
-                                    Michael Lambert
-                                </p>
-                                <p>
-                                    Nathan Leathers
-                                </p>
-                                <p>
-                                    Robert Puentes Garces
-                                </p>
-                                <p>
-                                    Daniel Reither
-                                </p>
+                                    <p>
+                                        Michael Lambert
+                                    </p>
+                                    <p>
+                                        Nathan Leathers
+                                    </p>
+                                    <p>
+                                        Robert Puentes Garces
+                                    </p>
+                                    <p>
+                                        Daniel Reither
+                                    </p></b>
                             </MDBCol>
 
                             <MDBCol md="4" lg="3" xl="3" className='mx-auto mb-md-0 mb-4'>

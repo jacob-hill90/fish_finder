@@ -23,10 +23,20 @@ function WeatherTop({ fullWeather, bigWeatherIcon, city, temp, description, sunr
   var minutes = "0" + date.getMinutes();
   var formattedSunset = hours + ':' + minutes.substr(-2);
 
-  function upperCaseDescription(descript) {
-    let upperDescription = descript.toUpperCase()
-    // console.log(upperDescription)
-    return upperDescription
+  function titleCaseDescription(weather) {
+    let titleDescription = []
+    let weatherStr = weather.toString();
+    let weatherArr = weatherStr.split(" ");
+    for (let i = 0; i < weatherArr.length; i++) {
+      let splitWord = weatherArr[i].split("");
+      let firstLet = splitWord[0];
+      let capLet = firstLet.toUpperCase();
+      splitWord[0] = capLet;
+      let titleWord = splitWord.join("")
+      titleDescription.push(titleWord);
+    }
+    let titleWeather = titleDescription.join(" ")
+    return titleWeather
   }
 
   return (
@@ -47,7 +57,7 @@ function WeatherTop({ fullWeather, bigWeatherIcon, city, temp, description, sunr
       <MDBCol className="topCurrentIcon" size="4">
         <div className="weather-symb">
           <img className='weather-icon' src={bigWeatherIcon} alt="Weather" />
-          <div className="description">{description}</div>
+          <div className="description">{titleCaseDescription(description)}</div>
         </div>
       </MDBCol>
     </div>

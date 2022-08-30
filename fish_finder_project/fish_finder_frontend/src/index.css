@@ -657,3 +657,10 @@ padding-top: 85px;
   box-shadow: 0 0 0 1px var(--blue-200);
 }
 
+#teamNames {
+  text-align: left;
+}
+
+#fishSmarter{
+  overflow:hidden;
+}
