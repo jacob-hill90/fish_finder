@@ -277,12 +277,12 @@ function CatchMap() {
                     >
                         <input
                             type="text"
-                            placeholder="Enter your favorite fishing spot!"
+                            placeholder="Enter a fishing location"
                             id='searchbox'
                             style={{
                                 boxSizing: `border-box`,
                                 border: `1px solid black`,
-                                width: `240px`,
+                                width: `190px`,
                                 height: `32px`,
                                 padding: `0 12px`,
                                 borderRadius: `3px`,
@@ -292,8 +292,8 @@ function CatchMap() {
                                 textOverflow: `ellipses`,
                                 position: "absolute",
                                 // display: "flex",
-                                left: "50%",
-                                marginLeft: "-120px",
+                                left: "40%",
+                                // marginLeft: "-10x",
                                 top: "10px"
                             }}
                         // clearSuggestions={clearSuggestions()}

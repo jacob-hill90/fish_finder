@@ -392,6 +392,14 @@ img.flag {
 
 /*Weather Page*/
 
+#weatherInfo{
+  z-index: 10;
+}
+
+.weatherTitle{
+  text-align: center;
+}
+
 .weather-page{
   height: 85vh;
   display: flex;
@@ -486,7 +494,7 @@ padding-top: 85px;
 }
 
 .weather-icon{
-  width: 200px;
+  width: 160px;
   background-color: gray;
   border-radius: 50%;
 }
@@ -584,7 +592,7 @@ padding-top: 85px;
 
 #geolocate {
   position: absolute;
-  right: 6%;
+  right: 10%;
   top: 0;
   max-width: 60px;
   height: auto;

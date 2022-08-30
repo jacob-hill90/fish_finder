@@ -82,7 +82,7 @@ function App() {
       let res = getWeather(user)
         .then((response) => {
           setWeatherIcon(`http://openweathermap.org/img/wn/${response.data.weather[0].icon}.png`)
-          setbigWeatherIcon(`http://openweathermap.org/img/wn/${response.data.weather[0].icon}@4x.png`)
+          setbigWeatherIcon(`http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`)
           setTemp(response.data.main.temp)
           setCity(response.data.name)
           setDescription(response.data.weather[0].description)
