@@ -70,7 +70,7 @@ function CatchMap() {
         // process is undefined
         // googleMapsApiKey: { process.env.REACT_APP_GOOGLE_MAPS_API },
         // apiKey,
-        googleMapsApiKey: "",
+        googleMapsApiKey: "AIzaSyCvRBwjBlzY9tMrm46tx6ksnRzGvxvUI5U",
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
         //  R E P L A C E   T H I S   L I N E   W I T H   G O O G L E   M A P S   K E Y
         // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -328,7 +328,8 @@ function CatchMap() {
                                         <b><div>Length: {fields.length} in.</div></b>
                                         <b><div>Field Notes:</div></b>
                                         <b><div>{fields.notes}</div></b>
-                                        <img id="infoPic" src={fields.catch_picture} />
+                                        <br />
+                                        <img id="infoPic" src={`static/media/${fields.catch_picture}`} />
                                     </div>
                                 </InfoWindow>
                             ) : null}
