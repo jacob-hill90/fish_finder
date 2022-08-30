@@ -387,6 +387,14 @@ img.flag {
 
 /*Weather Page*/
 
+#weatherInfo{
+  z-index: 10;
+}
+
+.weatherTitle{
+  text-align: center;
+}
+
 .weather-page{
   height: 85vh;
   display: flex;
@@ -481,7 +489,7 @@ padding-top: 85px;
 }
 
 .weather-icon{
-  width: 200px;
+  width: 160px;
   background-color: gray;
   border-radius: 50%;
 }
@@ -579,7 +587,7 @@ padding-top: 85px;
 
 #geolocate {
   position: absolute;
-  right: 6%;
+  right: 10%;
   top: 0;
   max-width: 60px;
   height: auto;
@@ -616,4 +624,23 @@ padding-top: 85px;
   width: 200px;
   background-color: #D3D3D3;
   margin-right: 0.5rem;
+}
+
+/* Linkedin Buttons */
+.button-demo .template .p-button.linkedin {
+  background: linear-gradient(to left, var(--blue-400) 50%, var(--blue-500) 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: background-position 0.5s ease-out;
+  color: #fff;
+  border-color: var(--blue-500);
+}
+.button-demo .template .p-button.linkedin:hover {
+  background-position: left bottom;
+}
+.button-demo .template .p-button.linkedin i {
+  background-color: var(--blue-500);
+}
+.button-demo .template .p-button.linkedin:focus {
+  box-shadow: 0 0 0 1px var(--blue-200);
 }
