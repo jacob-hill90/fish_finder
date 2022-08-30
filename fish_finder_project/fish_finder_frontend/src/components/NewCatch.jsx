@@ -15,7 +15,27 @@ import { newCatch } from '../api/CatchAPI';
 import { Calendar } from 'primereact/calendar';
 import { addLocale } from 'primereact/api';
 
-function NewCatch({ newCatchLng, newCatchLat }) {
+
+
+
+
+function NewCatch({ newCatchLng, newCatchLat, mapCenter, panTo, allFishData, setNewFishMarker, changeText, setMapCenter, setNewCatchSaved }) {
+
+    // useEffect(() => {
+    //     axios.get('fish_data')
+    //         .then((response) => {
+    //             console.log("we are now in the frontend")
+    //             let data = response['data']['data']
+    //             let convertedData = JSON.parse(data)
+    //             console.log(convertedData)
+    //             console.log("did parse work?")
+    //             // gives me the primary key
+    //             console.log(convertedData[0].pk)
+    //             // gives me the feild variables
+    //             console.log(convertedData[0].fields.fishing_method)
+    //             setAllNewFishData(convertedData)
+    //         })
+    // }, [setTimeout])
 
     let emptyProduct = {
         date: '',
@@ -30,7 +50,7 @@ function NewCatch({ newCatchLng, newCatchLat }) {
     const [productDialog, setProductDialog] = useState(true);
     const [catch_picture, setCatchPicture] = useState();
     const [product, setProduct] = useState(emptyProduct);
-
+    const [allNewFishData, setAllNewFishData] = useState([])
 
     const helperFunction = (file) => {
         setCatchPicture(file)
@@ -42,7 +62,9 @@ function NewCatch({ newCatchLng, newCatchLat }) {
     useEffect(() => {
         let response = getUserCatches()
             .then((response) => {
-                setallCatches(response['data']['data'])
+                setAllCatches(response['data']['data'])
+                console.log("here are the newcatch catches:")
+                console.log(allCatches)
             })
     }, [])
 
@@ -70,12 +92,30 @@ function NewCatch({ newCatchLng, newCatchLat }) {
                 "Content-Type": "multipart/form-data",
             }
         }
+
+
+
+
         let response = newCatch(data, config)
             .then((response) => {
                 toast.current.show({ severity: 'success', summary: 'Success', detail: `${response.data['status']}`, life: 3000 });
                 setTimeout(function () {
-                    window.location.reload();
+                    // add functionality to reload with map set to latest center
+                    // console.log("setting the new center here")
+                    setMapCenter({ lat: newCatchLat, lng: newCatchLng })
+                    setNewCatchSaved(true)
+                    // console.log("new center is set")
+                    // console.log(mapCenter)
+                    // window.location.reload();
+                    // console.log("is the center still adjusted?")
+                    // console.log(mapCenter)
+                    // panTo({ lat: newCatchLat, lng: newCatchLng });
+                    // populateFishMarkers()
+                    // setMapCenter({ lat: newCatchLat, lng: newCatchLng })
+                    setNewFishMarker(false)
+                    changeText("Add Catch")
                 }, 2000);
+                setNewCatchSaved(false)
             })
     }
 
@@ -164,7 +204,7 @@ function NewCatch({ newCatchLng, newCatchLat }) {
                     </div>
                     <div className="field">
                         <label htmlFor="weight">Weight (lbs)</label>
-                        <InputText id="weight" onChange={(e) => onInputChange(e, 'weight')} value={product.weight} type='number'/>
+                        <InputText id="weight" onChange={(e) => onInputChange(e, 'weight')} value={product.weight} type='number' />
                     </div>
                 </div>
             </Dialog>
