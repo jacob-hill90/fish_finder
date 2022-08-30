@@ -6,6 +6,7 @@ import {
     MDBRow,
     MDBIcon
 } from 'mdb-react-ui-kit';
+import { Button } from 'primereact/button';
 
 
 function Footer(){
@@ -27,52 +28,83 @@ function Footer(){
                             </p>
                             </MDBCol>
 
-                            <MDBCol md="2" lg="2" xl="2" className='mx-auto mb-4'>
-                            <h6 className='text-uppercase fw-bold mb-4'>Build Team</h6>
-                            <p>
-                                Jacob Hill
-                            </p>
-                            <p>
-                                Michael Lambert
-                            </p>
-                            <p>
-                                Nathan Leathers
-                            </p>
-                            <p>
-                                Robert Puentes Garces
-                            </p>
-                            <p>
-                                Daniel Reither
-                            </p>
-                            </MDBCol>
-
-                            <MDBCol md="4" lg="3" xl="3" className='mx-auto mb-md-0 mb-4'>
-                            <h6 className='text-uppercase fw-bold mb-4'>Contact</h6>
-                            <p>
-                                <a href='https://www.linkedin.com/in/jacob-hill90/' className='text-reset'>
-                                    <i className="pi pi-linkedin" style={{'fontSize': '1em'}}></i>
-                                </a>
-                            </p>
-                            <p>
-                                <a href='https://www.linkedin.com/in/mike-lambert-349646220/' className='text-reset'>
-                                    <i className="pi pi-linkedin" style={{'fontSize': '1em'}}></i>
-                                </a>
-                            </p>
-                            <p>
-                                <a href='#!' className='text-reset'>
-                                    <i className="pi pi-linkedin" style={{'fontSize': '1em'}}></i>
-                                </a>
-                            </p>
-                            <p>
-                                <a href='#!' className='text-reset'>
-                                    <i className="pi pi-linkedin" style={{'fontSize': '1em'}}></i>
-                                </a>
-                            </p>
-                            <p>
-                                <a href='#!' className='text-reset'>
-                                    <i className="pi pi-linkedin" style={{'fontSize': '1em'}}></i>
-                                </a>
-                            </p>
+                            <MDBCol className='mb-4' size="6" >
+                                <h6 className='text-uppercase fw-bold mb-4'>Build Team</h6>
+                                <MDBRow >
+                                    <MDBCol className="d-flex justify-content-end me-1" >
+                                        <p className="">
+                                            Jacob Hill
+                                        </p>
+                                    </MDBCol>
+                                    <MDBCol className="d-flex justify-content-start ms-1" >
+                                        <a href="https://www.linkedin.com/in/jacob-hill90/" className="" >
+                                            <Button className="linkedin p-0" aria-label="Linkedin">
+                                                <i className="pi pi-linkedin px-2"></i>
+                                                <span className="px-3">Linkedin</span>
+                                            </Button>
+                                        </a>
+                                    </MDBCol>
+                                </MDBRow>
+                                <MDBRow >
+                                    <MDBCol className="d-flex justify-content-end me-1" >
+                                        <p className="">
+                                            Michael Lambert
+                                        </p>
+                                    </MDBCol>
+                                    <MDBCol className="d-flex justify-content-start ms-1" >
+                                        <a href="https://www.linkedin.com/in/mike-lambert-349646220/" className="" >
+                                            <Button className="linkedin p-0" aria-label="Linkedin">
+                                                <i className="pi pi-linkedin px-2"></i>
+                                                <span className="px-3">Linkedin</span>
+                                            </Button>
+                                        </a>
+                                    </MDBCol>
+                                </MDBRow>
+                                <MDBRow >
+                                    <MDBCol className="d-flex justify-content-end me-1" >
+                                        <p className="">
+                                            Nathan Leathers
+                                        </p>
+                                    </MDBCol>
+                                    <MDBCol className="d-flex justify-content-start ms-1" >
+                                        <a href="https://www.linkedin.com/in/jacob-hill90/" className="" >
+                                            <Button className="linkedin p-0" aria-label="Linkedin">
+                                                <i className="pi pi-linkedin px-2"></i>
+                                                <span className="px-3">Linkedin</span>
+                                            </Button>
+                                        </a>
+                                    </MDBCol>
+                                </MDBRow>
+                                <MDBRow >
+                                    <MDBCol className="d-flex justify-content-end me-1" >
+                                        <p className="">
+                                            Robert Puentes Garces
+                                        </p>
+                                    </MDBCol>
+                                    <MDBCol className="d-flex justify-content-start ms-1" >
+                                        <a href="https://www.linkedin.com/in/jacob-hill90/" className="" >
+                                            <Button className="linkedin p-0" aria-label="Linkedin">
+                                                <i className="pi pi-linkedin px-2"></i>
+                                                <span className="px-3">Linkedin</span>
+                                            </Button>
+                                        </a>
+                                    </MDBCol>
+                                </MDBRow>
+                                <MDBRow >
+                                    <MDBCol className="d-flex justify-content-end me-1" >
+                                        <p className="">
+                                            Daniel Reither
+                                        </p>
+                                    </MDBCol>
+                                    <MDBCol className="d-flex justify-content-start ms-1" >
+                                        <a href="https://www.linkedin.com/in/jacob-hill90/" className="" >
+                                            <Button className="linkedin p-0" aria-label="Linkedin">
+                                                <i className="pi pi-linkedin px-2"></i>
+                                                <span className="px-3">Linkedin</span>
+                                            </Button>
+                                        </a>
+                                    </MDBCol>
+                                </MDBRow>
                             </MDBCol>
                         </MDBRow>
                     </MDBContainer>
