@@ -14,6 +14,7 @@ import { RadioButton } from 'primereact/radiobutton';
 import ProfileHeader from './ProfileHeader';
 import UploadPic from './UploadPic';
 import { getUserCatches, updateCatch } from '../api/CatchAPI';
+import { Calendar } from 'primereact/calendar';
 
 function Fishtory({ user }) {
 
@@ -32,7 +33,7 @@ function Fishtory({ user }) {
     const [product, setProduct] = useState(emptyProduct);
     const [catch_picture, setCatchPicture] = useState();
     const toast = useRef(null);
-
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>',product)
     const helperFunction = (file) => {
         setCatchPicture(file)
     }
@@ -41,7 +42,7 @@ function Fishtory({ user }) {
         let response = getUserCatches()
             .then((response) => {
                 setallCatches(response['data']['data'])
-            })  
+            })
     }, [])
 
     const hideDialog = () => {
@@ -55,7 +56,7 @@ function Fishtory({ user }) {
     const saveProduct = () => {
         setProductDialog(false);
         let data = {
-            'date': product.date,
+            'date': new Date(product.date).toISOString().split('T')[0],
             'fishing_method': product.fishing_method,
             'id': product.id,
             'length': product.length,
@@ -63,24 +64,21 @@ function Fishtory({ user }) {
             'season': product.season,
             'species': product.species,
             'weight': product.weight,
-            'catch_picture': catch_picture
+            'catch_picture': catch_picture ? catch_picture : null
         }
-
         let config = {
             headers: {
                 Accept: "application/json",
                 "Content-Type": "multipart/form-data",
             }
         }
-        
         let response = updateCatch(data, config)
-        .then((response) => {
-            toast.current.show({ severity: 'success', summary: 'Success', detail: `${response.data.status}`, life: 3000 });
+            .then((response) => {
+                toast.current.show({ severity: 'success', summary: 'Success', detail: `${response.data.status}`, life: 3000 });
                 setTimeout(function () {
                     window.location.reload();
                 }, 2000);
-        })
-
+            })
     }
 
     const deleteProduct = () => {
@@ -185,9 +183,15 @@ function Fishtory({ user }) {
                         <UploadPic helperFunction={helperFunction} />
                     </div>
                     <div className="p-fluid">
-                        <div className="date">
+                        {/* <div className="date">
                             <label htmlFor="fishing-method">Date</label>
                             <InputText id="date" onChange={(e) => onInputChange(e, 'date')} value={product.date} />
+                        </div> */}
+                        <div className="date">
+                            <div className="field col-13 md:col-13">
+                                <label htmlFor="basic">Date Format</label>
+                                <Calendar id="basic" onChange={(e) => onInputChange(e, 'date')} dateFormat="mm-dd-yy" value={product.date} showButtonBar/>
+                            </div>
                         </div>
                         <div className="field">
                             <label htmlFor="fishing-method">Fishing Method</label>
@@ -195,7 +199,7 @@ function Fishtory({ user }) {
                         </div>
                         <div className="field">
                             <label htmlFor="length">Length (in)</label>
-                            <InputText id="length" onChange={(e) => onInputChange(e, 'length')} value={product.length} placeholder='number' type='number' />
+                            <InputText id="length" onChange={(e) => onInputChange(e, 'length')} value={product.length} type='number' />
                         </div>
                         {/* Season checkboxes */}
                         <div className="field">
@@ -225,7 +229,7 @@ function Fishtory({ user }) {
                         </div>
                         <div className="field">
                             <label htmlFor="weight">Weight (lbs)</label>
-                            <InputText id="weight" onChange={(e) => onInputChange(e, 'weight')} value={product.weight} placeholder='number' type='number' />
+                            <InputText id="weight" onChange={(e) => onInputChange(e, 'weight')} value={product.weight} type='number' />
                         </div>
                     </div>
                 </Dialog>
