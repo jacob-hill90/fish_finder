@@ -115,7 +115,7 @@ function EditProfileButton({ user }) {
             'last_name': product.last_name,
             'state': formik.values.state,
             'zipcode': product.zipcode,
-            'profile_picture': selectedPicture
+            'profile_picture': selectedPicture ? selectedPicture : null
         }
         let config = {
             headers: {
@@ -123,7 +123,6 @@ function EditProfileButton({ user }) {
                 "Content-Type": "multipart/form-data",
             }
         }
-
         let response = updateUser(data, config)
             .then((response) => {
                 toast.current.show({ severity: 'success', summary: 'Success', detail: `${response.data.status}`, life: 3000 });
@@ -206,7 +205,6 @@ function EditProfileButton({ user }) {
     return (
         <div>
             <Toast ref={toast} />
-
             <MDBBtn style={{ backgroundColor: '#FFEB3B' }} className="text-dark" onClick={editProduct} >Edit Profile</MDBBtn>
 
             {/* pop up window for editing user's profile */}

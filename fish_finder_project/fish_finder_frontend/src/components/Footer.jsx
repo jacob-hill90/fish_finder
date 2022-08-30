@@ -27,7 +27,6 @@ function Footer(){
                                 consectetur adipisicing elit.
                             </p>
                             </MDBCol>
-
                             <MDBCol className='mb-4' size="6" >
                                 <h6 className='text-uppercase fw-bold mb-4'>Build Team</h6>
                                 <MDBRow >
