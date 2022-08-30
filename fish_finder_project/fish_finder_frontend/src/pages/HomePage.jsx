@@ -15,7 +15,7 @@ function HomePage() {
             <div className="callTo">Join nearly half a dozen other Anglers!
             <Link to={"/signup"} className="global-links nav_items" ><MDBBtn style={{ backgroundColor: '#62acee' }} className="text-dark" >Sign Up Today!</MDBBtn></Link>
             </div>
-            <MapImage />
+            <MapImage className="pb-5"/>
         </div>
     )
 }
