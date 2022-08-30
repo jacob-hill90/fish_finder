@@ -23,7 +23,7 @@ function WeatherPage({ fullWeather, bigWeatherIcon, city, temp, description, hig
                 <img src={rainbackground2} className='img-fluid' alt='raindrops' />
             </div> */}
             <div id="weatherInfo">
-                {/* <MDBContainer className="weatherInfo"> */}
+                {/* <MDBContainer fluid className="weatherInfo"> */}
                 <h1 className="weatherTitle"><u>Weather Report</u></h1>
                 <WeatherTop fullWeather={fullWeather} bigWeatherIcon={bigWeatherIcon} city={city} temp={temp} description={description} sunrise={sunrise} sunset={sunset} wind={wind} high={high} low={low} humidity={humidity} />
                 <WeatherBottom forecast={forecast}

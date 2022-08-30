@@ -163,7 +163,7 @@ button:disabled {
 }
 
 #MapBox {
-  border: 8px solid #3b4257;
+  border: 4px solid #3b4257;
   border-radius: 1%;
   position: relative;
   max-width: 1000px;
@@ -389,6 +389,9 @@ img.flag {
 
 #weatherInfo{
   z-index: 10;
+  background: transparent;
+  padding: 0;
+
 }
 
 .weatherTitle{
@@ -396,7 +399,7 @@ img.flag {
 }
 
 .weather-page{
-  height: 85vh;
+  /* height: 800px; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -404,6 +407,7 @@ img.flag {
   background-repeat:repeat-x;
   background-size: 100%;
   object-fit: fill;
+  position: relative;
 } 
 
 .top-container{
@@ -412,6 +416,7 @@ img.flag {
   height: 300px;
   margin: auto;
   display: flex;
+  border: 1px solid rgb(101, 153, 216);
   /* justify-content: center; */
   /* align-items: center;  */
   background-image: linear-gradient(180deg, #a5d9f9, #5f92ca);
@@ -552,7 +557,8 @@ padding-top: 85px;
   border: 2px solid black;
   border-radius: 1%;
   text-align: center;
-  /* width: 100px; */
+  min-width: 40px;
+  max-width: 200px;
 }
 
 .forecastIcon {
@@ -601,7 +607,7 @@ padding-top: 85px;
 }
 
 #infoWindow {
-  border: 3px solid #23547B;
+  /* border: 3px solid #23547B; */
   text-align: center;
   max-width: 400px;
   height:auto;
@@ -624,4 +630,10 @@ padding-top: 85px;
   width: 200px;
   background-color: #D3D3D3;
   margin-right: 0.5rem;
+}
+
+#mapImage{
+  border: 2px solid #3b4257;
+  /* border-radius: 2%; */
+  border-radius: .4em;
 }
