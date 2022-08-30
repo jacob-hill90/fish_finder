@@ -27,14 +27,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ['django_secret_key']
 
 ######Uncomment me for deploymet and add url#########
-CSRF_TRUSTED_ORIGINS = ['https://mandr.dev']
+# CSRF_TRUSTED_ORIGINS = ['https://mandr.dev']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #######CHANGE ME TO FALSE FOR DEPLOYMENT
-DEBUG = False
+DEBUG = True
 
 #######ADD URL TO THIS BEFORE DEPLOYMENT if no work ['*']#######
-ALLOWED_HOSTS = ['https://mandr.dev']
+ALLOWED_HOSTS = []
 
 
 # Application definition
