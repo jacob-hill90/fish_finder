@@ -54,8 +54,7 @@ function NewCatch({ newCatchLng, newCatchLat }) {
     const saveProduct = () => {
         setProductDialog(false);
         let data = {
-
-            'date': product.date = new Date().toISOString().split('T')[0],
+            'date': new Date(product.date).toISOString().split('T')[0],
             'season': product.season,
             'species': product.species,
             'weight': product.weight,
@@ -63,7 +62,7 @@ function NewCatch({ newCatchLng, newCatchLat }) {
             'length': product.length,
             'latitude': newCatchLat.toString(),
             'longitude': newCatchLng.toString(),
-            'catch_picture': catch_picture,
+            'catch_picture': catch_picture ? catch_picture : null,
         }
         let config = {
             headers: {
@@ -126,7 +125,7 @@ function NewCatch({ newCatchLng, newCatchLat }) {
                     <div className="date">
                         <div className="field col-13 md:col-13">
                             <label htmlFor="basic">Date Format</label>
-                            <Calendar id="basic" onChange={(e) => onInputChange(e, 'date')} dateFormat="mm-dd-yy" placeholder='mm-dd-yyyy' />
+                            <Calendar id="basic" onChange={(e) => onInputChange(e, 'date')} dateFormat="mm-dd-yy" placeholder='mm-dd-yyyy' showButtonBar />
                         </div>
                     </div>
                     <div className="field">
@@ -135,7 +134,7 @@ function NewCatch({ newCatchLng, newCatchLat }) {
                     </div>
                     <div className="field">
                         <label htmlFor="length">Length (in)</label>
-                        <InputText id="length" onChange={(e) => onInputChange(e, 'length')} value={product.length} placeholder='number' type='number' />
+                        <InputText id="length" onChange={(e) => onInputChange(e, 'length')} value={product.length} type='number' />
                     </div>
                     {/* Season checkboxes */}
                     <div className="field">
@@ -165,7 +164,7 @@ function NewCatch({ newCatchLng, newCatchLat }) {
                     </div>
                     <div className="field">
                         <label htmlFor="weight">Weight (lbs)</label>
-                        <InputText id="weight" onChange={(e) => onInputChange(e, 'weight')} value={product.weight} placeholder='number' type='number'/>
+                        <InputText id="weight" onChange={(e) => onInputChange(e, 'weight')} value={product.weight} type='number'/>
                     </div>
                 </div>
             </Dialog>

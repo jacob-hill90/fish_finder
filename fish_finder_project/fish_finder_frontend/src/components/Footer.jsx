@@ -6,6 +6,7 @@ import {
     MDBRow,
     MDBIcon
 } from 'mdb-react-ui-kit';
+import { Button } from 'primereact/button';
 
 
 function Footer() {
@@ -25,7 +26,6 @@ function Footer() {
                                     Fishtories is a collaborative project designed by members of Code Platoon's Romeo Cohort. We built this site to serve as a showcase of our collective problem solving and design skills, as such the fishing data displayed is for demonstration purposes only. All of our team members are US military veterans or veteran spouses. If you have questions about this project or would like to collaborate on future projects, feel free to connect with us on Linkedin.
                                 </p>
                             </MDBCol>
-
                             <MDBCol md="2" lg="2" xl="2" className='mx-auto mb-4'>
                                 <h6 className='text-uppercase fw-bold mb-4'>Build Team</h6>
                                 <p>

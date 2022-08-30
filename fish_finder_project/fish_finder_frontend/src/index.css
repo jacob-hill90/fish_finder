@@ -637,3 +637,23 @@ padding-top: 85px;
   /* border-radius: 2%; */
   border-radius: .4em;
 }
+
+/* Linkedin Buttons */
+.button-demo .template .p-button.linkedin {
+  background: linear-gradient(to left, var(--blue-400) 50%, var(--blue-500) 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: background-position 0.5s ease-out;
+  color: #fff;
+  border-color: var(--blue-500);
+}
+.button-demo .template .p-button.linkedin:hover {
+  background-position: left bottom;
+}
+.button-demo .template .p-button.linkedin i {
+  background-color: var(--blue-500);
+}
+.button-demo .template .p-button.linkedin:focus {
+  box-shadow: 0 0 0 1px var(--blue-200);
+}
+

@@ -130,7 +130,6 @@ def who_am_i(request):
 # adding a new catch entry to the database
 @api_view(['POST'])
 def new_catch(request):
-
     user = AppUser.objects.get(id=request.user.id)
     try:
         new_catch = CatchData.objects.create(
@@ -153,6 +152,15 @@ def new_catch(request):
 def update_catch(request):
     # pulling out user deatails and assigning the email to username for good measure
     try:
+        # checking if catch_picture is in the request, and if it also exists in the database
+        def picture_control():
+            if request.data['catch_picture']:
+                    return request.data['catch_picture']
+            else:
+                if edited_catch.catch_picture:
+                    return edited_catch.catch_picture
+                else:
+                    pass
         edited_catch = CatchData.objects.get(id=request.data['id'])
         edited_catch.date = request.data['date']
         edited_catch.fishing_method = request.data['fishing_method']
@@ -160,13 +168,12 @@ def update_catch(request):
         edited_catch.season = request.data['season']
         edited_catch.species = request.data['species']
         edited_catch.weight = request.data['weight']
-        edited_catch.catch_picture = request.data['catch_picture']
+        edited_catch.catch_picture = picture_control()
         edited_catch.save()
     # error handling
     except Exception as e:
         # print(str(e))
         return JsonResponse({'status': str(e)})
-
     return JsonResponse({'status': 'Catch updated succesfully'})
 
 
@@ -197,7 +204,6 @@ def catch(request):
         return JsonResponse({'data': 'Catch saved!'})
     if request.method == 'PUT':
         data = request.data
-        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>', data)
         edited_catch = CatchData.objects.filter(owner_id=request.user.id).values().get(id=request.data['id'])
         edited_catch = CatchData(**data)
         edited_catch.save()
@@ -214,12 +220,21 @@ def catch(request):
 def edit_user(request):
     if request.method == 'POST':
         try:
+            # checking if profile_picture is in the request, and if it also exists in the database
+            def picture_control():
+                if request.data['profile_picture']:
+                    return request.data['profile_picture']
+                else:
+                    if user.profile_picture:
+                        return user.profile_picture
+                    else:
+                        pass
             user = AppUser.objects.get(id=request.user.id)
             user.first_name = request.data['first_name']
             user.last_name = request.data['last_name']
             user.state = request.data['state']
             user.zipcode = request.data['zipcode']
-            user.profile_picture = request.data['profile_picture']
+            user.profile_picture = picture_control()
             user.save()
             # error handling
         except Exception as e:
@@ -229,11 +244,12 @@ def edit_user(request):
     if request.method == 'DELETE':
         try:
             user = AppUser.objects.get(id=request.user.id)
-            # user.delete()
+            user.delete()
         # error handling
         except Exception as e:
             # print(str(e))
             return JsonResponse({'status': str(e)})
+        return JsonResponse({'status': 'Account has been deleted'})
 
 
 @api_view(['GET'])
@@ -260,7 +276,6 @@ def weather_api(request, zipcode):
 
 @api_view(['GET'])
 def forecast_api(request, zipcode):
-
     apikey = os.environ['weather_api_key']
 
     API_response = requests.get(
