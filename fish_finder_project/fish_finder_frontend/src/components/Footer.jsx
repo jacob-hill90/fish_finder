@@ -66,7 +66,7 @@ function Footer(){
                                         </p>
                                     </MDBCol>
                                     <MDBCol className="d-flex justify-content-start ms-1" >
-                                        <a href="https://www.linkedin.com/in/jacob-hill90/" className="" >
+                                        <a href="https://www.linkedin.com/in/nathan-d-leathers/" className="" >
                                             <Button className="linkedin p-0" aria-label="Linkedin">
                                                 <i className="pi pi-linkedin px-2"></i>
                                                 <span className="px-3">Linkedin</span>
@@ -81,7 +81,7 @@ function Footer(){
                                         </p>
                                     </MDBCol>
                                     <MDBCol className="d-flex justify-content-start ms-1" >
-                                        <a href="https://www.linkedin.com/in/jacob-hill90/" className="" >
+                                        <a href="https://www.linkedin.com/in/robert-puentes-garces-811077226/" className="" >
                                             <Button className="linkedin p-0" aria-label="Linkedin">
                                                 <i className="pi pi-linkedin px-2"></i>
                                                 <span className="px-3">Linkedin</span>
@@ -96,7 +96,7 @@ function Footer(){
                                         </p>
                                     </MDBCol>
                                     <MDBCol className="d-flex justify-content-start ms-1" >
-                                        <a href="https://www.linkedin.com/in/jacob-hill90/" className="" >
+                                        <a href="https://www.linkedin.com/in/daniel-reither-swe/" className="" >
                                             <Button className="linkedin p-0" aria-label="Linkedin">
                                                 <i className="pi pi-linkedin px-2"></i>
                                                 <span className="px-3">Linkedin</span>
