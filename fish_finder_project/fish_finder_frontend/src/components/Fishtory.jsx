@@ -15,6 +15,9 @@ import ProfileHeader from './ProfileHeader';
 import UploadPic from './UploadPic';
 import { getUserCatches, updateCatch } from '../api/CatchAPI';
 import { Calendar } from 'primereact/calendar';
+import { InputTextarea } from 'primereact/inputtextarea';
+import CatchPopupWindow from './CatchPopupWindow';
+
 
 function Fishtory({ user }) {
 
@@ -32,8 +35,8 @@ function Fishtory({ user }) {
     const [deleteProductDialog, setDeleteProductDialog] = useState(false);
     const [product, setProduct] = useState(emptyProduct);
     const [catch_picture, setCatchPicture] = useState();
+
     const toast = useRef(null);
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>',product)
     const helperFunction = (file) => {
         setCatchPicture(file)
     }
@@ -64,7 +67,8 @@ function Fishtory({ user }) {
             'season': product.season,
             'species': product.species,
             'weight': product.weight,
-            'catch_picture': catch_picture ? catch_picture : null
+            'catch_picture': catch_picture ? catch_picture : null,
+            'notes': product.notes ? product.notes : null
         }
         let config = {
             headers: {
@@ -153,13 +157,32 @@ function Fishtory({ user }) {
         setProduct(_product);
     }
 
+{/* >>>>>>>>>>>>>>>>>>>>>>>>>>ROBERT: DELETE THIS AFTER FULL TEST<<<<<<<<<<<<<<<<<<<<<<<<<<<< */}
+    // const inputField = (category, title, value, type) => {
+    //     return (
+    //         <div className="field col-13 md:col-13">
+    //             <label htmlFor={category}>{title}</label>
+    //             <InputText id={category} onChange={(e) => onInputChange(e, category)} value={value} type={type} />
+    //         </div>
+    //     )
+    // }
+
+    // const radioButton = (inputId, name, value, checked) => {
+    //     return (
+    //         <div className="field-radiobutton col-6">
+    //             <RadioButton inputId={inputId} name={name} value={value} onChange={(e) => onSeasonChange(e)} checked={checked} />
+    //             <label htmlFor="spring">{value}</label>
+    //         </div>
+    //     )
+    // }
+
     return (
         <div>
             <Toast ref={toast} />
             <ProfileHeader user={user} />
 
             <ConfirmDialog />
-            {/* Rows/columns fields */}
+            {/* Rows/columns table fields */}
             <div className="card workout-history-table container">
                 <DataTable value={allCatches}
                     dataKey="id" paginator rows={5} rowsPerPageOptions={[5, 10, 25]}
@@ -182,58 +205,34 @@ function Fishtory({ user }) {
                     <div className="date">
                         <UploadPic helperFunction={helperFunction} />
                     </div>
-                    <div className="p-fluid">
-                        {/* <div className="date">
-                            <label htmlFor="fishing-method">Date</label>
-                            <InputText id="date" onChange={(e) => onInputChange(e, 'date')} value={product.date} />
-                        </div> */}
+                    {/* >>>>>>>>>>>>>>>>>>>>>>>>>>ROBERT: DELETE THIS AFTER FULL TEST<<<<<<<<<<<<<<<<<<<<<<<<<<<< */}
+                    {/* <div className="p-fluid">
                         <div className="date">
                             <div className="field col-13 md:col-13">
-                                <label htmlFor="basic">Date Format</label>
-                                <Calendar id="basic" onChange={(e) => onInputChange(e, 'date')} dateFormat="mm-dd-yy" value={product.date} showButtonBar/>
+                                <label htmlFor="basic">Date</label>
+                                <Calendar id="basic" onChange={(e) => onInputChange(e, 'date')} dateFormat="mm-dd-yy" value={product.date} showButtonBar />
                             </div>
                         </div>
-                        <div className="field">
-                            <label htmlFor="fishing-method">Fishing Method</label>
-                            <InputText id="fishingMethod" onChange={(e) => onInputChange(e, 'fishing_method')} value={product.fishing_method} />
-                        </div>
-                        <div className="field">
-                            <label htmlFor="length">Length (in)</label>
-                            <InputText id="length" onChange={(e) => onInputChange(e, 'length')} value={product.length} type='number' />
-                        </div>
-                        {/* Season checkboxes */}
+                        {inputField("fishing_method", "Fishing Method", product.fishing_method, "text")}
+                        {inputField("length", "Length", product.length, "number")}
                         <div className="field">
                             <label className="mb-3">Season</label>
                             <div className="formgrid grid">
-                                <div className="field-radiobutton col-6">
-                                    <RadioButton inputId="spring" name="spring" value="Spring" onChange={(e) => onSeasonChange(e)} checked={product.season === 'Spring'} />
-                                    <label htmlFor="spring">Spring</label>
-                                </div>
-                                <div className="field-radiobutton col-6">
-                                    <RadioButton inputId="summer" name="summer" value="Summer" onChange={onSeasonChange} checked={product.season === 'Summer'} />
-                                    <label htmlFor="summer">Summer</label>
-                                </div>
-                                <div className="field-radiobutton col-6">
-                                    <RadioButton inputId="fall" name="fall" value="Fall" onChange={onSeasonChange} checked={product.season === 'Fall'} />
-                                    <label htmlFor="fall">Fall</label>
-                                </div>
-                                <div className="field-radiobutton col-6">
-                                    <RadioButton inputId="Winter" name="Winter" value="Winter" onChange={onSeasonChange} checked={product.season === 'Winter'} />
-                                    <label htmlFor="Winter">Winter</label>
-                                </div>
+                                {radioButton("spring", "spring", "Spring", (product.season === 'Spring'))}
+                                {radioButton("summer", "summer", "Summer", (product.season === 'Summer'))}
+                                {radioButton("fall", "fall", "Fall", (product.season === 'Fall'))}
+                                {radioButton("winter", "winter", "Winter", (product.season === 'Winter'))}
                             </div>
                         </div>
-                        <div className="field">
-                            <label htmlFor="species">Species</label>
-                            <InputText id="species" onChange={(e) => onInputChange(e, 'species')} value={product.species} />
+                        {inputField("species", "Species", product.species, "text")}
+                        {inputField("weight", "Weight", product.weight, "number")}
+                        <div>
+                            <label htmlFor="notes">Field Notes</label>
+                            <InputTextarea value={product.notes} onChange={(e) => onInputChange(e, 'notes')} rows={2} cols={30} autoResize />
                         </div>
-                        <div className="field">
-                            <label htmlFor="weight">Weight (lbs)</label>
-                            <InputText id="weight" onChange={(e) => onInputChange(e, 'weight')} value={product.weight} type='number' />
-                        </div>
-                    </div>
+                    </div> */}
+                    <CatchPopupWindow product={product} onInputChange={onInputChange} onSeasonChange={onSeasonChange}/>
                 </Dialog>
-
                 {/* popup box for deleting just one item */}
                 <Dialog visible={deleteProductDialog} style={{ width: '450px' }} header="Delete Confirmation" modal footer={deleteProductDialogFooter} onHide={hideDeleteProductDialog}>
                     <div className="confirmation-content">

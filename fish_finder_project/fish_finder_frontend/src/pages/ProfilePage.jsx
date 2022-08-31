@@ -1,9 +1,9 @@
 import Fishtory from "../components/Fishtory"
 
-function ProfilePage({user}){
-    return(
+function ProfilePage({ user }) {
+    return (
         <div>
-            <Fishtory user={user}/>
+            <Fishtory user={user} />
         </div>
     )
 }

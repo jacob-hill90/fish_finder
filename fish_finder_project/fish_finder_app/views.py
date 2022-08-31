@@ -133,16 +133,17 @@ def new_catch(request):
     user = AppUser.objects.get(id=request.user.id)
     try:
         new_catch = CatchData.objects.create(
-            owner=user,
-            date=request.data['date'],
-            season=request.data['season'],
-            species=request.data['species'],
-            weight=request.data['weight'],
-            fishing_method=request.data['fishing_method'],
-            length=request.data['length'],
-            latitude=request.data['latitude'],
-            longitude=request.data['longitude'],
-            catch_picture=request.data['catch_picture'])
+            owner = user,
+            date = request.data['date'],
+            season = request.data['season'],
+            species = request.data['species'],
+            weight = request.data['weight'],
+            fishing_method = request.data['fishing_method'],
+            length = request.data['length'],
+            latitude = request.data['latitude'],
+            longitude = request.data['longitude'],
+            catch_picture = request.data['catch_picture'],
+            notes = request.data['notes'])
     except Exception as e:
         return JsonResponse({'status': str(e)})
     return JsonResponse({'status': 'New catch created succesfully'})
@@ -168,6 +169,7 @@ def update_catch(request):
         edited_catch.season = request.data['season']
         edited_catch.species = request.data['species']
         edited_catch.weight = request.data['weight']
+        edited_catch.notes = request.data['notes']
         edited_catch.catch_picture = picture_control()
         edited_catch.save()
     # error handling

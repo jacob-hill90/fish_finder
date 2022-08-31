@@ -626,21 +626,63 @@ padding-top: 85px;
   margin-right: 0.5rem;
 }
 
-/* Linkedin Buttons */
-.button-demo .template .p-button.linkedin {
-  background: linear-gradient(to left, var(--blue-400) 50%, var(--blue-500) 50%);
-  background-size: 200% 100%;
-  background-position: right bottom;
-  transition: background-position 0.5s ease-out;
-  color: #fff;
-  border-color: var(--blue-500);
+/* BUTTONS */
+
+.button-demo .p-button {
+    margin-right: 0.5rem;
 }
-.button-demo .template .p-button.linkedin:hover {
-  background-position: left bottom;
+.button-demo .p-buttonset .p-button {
+    margin-right: 0;
 }
-.button-demo .template .p-button.linkedin i {
-  background-color: var(--blue-500);
+.button-demo .template .p-button i {
+    line-height: 2.25rem;
+}
+/* linkedin button */
+.button-demo .template .p-button.linkedin  {
+    background: linear-gradient(to left, var(--blue-400) 50%, var(--blue-500) 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;
+    transition: background-position 0.5s ease-out;
+    color: #fff;
+    border-color: var(--blue-500);
+}
+.button-demo .template .p-button.linkedin:hover  {
+    background-position: left bottom;
+}
+.button-demo .template .p-button.linkedin i  {
+    background-color: var(--blue-500);
 }
 .button-demo .template .p-button.linkedin:focus {
-  box-shadow: 0 0 0 1px var(--blue-200);
+    box-shadow: 0 0 0 1px var(--blue-200);
+}
+
+/* github button */
+.button-demo .template .p-button.github  {
+    background: linear-gradient(to left, var(--bluegray-600) 50%, var(--bluegray-700) 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;
+    transition: background-position 0.5s ease-out;
+    color: #fff;
+    border-color: var(--bluegray-800);
+}
+.button-demo .template .p-button.github:hover  {
+    background-position: left bottom;
+}
+.button-demo .template .p-button.github i  {
+    background-color: var(--bluegray-800);
+}
+.button-demo .template .p-button.github:focus {
+    box-shadow: 0 0 0 1px var(--bluegray-500);
+}
+@media screen and (max-width: 960px) {
+    .button-demo .p-button {
+        margin-bottom: 0.5rem;
+    }
+    .button-demo .p-button:not(.p-button-icon-only) {
+        display: flex;
+        width: 100%;
+    }
+    .button-demo .p-buttonset .p-button {
+        margin-bottom: 0;
+    }
 }
