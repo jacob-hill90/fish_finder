@@ -48,12 +48,12 @@ function NewCatch({ newCatchLng, newCatchLat, mapCenter, panTo, allFishData, set
         weight: '',
     };
 
-    const [allCatches, setallCatches] = useState([])
+    const [allCatches, setAllCatches] = useState([])
     const [productDialog, setProductDialog] = useState(true);
     const [catch_picture, setCatchPicture] = useState();
     const [product, setProduct] = useState(emptyProduct);
     const [allNewFishData, setAllNewFishData] = useState([])
-
+    const [notes, setNotes] = useState('')
 
     const helperFunction = (file) => {
         setCatchPicture(file)
@@ -96,9 +96,6 @@ function NewCatch({ newCatchLng, newCatchLat, mapCenter, panTo, allFishData, set
                 "Content-Type": "multipart/form-data",
             }
         }
-
-
-
 
         let response = newCatch(data, config)
             .then((response) => {

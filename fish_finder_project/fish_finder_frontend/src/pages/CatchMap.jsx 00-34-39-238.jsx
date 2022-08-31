@@ -48,7 +48,7 @@ function CatchMap({ mapCenter, setMapCenter }) {
         // process is undefined
         // googleMapsApiKey: { process.env.REACT_APP_GOOGLE_MAPS_API },
         // apiKey,
-        googleMapsApiKey: "AIzaSyCvRBwjBlzY9tMrm46tx6ksnRzGvxvUI5U",
+
         libraries
     })
 
