@@ -22,7 +22,7 @@ urlpatterns = [
     path('fishdbbyid', views.fishdb_byid),
     path('edit_user', views.edit_user),
     path('fish_data', views.get_fish_data),
-    path('API/<int:zipcode>', views.weather_api),
-    path('forecast/<int:zipcode>', views.forecast_api),
+    path('API/<str:zipcode>', views.weather_api),
+    path('forecast/<str:zipcode>', views.forecast_api),
     re_path(r'^', views.home_page),
 ]

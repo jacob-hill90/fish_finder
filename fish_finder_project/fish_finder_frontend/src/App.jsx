@@ -149,6 +149,8 @@ function App() {
   //     })
   // }, [])
 
+  const [mapCenter, setMapCenter] = useState(null)
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -164,7 +166,7 @@ function App() {
             dayFourTemp={dayFourTemp} dayFourDescription={dayFourDescription} dayFourIcon={dayFourIcon} dayFourWind={dayFourWind} dayFourUnixTime={dayFourUnixTime}
             dayFiveTemp={dayFiveTemp} dayFiveDescription={dayFiveDescription} dayFiveIcon={dayFiveIcon} dayFiveWind={dayFiveWind} dayFiveUnixTime={dayFiveUnixTime}
           />} />
-          <Route path="/catch_map" element={<CatchMap />} />
+          <Route path="/catch_map" element={<CatchMap mapCenter={mapCenter} setMapCenter={setMapCenter} />} />
           <Route path="/fish_DB" element={<FishDB />} />
           <Route path="/fish_detail/:fishID" element={<FishDBDetail />} />
         </Routes>

@@ -22,8 +22,7 @@ function Footer() {
                                     Company name
                                 </h6>
                                 <p>
-                                    Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet,
-                                    consectetur adipisicing elit.
+                                    Fishtories is a collaborative project designed by members of Code Platoon’s Romeo Cohort. We built this site to serve as a showcase of our collective problem solving and design skills, as such the fishing data displayed is for demonstration purposes only. All of our team members are US military veterans or veteran spouses. If you have questions about this project or would like to collaborate on future projects, feel free to connect with us on Linkedin.
                                 </p>
                             </MDBCol>
                             <MDBCol className='mb-4' size="6" >

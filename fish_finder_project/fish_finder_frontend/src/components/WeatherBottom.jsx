@@ -45,6 +45,21 @@ function WeatherBottom({ dayOneTemp, dayOneDescription, dayOneIcon, dayOneWind, 
 
   // toTitleCase("partly cloudy")
 
+  function titleCaseDescription(weather) {
+    let titleDescription = []
+    let weatherStr = weather.toString();
+    let weatherArr = weatherStr.split(" ");
+    for (let i = 0; i < weatherArr.length; i++) {
+      let splitWord = weatherArr[i].split("");
+      let firstLet = splitWord[0];
+      let capLet = firstLet.toUpperCase();
+      splitWord[0] = capLet;
+      let titleWord = splitWord.join("")
+      titleDescription.push(titleWord);
+    }
+    let titleWeather = titleDescription.join(" ")
+    return titleWeather
+  }
 
   return (
     <div className="bottom-container">
@@ -54,7 +69,7 @@ function WeatherBottom({ dayOneTemp, dayOneDescription, dayOneIcon, dayOneWind, 
           <div>
             <img className="forecastIcon" src={dayOneIcon} alt="" />
           </div>
-          <h4 className="forecastDatDescription">{dayOneDescription}</h4>
+          <h4 className="forecastDatDescription">{titleCaseDescription(dayOneDescription)}</h4>
           <h5>Temp: {Math.floor(dayOneTemp)}˚</h5>
           <h5>Wind: {Math.floor(dayOneWind)} mph</h5>
         </MDBCol>
@@ -63,7 +78,7 @@ function WeatherBottom({ dayOneTemp, dayOneDescription, dayOneIcon, dayOneWind, 
           <div>
             <img className="forecastIcon" src={dayTwoIcon} alt="" />
           </div>
-          <h4 className="forecastDatDescription">{dayTwoDescription}</h4>
+          <h4 className="forecastDatDescription">{titleCaseDescription(dayTwoDescription)}</h4>
           <h5>Temp: {Math.floor(dayTwoTemp)}˚</h5>
           <h5>Wind: {Math.floor(dayTwoWind)} mph</h5>
         </MDBCol>
@@ -72,7 +87,7 @@ function WeatherBottom({ dayOneTemp, dayOneDescription, dayOneIcon, dayOneWind, 
           <div>
             <img className="forecastIcon" src={dayThreeIcon} alt="" />
           </div>
-          <h4 className="forecastDatDescription">{dayThreeDescription}</h4>
+          <h4 className="forecastDatDescription">{titleCaseDescription(dayThreeDescription)}</h4>
           <h5>Temp: {Math.floor(dayThreeTemp)}˚</h5>
           <h5>Wind: {Math.floor(dayThreeWind)} mph</h5>
         </MDBCol>
@@ -81,7 +96,7 @@ function WeatherBottom({ dayOneTemp, dayOneDescription, dayOneIcon, dayOneWind, 
           <div>
             <img className="forecastIcon" src={dayFourIcon} alt="" />
           </div>
-          <h4 className="forecastDatDescription">{dayFourDescription}</h4>
+          <h4 className="forecastDatDescription">{titleCaseDescription(dayFourDescription)}</h4>
           <h5>Temp: {Math.floor(dayFourTemp)}˚</h5>
           <h5>Wind: {Math.floor(dayFourWind)} mph</h5>
         </MDBCol>
@@ -90,7 +105,7 @@ function WeatherBottom({ dayOneTemp, dayOneDescription, dayOneIcon, dayOneWind, 
           <div>
             <img className="forecastIcon" src={dayFiveIcon} alt="" />
           </div>
-          <h4 className="forecastDatDescription">{dayFiveDescription}</h4>
+          <h4 className="forecastDatDescription">{titleCaseDescription(dayFiveDescription)}</h4>
           <h5>Temp: {Math.floor(dayFiveTemp)}˚</h5>
           <h5>Wind: {Math.floor(dayFiveWind)} mph</h5>
         </MDBCol>

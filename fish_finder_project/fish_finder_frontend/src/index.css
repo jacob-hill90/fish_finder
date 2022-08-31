@@ -163,7 +163,7 @@ button:disabled {
 }
 
 #MapBox {
-  border: 8px solid #3b4257;
+  border: 4px solid #3b4257;
   border-radius: 1%;
   position: relative;
   max-width: 1000px;
@@ -389,6 +389,9 @@ img.flag {
 
 #weatherInfo{
   z-index: 10;
+  background: transparent;
+  padding: 0;
+
 }
 
 .weatherTitle{
@@ -396,22 +399,26 @@ img.flag {
 }
 
 .weather-page{
-  height: 85vh;
+  max-height: 800px;
+  width:auto;
+  min-width: 500px;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; 
   align-items: center;
   background-image: url("./assets/rainbackground2.jpg");
-  background-repeat:repeat-x;
-  background-size: 100%;
+  background-repeat:no-repeat;
+  background-size: cover;
   object-fit: fill;
+  position: relative;
 } 
 
 .top-container{
   position: relative;
-  width: 60vw;
+  max-width: 1000px;
   height: 300px;
   margin: auto;
   display: flex;
+  border: 1px solid rgb(101, 153, 216);
   /* justify-content: center; */
   /* align-items: center;  */
   background-image: linear-gradient(180deg, #a5d9f9, #5f92ca);
@@ -496,7 +503,7 @@ padding-top: 85px;
 
 .bottom-container{
   position: relative;
-  width: 60vw;
+  max-width: 1000px;
   height: 300px;
   display: flex;
   border-radius: .4em;
@@ -545,14 +552,15 @@ padding-top: 85px;
 
 .forecastRow{
   display: flex;
-  width: 100%;
+  max-width:1000px;
 }
 
 .forecastDay {
   border: 2px solid black;
   border-radius: 1%;
   text-align: center;
-  /* width: 100px; */
+  max-width: 196px;
+  padding: 0%;
 }
 
 .forecastIcon {
@@ -582,6 +590,9 @@ padding-top: 85px;
   }
   .low-text{
     font-size: 40px;
+  }
+  .weather-page{
+    background-size:300%;
   }
 }
 
@@ -626,63 +637,77 @@ padding-top: 85px;
   margin-right: 0.5rem;
 }
 
+#mapImage{
+  border: 2px solid #3b4257;
+  /* border-radius: 2%; */
+  border-radius: .4em;
+  max-width: 1480px;
+}
+
+#teamNames {
+  text-align: left;
+}
+
+#fishSmarter{
+  overflow:hidden;
+}
 /* BUTTONS */
 
 .button-demo .p-button {
-    margin-right: 0.5rem;
+  margin-right: 0.5rem;
 }
 .button-demo .p-buttonset .p-button {
-    margin-right: 0;
+  margin-right: 0;
 }
 .button-demo .template .p-button i {
-    line-height: 2.25rem;
+  line-height: 2.25rem;
 }
 /* linkedin button */
 .button-demo .template .p-button.linkedin  {
-    background: linear-gradient(to left, var(--blue-400) 50%, var(--blue-500) 50%);
-    background-size: 200% 100%;
-    background-position: right bottom;
-    transition: background-position 0.5s ease-out;
-    color: #fff;
-    border-color: var(--blue-500);
+  background: linear-gradient(to left, var(--blue-400) 50%, var(--blue-500) 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: background-position 0.5s ease-out;
+  color: #fff;
+  border-color: var(--blue-500);
 }
 .button-demo .template .p-button.linkedin:hover  {
-    background-position: left bottom;
+  background-position: left bottom;
 }
 .button-demo .template .p-button.linkedin i  {
-    background-color: var(--blue-500);
+  background-color: var(--blue-500);
 }
 .button-demo .template .p-button.linkedin:focus {
-    box-shadow: 0 0 0 1px var(--blue-200);
+  box-shadow: 0 0 0 1px var(--blue-200);
 }
 
 /* github button */
 .button-demo .template .p-button.github  {
-    background: linear-gradient(to left, var(--bluegray-600) 50%, var(--bluegray-700) 50%);
-    background-size: 200% 100%;
-    background-position: right bottom;
-    transition: background-position 0.5s ease-out;
-    color: #fff;
-    border-color: var(--bluegray-800);
+  background: linear-gradient(to left, var(--bluegray-600) 50%, var(--bluegray-700) 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: background-position 0.5s ease-out;
+  color: #fff;
+  border-color: var(--bluegray-800);
 }
 .button-demo .template .p-button.github:hover  {
-    background-position: left bottom;
+  background-position: left bottom;
 }
 .button-demo .template .p-button.github i  {
-    background-color: var(--bluegray-800);
+  background-color: var(--bluegray-800);
 }
 .button-demo .template .p-button.github:focus {
-    box-shadow: 0 0 0 1px var(--bluegray-500);
+  box-shadow: 0 0 0 1px var(--bluegray-500);
 }
 @media screen and (max-width: 960px) {
-    .button-demo .p-button {
-        margin-bottom: 0.5rem;
-    }
-    .button-demo .p-button:not(.p-button-icon-only) {
-        display: flex;
-        width: 100%;
-    }
-    .button-demo .p-buttonset .p-button {
-        margin-bottom: 0;
-    }
+  .button-demo .p-button {
+      margin-bottom: 0.5rem;
+  }
+  .button-demo .p-button:not(.p-button-icon-only) {
+      display: flex;
+      width: 100%;
+  }
+  .button-demo .p-buttonset .p-button {
+      margin-bottom: 0;
+  }
 }

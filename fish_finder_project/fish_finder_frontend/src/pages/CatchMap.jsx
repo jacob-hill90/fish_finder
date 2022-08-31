@@ -8,7 +8,6 @@ import usePlacesAutocomplete, {
     getGeocode,
     getLatLng,
 } from "use-places-autocomplete"
-// import { clearSuggestions } from 'use-places-autocomplete';
 import axios from "axios"
 import NewCatch from '../components/NewCatch'
 
@@ -19,42 +18,21 @@ import {
     Marker,
     InfoBox,
     Circle,
-    // MarkerCluster,
     InfoWindow,
     useJsApiLoader,
     StandaloneSearchBox,
     Autocomplete,
-    // searchBox,
 } from "@react-google-maps/api"
 
-// const dotenv = require('dotenv').config()
-// console.log(process.env)
-// const path = require('path');
-// require("dotenv").config({path: path.resolve(__fish_finder_project, './.env')});
-
-function CatchMap() {
+function CatchMap({ mapCenter, setMapCenter }) {
     const [dragEvent, setDragEvent] = useState(false)
-    // this variable allows the search bar to populate places
     const libraries = ["places"]
-    //this variable is the google maps api key:
-    // const apiKey = process.env.REACT_APP_googleMapsApiKey
-
-    // this variable is a short hand way of changing the current map component
     const mapRef = useRef();
-    // sets the display size of the map
     const containerStyle = {
         width: '1000px',
         height: '600px'
     };
-    // starting map center attribute
-    // default mapCenter is Lake Hartwell
-    const [mapCenter, setMapCenter] = useState({ lat: 34.48686532, lng: -82.8805130 })
 
-    // let center = {
-    //     lat: 34.48686532,
-    //     lng: -82.8805130
-    // };
-    // option gives us 1. Map CSS, Disable all default widgets, gives user zoom control, gives user a distance scale
     const options = {
         // styles: MapStyles,
         // disableDefaultUI: true,
@@ -70,10 +48,7 @@ function CatchMap() {
         // process is undefined
         // googleMapsApiKey: { process.env.REACT_APP_GOOGLE_MAPS_API },
         // apiKey,
-
-        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-        //  R E P L A C E   T H I S   L I N E   W I T H   G O O G L E   M A P S   K E Y
-        // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        googleMapsApiKey: "AIzaSyCvRBwjBlzY9tMrm46tx6ksnRzGvxvUI5U",
         libraries
     })
 
@@ -141,7 +116,7 @@ function CatchMap() {
     // onLoad callback called when autocomplete has loaded.
     const onLoad = (autocomplete) => {
         // console.log('autocomplete', autocomplete)
-        //setting the instaance of autocomplete
+        //setting the instance of autocomplete
         setAutocomplete(autocomplete)
     }
 
@@ -167,8 +142,9 @@ function CatchMap() {
     const [newCatchLat, setNewCatchLat] = useState(34.48686532)
     const [newCatchLng, setNewCatchLng] = useState(-82.8805130)
 
-    // console.log(fishData)
     const [allFishData, setAllFishData] = useState([])
+
+    const [newCatchSaved, setNewCatchSaved] = useState(false)
 
     useEffect(() => {
         axios.get('fish_data')
@@ -184,20 +160,7 @@ function CatchMap() {
                 console.log(convertedData[0].fields.fishing_method)
                 setAllFishData(convertedData)
             })
-    }, [])
-
-
-    function convertCoords(coord) {
-
-
-
-    }
-    // let fishKey = 1;
-
-    // console.log(allFishData)
-    // let newdata = JSON.parse(allFishData)
-    // console.log(newdata)
-    // console.log(typeof (newdata))
+    }, [newCatchSaved])
 
     const [buttonText, setButtonText] = useState("Add a New Catch");
 
@@ -244,16 +207,11 @@ function CatchMap() {
                             },
                             () => null
                         );
-                        // }
-                        // catch {
-                        //     console.log("this didnt work")
-                        //     alert("You must enable location services in your browser to use this function")
-                        // }
                     }}
                 />
                 <GoogleMap
                     mapContainerStyle={containerStyle}
-                    center={mapCenter}
+                    center={mapCenter ? mapCenter : setMapCenter({ lat: 34.48686532, lng: -82.8805130 })}
                     zoom={11}
                     options={options}
                     onLoad={onMapLoad}
@@ -261,14 +219,6 @@ function CatchMap() {
                     onClick={() => {
                         setActiveMarker(null);
                     }}
-                // onClick={(event) => {
-                //     setMarkers(current => [...current, {
-                //         lat: event.latLng.lat(),
-                //         lng: event.latLng.lng()
-                //     }]);
-                //     setActiveMarker(null);
-                //     markerCount += 1;
-                // }}
                 >
                     <Autocomplete
                         onLoad={onLoad}
@@ -295,48 +245,39 @@ function CatchMap() {
                                 // marginLeft: "-10x",
                                 top: "10px"
                             }}
-                        // clearSuggestions={clearSuggestions()}
-                        // onChange = {searchInput}
                         />
                     </Autocomplete>
-                    {/* {markers.map((marker) => (
-                        <Marker
-                            key={markerCount}
-                            icon={hookicon}
-                            position={{ lat: marker.lat, lng: marker.lng }}
-                            draggable={true}
-                        />
-                    ))} */}
-                    {allFishData.map(({ pk, fields }) => (
-                        <Marker
-                            key={pk}
-                            position={{
-                                lat: parseFloat(fields.latitude),
-                                lng: parseFloat(fields.longitude),
-                            }}
-                            icon={fishicon}
-                            onClick={() => handleActiveMarker(pk)}
-                        >
-                            {activeMarker == pk ? (
-                                <InfoWindow onCloseClick={() => setActiveMarker(null)}>
-                                    <div id="infoWindow">
-                                        <b><div>Species: {fields.species}</div></b>
-                                        <b><div>Date: {fields.date}</div></b>
-                                        <b><div>Method: {fields.fishing_method}</div></b>
-                                        <b><div>Depth: {fields.depth} ft.</div></b>
-                                        <b><div>Weight: {fields.weight} lbs.</div></b>
-                                        <b><div>Length: {fields.length} in.</div></b>
-                                        <b><div>Field Notes:</div></b>
-                                        <b><div>{fields.notes}</div></b>
-                                        <br />
-                                        <img id="infoPic" src={`static/media/${fields.catch_picture}`} />
-                                    </div>
-                                </InfoWindow>
-                            ) : null}
-                        </Marker>))
+                    {
+                        allFishData.map(({ pk, fields }) => (
+                            <Marker
+                                key={pk}
+                                position={{
+                                    lat: parseFloat(fields.latitude),
+                                    lng: parseFloat(fields.longitude),
+                                }}
+                                icon={fishicon}
+                                onClick={() => handleActiveMarker(pk)}
+                            >
+                                {activeMarker == pk ? (
+                                    <InfoWindow onCloseClick={() => setActiveMarker(null)}>
+                                        <div id="infoWindow">
+                                            <b><div>Species: {fields.species}</div></b>
+                                            <b><div>Date: {fields.date}</div></b>
+                                            <b><div>Method: {fields.fishing_method}</div></b>
+                                            <b><div>Depth: {fields.depth} ft.</div></b>
+                                            <b><div>Weight: {fields.weight} lbs.</div></b>
+                                            <b><div>Length: {fields.length} in.</div></b>
+                                            <b><div>Field Notes:</div></b>
+                                            <b><div>{fields.notes}</div></b>
+                                            <br />
+                                            <img id="infoPic" src={`static/media/${fields.catch_picture}`} />
+                                        </div>
+                                    </InfoWindow>
+                                ) : null}
+                            </Marker>))
                     }
-                    {/* new fish marker logic */}
-                    {newFishMarker &&
+                    {
+                        newFishMarker &&
                         <Marker
                             key={markerCount}
                             position={mapCenter}
@@ -361,12 +302,13 @@ function CatchMap() {
                                 console.log("We can have the user use the double click property to set his icon and bring up the fish data form")
                                 console.log("My catch coord states have been set to  " + newCatchLat + " and " + newCatchLng)
                             }}
-                        />}
+                        />
+                    }
                     <></>
                 </GoogleMap>
             </div>
             {
-                dragEvent ? <NewCatch newCatchLat={newCatchLat} newCatchLng={newCatchLng} /> : null
+                dragEvent ? <NewCatch newCatchLat={newCatchLat} newCatchLng={newCatchLng} panTo={panTo} allFishData={allFishData} setNewFishMarker={setNewFishMarker} changeText={changeText} setMapCenter={setMapCenter} mapCenter={mapCenter} setNewCatchSaved={setNewCatchSaved} /> : null
             }
         </div >
     ) : <></>
@@ -374,63 +316,3 @@ function CatchMap() {
 }
 
 export default CatchMap
-
-
-
-// const [userLat, setUserLat] = useState();
-// const [userLong, setUserLong] = useState();
-
-// useEffect(() => {
-//     navigator.geolocation.getCurrentPosition(position => {
-//         // setUserLat(position.coords.latitude);
-//         // setUserLong(position.coords.longitude);
-//         // lake winnie coords: 43.598484, -71.322488
-//         setUserLat(43.598484)
-//         setUserLong(-71.322488)
-//         console.log(userLat, userLong);
-//     })
-// }, []);
-
-
-{/* <div>
-<img id="house" src={homeheart} alt="Geolocate"
-    onClick={() => {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                props.panTo({
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude,
-                });
-            },
-            () => null
-        );
-    }}
-/>
-</div> */}
-
-
-
-
-// {allFishData.map(({ pk, fields }) => (
-//     <Marker
-//         key={pk}
-//         position={{
-//             lat: parseFloat(fields.latitude),
-//             lng: parseFloat(fields.longitude),
-//         }}
-//         icon={fishicon}
-//         onClick={() => handleActiveMarker(pk)}
-//     >
-//         {activeMarker == pk ? (
-//             <InfoWindow onCloseClick={() => setActiveMarker(null)}>
-//                 <div>Species: {fields.species}</div>
-//                 <div>Date: {fields.date}</div>
-//                 <div>Method: {fields.fishing_method}</div>
-//                 <div>Depth: {fields.depth}</div>
-//                 <div>Weight: {fields.weight}</div>
-//                 <div>Length: {fields.length}</div>
-//                 <div>Field Notes: {fields.notes}</div>
-//             </InfoWindow>
-//         ) : null}
-//     </Marker>))
-// }

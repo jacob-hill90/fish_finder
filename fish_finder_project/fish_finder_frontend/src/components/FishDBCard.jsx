@@ -16,11 +16,12 @@ function FishDBCard({name,latin_name, fish_record, fish_pic, id}) {
         <MDBCardImage src={fish_pic} fluid alt='...' className="fish-image-card pt-3" />
       </div>
       <MDBCardBody className="justify-content-center">
-        <MDBCardTitle className="justify-content-center">{name}</MDBCardTitle>
-        <MDBCardText className="justify-content-center">
+        <MDBCardTitle className="justify-content-center text-center">{name}</MDBCardTitle>
+        <MDBCardText className="justify-content-center text-center">
           <strong><em>{latin_name}</em></strong>
         </MDBCardText>
-        <MDBCardText className="justify-content-center">
+        <MDBCardText className="justify-content-center text-center">
+          <p>Current record: </p>
           <strong>{fish_record}</strong>
         </MDBCardText>
         <div className="flex justify-content-center">
